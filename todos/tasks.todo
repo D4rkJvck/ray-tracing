@@ -1,0 +1,19 @@
+Scenes:
+    ☐ Sphere
+    ☐ Flat plane + Cube [`Brightness`]: lower than Sphere
+    ☐ Cube + Sphere + Cylinder + Flat plane
+    ☐ Cube + Sphere + Cylinder + Flat plane [`Camera`]: different position
+
+Geometrics:
+    ☐ Sphere
+    ☐ Cube
+    ☐ Cylinder
+    ☐ Flat plane
+
+Optics:
+    ☐ Camera
+    ☐ Light
+
+Mechanisms:
+    ☐ Ray tracer
+    ☐ Image writer
