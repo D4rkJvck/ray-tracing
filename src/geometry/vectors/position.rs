@@ -1,12 +1,12 @@
 #[allow(unused)]
-struct Point {
+struct Position {
     x: usize,
     y: usize,
     z: usize,
 }
 
 #[allow(unused)]
-impl Point {
+impl Position {
     pub fn new(x: usize, y: usize, z: usize) -> Self {
         Self { x, y, z }
     }

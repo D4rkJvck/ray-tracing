@@ -1,4 +1,4 @@
 #[allow(unused)]
-struct RayTracer {}
+struct Ray {}
 
-impl RayTracer {}
+impl Ray {}

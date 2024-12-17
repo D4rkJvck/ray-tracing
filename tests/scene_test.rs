@@ -4,12 +4,18 @@ use std::io::Read;
 
 #[test]
 fn test_scene() {
-    let mut img = Scene::new(3, 3);
+    let width = 4;
+    let height = 4;
+    let mut img = Scene::new(width, height);
     let filename = "test_scene.ppm";
 
-    img.set_pixel(0, 0, Color::white());
-    img.set_pixel(1, 1, Color::white());
-    img.set_pixel(2, 2, Color::white());
+    for row in 0..height {
+        for col in 0..width {
+            if row == col {
+                img.set_pixel(row, col, Color::white());
+            }
+        }
+    }
 
     img.save(filename)
         .expect("Failed to save file...\n");
@@ -23,13 +29,20 @@ fn test_scene() {
     assert_eq!(
         content,
         r#"P3
-3 3
+4 4
 255
 255 255 255
 0 0 0
 0 0 0
 0 0 0
+0 0 0
 255 255 255
+0 0 0
+0 0 0
+0 0 0
+0 0 0
+255 255 255
+0 0 0
 0 0 0
 0 0 0
 0 0 0

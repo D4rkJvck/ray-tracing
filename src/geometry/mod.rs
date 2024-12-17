@@ -1,4 +1,4 @@
-mod cube;
-mod cylinder;
-mod plane;
-mod sphere;
+mod objects;
+mod vectors;
+
+pub use vectors::Color;

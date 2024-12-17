@@ -5,6 +5,7 @@
 </h1>
 
 ## Table of Contents
+
 - [Table of Contents](#table-of-contents)
 - [Tech Stack](#tech-stack)
 - [Overview](#overview)
@@ -44,14 +45,17 @@
 ### Cloning
 
 ```shell
-git clone http://learn.zone01dakar.sn/git/jefaye/rt.git
+git clone http://learn.zone01dakar.sn/git/jefaye/rt
 Cloning into 'rt'...
+Username for 'https://learn.zone01dakar.sn': jefaye
+Password for 'https://jefaye@learn.zone01dakar.sn':
 warning: redirecting to https://learn.zone01dakar.sn/git/jefaye/rt/
-remote: Enumerating objects: 5, done.
-remote: Counting objects: 100% (5/5), done.
-remote: Compressing objects: 100% (4/4), done.
-remote: Total 5 (delta 0), reused 0 (delta 0), pack-reused 0
-Receiving objects: 100% (5/5), done.
+remote: Enumerating objects: 86, done.
+remote: Counting objects: 100% (86/86), done.
+remote: Compressing objects: 100% (65/65), done.
+remote: Total 86 (delta 12), reused 0 (delta 0), pack-reused 0
+Receiving objects: 100% (86/86), 273.12 KiB | 8.28 MiB/s, done.
+Resolving deltas: 100% (12/12), done.
 
 cd rt
 tree --dirsfirst
@@ -59,72 +63,74 @@ tree --dirsfirst
 
 ### File System
 
-    .
-    |
-    +- 📂 assets/
-    |       |
-    |       +- 🌄 ferris.svg
-    |       +- 🌄 ray_trace_diagram.svg
-    |       +- 🌄 rays_viewport_schema.png
-    |       +- 🌄 raytrace.png
-    |
-    +- 📂 scripts/
-    |       |
-    |       +- 📜 gitify.sh
-    |       +- 📜 utils.sh
-    |
-    +-- 📂 src/
-    |       |
-    |       +- 📂 camera/
-    |       |       |
-    |       |       +- 📄 camera.rs
-    |       |       +- 📄 mod.rs
-    |       |
-    |       +- 📂 geometry/
-    |       |       |
-    |       |       +- 📄 cube.rs
-    |       |       +- 📄 cylinder.rs
-    |       |       +- 📄 mod.rs
-    |       |       +- 📄 plane.rs
-    |       |       +- 📄 sphere.rs
-    |       |
-    |       +- 📂 light/
-    |       |       |
-    |       |       +- 📄 light.rs
-    |       |       +- 📄 mod.rs
-    |       |
-    |       +- 📂 renderer/
-    |       |       |
-    |       |       +- 📄 mod.rs
-    |       |       +- 📄 ray_tracer.rs
-    |       |       +- 📄 scene.rs
-    |       |
-    |       +- 📂 utils/
-    |       |       |
-    |       |       +- 📄 color.rs
-    |       |       +- 📄 mod.rs
-    |       |       +- 📄 vector.rs
-    |       |
-    |       +- 📄 lib.rs
-    |       +- 📄 main.rs
-    |
-    |
-    +- 📂 tests/
-    |       |
-    |       +- 📄 scene_test.rs
-    |
-    +- 📂 todos/
-    |       |
-    |       + audit.todo
-    |       + rules.todo
-    |       + tasks.todo
-    |
-    +- 🚫 .gitignore
-    +- 🔒 Cargo.lock
-    +- ⚙️ Cargo.toml
-    +- 🔑 LICENSE
-    +- 📖 README.md
-    +- ⚙️ rustfmt.toml
+    📂./
+      |
+      +- 📂 assets/
+      |       |
+      |       +- 🌄 ferris.svg
+      |       +- 🌄 ray_trace_diagram.svg
+      |       +- 🌄 rays_viewport_schema.png
+      |       +- 🌄 raytrace.png
+      |
+      +- 📂 scripts/
+      |       |
+      |       +- 📜 gitify.sh
+      |       +- 📜 utils.sh
+      |
+      +-- 📂 src/
+      |       |
+      |       +- 📂 camera/
+      |       |       |
+      |       |       +- 📄 camera.rs
+      |       |       +- 📄 mod.rs
+      |       |
+      |       +- 📂 geometry/
+      |       |       |
+      |       |       +- 📂 objects/
+      |       |       |       |
+      |       |       |       +- 📄 cube.rs
+      |       |       |       +- 📄 cylinder.rs
+      |       |       |       +- 📄 mod.rs
+      |       |       |       +- 📄 plane.rs
+      |       |       |       +- 📄 sphere.rs
+      |       |       |
+      |       |       +- 📂 vectors/
+      |       |               |
+      |       |               +- 📄 color.rs
+      |       |               +- 📄 mod.rs
+      |       |               +- 📄 vector.rs
+      |       |
+      |       +- 📂 light/
+      |       |       |
+      |       |       +- 📄 light.rs
+      |       |       +- 📄 mod.rs
+      |       |
+      |       +- 📂 renderer/
+      |       |       |
+      |       |       +- 📄 mod.rs
+      |       |       +- 📄 ray_tracer.rs
+      |       |       +- 📄 scene.rs
+      |       |
+      |       +- 📄 lib.rs
+      |       +- 📄 main.rs
+      |
+      |
+      +- 📂 tests/
+      |       |
+      |       +- 📄 scene_test.rs
+      |
+      +- 📂 todos/
+      |       |
+      |       +- 📄 audit.todo
+      |       +- 📄 rules.todo
+      |       +- 📄 tasks.todo
+      |
+      +- 🚫 .gitignore
+      +- 🔒 Cargo.lock
+      +- ⚙️ Cargo.toml
+      +- 🔑 LICENSE
+      +- 📖 README.md
+      +- ⚙️ rustfmt.toml
 
 ## Usage
 

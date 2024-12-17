@@ -1,5 +1,6 @@
-use crate::utils::Color;
 use std::{error::Error, fs, io::Write, path::Path};
+
+use crate::Color;
 
 #[allow(unused)]
 pub struct Scene {
@@ -22,8 +23,8 @@ impl Scene {
 
     /// This function will simply set the `color` of the given pixel
     /// through its position's coordonates in the vector of pixels.
-    pub fn set_pixel(&mut self, x: usize, y: usize, color: Color) {
-        self.pixels[x][y] = color
+    pub fn set_pixel(&mut self, row: usize, col: usize, color: Color) {
+        self.pixels[row][col] = color
     }
 
     /// This function is responsible for generating the image file
