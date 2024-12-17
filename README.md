@@ -12,6 +12,7 @@
   - [Cloning](#cloning)
   - [File System](#file-system)
 - [Usage](#usage)
+  - [Mechanism](#mechanism)
   - [Calculate rays for rectangular viewport](#calculate-rays-for-rectangular-viewport)
   - [Create objects](#create-objects)
     - [Sphere](#sphere)
@@ -63,6 +64,7 @@ tree --dirsfirst
     +- 📂 assets/
     |       |
     |       +- 🌄 ferris.svg
+    |       +- 🌄 ray_trace_diagram.svg
     |       +- 🌄 rays_viewport_schema.png
     |       +- 🌄 raytrace.png
     |
@@ -93,9 +95,9 @@ tree --dirsfirst
     |       |
     |       +- 📂 renderer/
     |       |       |
-    |       |       +- 📄 image_writer.rs
     |       |       +- 📄 mod.rs
     |       |       +- 📄 ray_tracer.rs
+    |       |       +- 📄 scene.rs
     |       |
     |       +- 📂 utils/
     |       |       |
@@ -106,13 +108,23 @@ tree --dirsfirst
     |       +- 📄 lib.rs
     |       +- 📄 main.rs
     |
+    |
+    +- 📂 tests/
+    |       |
+    |       +- 📄 scene_test.rs
+    |
+    +- 📂 todos/
+    |       |
+    |       + audit.todo
+    |       + rules.todo
+    |       + tasks.todo
+    |
     +- 🚫 .gitignore
     +- 🔒 Cargo.lock
     +- ⚙️ Cargo.toml
     +- 🔑 LICENSE
     +- 📖 README.md
-
-    9 directories, 26 files
+    +- ⚙️ rustfmt.toml
 
 ## Usage
 
@@ -120,13 +132,15 @@ tree --dirsfirst
 cargo run > scenes/output.ppm
 ```
 
-### Calculate rays for rectangular viewport
+### Mechanism
 
 <figure align=center>
     <img alt="rt_diagram" src="assets/ray_trace_diagram.svg">
     <br>
     <figcaption>By <a href="//commons.wikimedia.org/wiki/User:Henrik" title="User:Henrik">Henrik</a> - <span class="int-own-work" lang="en">Own work</span>, <a href="https://creativecommons.org/licenses/by-sa/4.0" title="Creative Commons Attribution-Share Alike 4.0">CC BY-SA 4.0</a>, <a href="https://commons.wikimedia.org/w/index.php?curid=3869326">Link</a></figcaption>
 </figure>
+
+### Calculate rays for rectangular viewport
 
 <figure align=center>
     <img alt="rays_schemas" src="assets/rays_viewport_schema.png">
@@ -154,6 +168,8 @@ cargo run > scenes/output.ppm
 [![jefaye](https://shields.io/badge/Author-jefaye-cyan)](http://learn.zone01dakar.sn/git/jefaye)
 
 ### Peers
+
+[![jgoudiab](https://shields.io/badge/Author-jgoudiab-blue)](http://learn.zone01dakar.sn/git/jgoudiab)
 
 ### Testers
 

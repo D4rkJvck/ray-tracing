@@ -15,4 +15,4 @@ Cargo.lock
 *.pdb
 
 # For this specific, generated examples of `.ppm` files scene.
-scenes/
+*.ppm
