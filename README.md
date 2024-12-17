@@ -116,6 +116,10 @@ tree --dirsfirst
 
 ## Usage
 
+```shell
+cargo run > scenes/output.ppm
+```
+
 ### Calculate rays for rectangular viewport
 
 <figure align=center>

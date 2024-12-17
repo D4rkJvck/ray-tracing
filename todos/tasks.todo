@@ -6,8 +6,14 @@ Scenes:
 
 Geometrics:
     ☐ Sphere
+        -> radius
+
     ☐ Cube
+        -> size
+
     ☐ Cylinder
+        -> radius
+
     ☐ Flat plane
 
 Optics:
@@ -16,4 +22,10 @@ Optics:
 
 Mechanisms:
     ☐ Ray tracer
-    ☐ Image writer
+    ☐ Scene
+        -> width
+        -> height
+        -> pixels
+
+Tasks:
+    ✔ Create `.ppm` image file @jefaye @started(24-12-16 23:30) @done(24-12-17 02:10) @lasted(2h40m1s)

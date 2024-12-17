@@ -1,2 +1,4 @@
 mod ray_tracer;
-mod image_writer;
+mod scene;
+
+pub use scene::Scene;
