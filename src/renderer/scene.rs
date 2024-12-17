@@ -12,7 +12,7 @@ pub struct Scene {
 #[allow(unused)]
 impl Scene {
     pub fn new(width: usize, height: usize) -> Self {
-        let pixels = vec![vec![Color::black(); width]; height];
+        let pixels = vec![vec![Color::default(); width]; height];
 
         Self {
             width,
@@ -42,8 +42,8 @@ impl Scene {
         file.write(b"255\n")?;
 
         for row in self.pixels.iter() {
-            for pixel in row {
-                file.write(pixel.to_ppm().as_bytes())?;
+            for color in row {
+                writeln!(file, "{color}");
             }
         }
 

@@ -3,5 +3,5 @@ mod geometry;
 mod light;
 mod renderer;
 
-pub use geometry::Color;
+pub use geometry::*;
 pub use renderer::Scene;

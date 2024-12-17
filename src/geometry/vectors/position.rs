@@ -1,8 +1,8 @@
 #[allow(unused)]
-struct Position {
-    x: usize,
-    y: usize,
-    z: usize,
+pub struct Position {
+    pub(super) x: usize,
+    pub(super) y: usize,
+    pub(super) z: usize,
 }
 
 #[allow(unused)]

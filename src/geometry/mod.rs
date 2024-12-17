@@ -1,4 +1,4 @@
 mod objects;
 mod vectors;
 
-pub use vectors::Color;
+pub use vectors::*;

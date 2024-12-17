@@ -1,4 +1,9 @@
+use crate::{Direction, Position};
+
 #[allow(unused)]
-struct Ray {}
+struct Ray {
+    origin: Position,
+    direction: Direction,
+}
 
 impl Ray {}

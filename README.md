@@ -97,8 +97,9 @@ tree --dirsfirst
       |       |       +- 📂 vectors/
       |       |               |
       |       |               +- 📄 color.rs
+      |       |               +- 📄 direction.rs
       |       |               +- 📄 mod.rs
-      |       |               +- 📄 vector.rs
+      |       |               +- 📄 position.rs
       |       |
       |       +- 📂 light/
       |       |       |

@@ -12,7 +12,7 @@ fn test_scene() {
     for row in 0..height {
         for col in 0..width {
             if row == col {
-                img.set_pixel(row, col, Color::white());
+                img.set_pixel(row, col, Color::new(255, 255, 255));
             }
         }
     }
