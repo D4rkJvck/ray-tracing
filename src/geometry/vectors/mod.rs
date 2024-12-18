@@ -13,14 +13,6 @@ pub struct Vector {
 }
 
 impl Vector {
-    pub fn default() -> Self {
-        Self {
-            x: 0.0,
-            y: 0.0,
-            z: 0.0,
-        }
-    }
-
     pub fn new(x: f64, y: f64, z: f64) -> Self {
         Self {
             x,
@@ -28,12 +20,6 @@ impl Vector {
             z,
         }
     }
-
-    pub(super) fn x(&self) -> f64 { self.x }
-
-    pub(super) fn y(&self) -> f64 { self.y }
-
-    pub(super) fn z(&self) -> f64 { self.z }
 
     pub fn magnitude(&self) -> f64 {
         (self.x.powf(2.0)
@@ -45,4 +31,8 @@ impl Vector {
     pub fn normalize(&mut self) {
         *self /= self.magnitude()
     }
+
+    pub(super) fn x(&self) -> f64 { self.x }
+    pub(super) fn y(&self) -> f64 { self.y }
+    pub(super) fn z(&self) -> f64 { self.z }
 }
