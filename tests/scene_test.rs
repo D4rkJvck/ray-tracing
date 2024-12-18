@@ -7,20 +7,25 @@ fn test_scene() {
     let width = 4;
     let height = 4;
     let mut img = Scene::new(width, height);
-    let filename = "test_scene.ppm";
+    let filename = "output.ppm";
 
     for row in 0..height {
         for col in 0..width {
             if row == col {
-                img.set_pixel(row, col, Color::new(255, 255, 255));
+                img.set_pixel(
+                    row,
+                    col,
+                    Color::new(255, 255, 255),
+                );
             }
         }
     }
 
-    img.save(filename)
-        .expect("Failed to save file...\n");
+    img.display();
 
-    let mut file = File::open(format!("./scenes/{}", filename)).expect("Failed to open file...\n");
+    let mut file =
+        File::open(format!("./scenes/{}", filename))
+            .expect("Failed to open file...\n");
 
     let mut content = String::new();
     file.read_to_string(&mut content)
