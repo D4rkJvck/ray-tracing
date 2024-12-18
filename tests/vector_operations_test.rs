@@ -1,7 +1,7 @@
 use rt::Vector;
 
 #[test]
-fn test_vectors_add() {
+fn test_add_2_vectors() {
     let v1 = Vector::new(2.0, 1.0, 3.0);
     let v2 = Vector::new(1.0, 2.0, 0.0);
 
@@ -9,9 +9,33 @@ fn test_vectors_add() {
 }
 
 #[test]
-fn test_vectors_sub() {
+fn test_add_3_vectors() {
+    let v1 = Vector::new(2.0, 1.0, 3.0);
+    let v2 = Vector::new(1.0, 2.0, 0.0);
+    let v3 = Vector::new(3.0, 3.0, 3.0);
+
+    assert_eq!(v1 + v2 + v3, Vector::new(6.0, 6.0, 6.0))
+}
+
+#[test]
+fn test_sub_vectors() {
     let v1 = Vector::new(1.0, 3.0, 2.0);
     let v2 = Vector::new(1.0, 3.0, 2.0);
 
     assert_eq!(v1 - v2, Vector::default())
+}
+
+#[test]
+fn test_mul_vectors(){
+    let v1= Vector::new(2.0, 4.0, 2.0);
+    let v2 = Vector::new(3.0, 2.0, 4.0);
+    assert_eq!(v1 * v2, Vector::new(6.0,8.0,8.0))
+}
+
+#[test]
+fn test_mul_vector_and_scalar(){
+    let v1 = Vector::new(2.0, 4.0, 2.0);
+    assert_eq!(v1 * 3.0, Vector::new(6.0, 12.0, 6.0))
+   
+
 }

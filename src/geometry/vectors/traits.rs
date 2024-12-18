@@ -16,7 +16,7 @@ impl Display for Vector {
 impl Neg for Vector {
     type Output = Self;
 
-    fn neg(self) -> Self {
+    fn neg(self) -> Self::Output {
         Self::new(-self.x(), -self.y(), -self.z())
     }
 }
@@ -38,7 +38,7 @@ impl DivAssign<f64> for Vector {
 impl Add for Vector {
     type Output = Self;
 
-    fn add(self, other: Self) -> Self {
+    fn add(self, other: Self) -> Self::Output {
         Self::new(
             self.x() + other.x(),
             self.y() + other.y(),
@@ -50,7 +50,7 @@ impl Add for Vector {
 impl Sub for Vector {
     type Output = Self;
 
-    fn sub(self, other: Self) -> Self {
+    fn sub(self, other: Self) -> Self::Output {
         Self::new(
             self.x() - other.x(),
             self.y() - other.y(),
@@ -62,7 +62,7 @@ impl Sub for Vector {
 impl Mul for Vector {
     type Output = Self;
 
-    fn mul(self, other: Self) -> Self {
+    fn mul(self, other: Self) -> Self::Output {
         Self::new(
             self.x() * other.x(),
             self.y() * other.y(),
@@ -74,7 +74,7 @@ impl Mul for Vector {
 impl Mul<f64> for Vector {
     type Output = Self;
 
-    fn mul(self, t: f64) -> Self {
+    fn mul(self, t: f64) -> Self::Output {
         Self::new(self.x() * t, self.y() * t, self.z() * t)
     }
 }

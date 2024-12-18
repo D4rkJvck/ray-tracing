@@ -38,9 +38,6 @@ impl Scene {
         println!("P3\n{} {}\n255", self.width, self.height);
 
         for row in self.pixels.iter() {
-            for color in row {
-                println!("{color}")
-            }
-        }
-    }
+              }
+}
 }
