@@ -1,7 +1,6 @@
-// use rt::*;
-
 use rt::{Color, Scene};
 
+// use rt::*;
 fn main() {
     let width = 4;
     let height = 4;
@@ -13,7 +12,7 @@ fn main() {
                 img.set_pixel(
                     row,
                     col,
-                    Color::new(255, 255, 255),
+                    Color::new(255.0, 255.0, 255.0),
                 );
             }
         }
