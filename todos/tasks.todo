@@ -5,16 +5,16 @@ Scenes:
     ☐ Cube + Sphere + Cylinder + Flat plane [`Camera`]: different position
 
 Geometrics:
-    ☐ Sphere
-        -> radius
-
-    ☐ Cube
-        -> size
-
-    ☐ Cylinder
-        -> radius
-
-    ☐ Flat plane
+    Objects:
+        ☐ Sphere
+        ☐ Cube
+        ☐ Cylinder
+        ☐ Flat plane
+    
+    Vectors:
+        ⭘ Position @jefaye @started(24-12-18 06:00)
+        ⭘ Direction @jefaye @started(24-12-18 06:00)
+        ⭘ Color @jefaye @started(24-12-18 06:00)
 
 Optics:
     ⭘ Camera @ndiediop @started(24-12-18 11:48)
@@ -28,4 +28,4 @@ Mechanisms:
         -> pixels
 
 Tasks:
-    ✔ Create `.ppm` image file @jefaye @started(24-12-16 23:30) @done(24-12-17 02:10) @lasted(2h40m1s)
+    ✔ Create `.ppm` image format @jefaye @started(24-12-16 23:30) @done(24-12-17 02:10) @lasted(2h40m1s)
