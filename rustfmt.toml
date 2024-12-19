@@ -1,5 +1,5 @@
-max_width = 60
+# max_width = 75
 chain_width = 30
 control_brace_style = "ClosingNextLine"
 fn_single_line = true
-struct_lit_single_line = false
+struct_lit_width = 10

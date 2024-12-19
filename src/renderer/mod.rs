@@ -1,4 +1,5 @@
 mod image;
-mod ray_tracer;
+mod ray;
 
 pub use image::Image;
+pub use ray::Ray;

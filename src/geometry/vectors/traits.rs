@@ -1,34 +1,23 @@
 use super::{Color, Vector};
 use std::{
     fmt::{Display, Formatter, Result},
-    ops::{
-        Add, AddAssign, Div, DivAssign, Mul, MulAssign,
-        Neg, Sub,
-    },
+    ops::{Add, AddAssign, Div, DivAssign, Mul, MulAssign, Neg, Sub},
 };
 
 impl Display for Color {
     fn fmt(&self, f: &mut Formatter<'_>) -> Result {
-        write!(
-            f,
-            "{} {} {}",
-            self.x as i32, self.y as i32, self.z as i32
-        )
+        write!(f, "{} {} {}", self.x as i32, self.y as i32, self.z as i32)
     }
 }
 
 impl Neg for Vector {
     type Output = Self;
 
-    fn neg(self) -> Self::Output {
-        Self::new(-self.x(), -self.y(), -self.z())
-    }
+    fn neg(self) -> Self::Output { Self::new(-self.x(), -self.y(), -self.z()) }
 }
 
 impl AddAssign for Vector {
-    fn add_assign(&mut self, other: Self) {
-        *self = *self + other;
-    }
+    fn add_assign(&mut self, other: Self) { *self = *self + other; }
 }
 
 impl MulAssign<f32> for Vector {
@@ -78,20 +67,14 @@ impl Mul for Vector {
 impl Mul<f32> for Vector {
     type Output = Self;
 
-    fn mul(self, t: f32) -> Self::Output {
-        Self::new(self.x() * t, self.y() * t, self.z() * t)
-    }
+    fn mul(self, t: f32) -> Self::Output { Self::new(self.x() * t, self.y() * t, self.z() * t) }
 }
 
 impl Div<f32> for Vector {
     type Output = Self;
 
     fn div(self, rhs: f32) -> Self::Output {
-        Self::new(
-            self.x() / rhs,
-            self.y() / rhs,
-            self.z() / rhs,
-        )
+        Self::new(self.x() / rhs, self.y() / rhs, self.z() / rhs)
     }
 }
 
@@ -99,10 +82,6 @@ impl Mul<Vector> for f32 {
     type Output = Vector;
 
     fn mul(self, rhs: Vector) -> Self::Output {
-        Vector::new(
-            self * rhs.x(),
-            self * rhs.y(),
-            self * rhs.z(),
-        )
+        Vector::new(self * rhs.x(), self * rhs.y(), self * rhs.z())
     }
 }

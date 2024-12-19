@@ -10,8 +10,7 @@ pub struct Image {
 #[allow(unused)]
 impl Image {
     pub fn new(width: usize, height: usize) -> Self {
-        let pxl_colors =
-            vec![vec![Color::default(); width]; height];
+        let pxl_colors = vec![vec![Color::default(); width]; height];
 
         Self {
             width,
@@ -22,12 +21,7 @@ impl Image {
 
     /// This function will simply set the `color` of the given pixel
     /// through its position's coordonates in the vector of pixels.
-    pub fn set_pixel(
-        &mut self,
-        row: usize,
-        col: usize,
-        color: Color,
-    ) {
+    pub fn set_pxl_color(&mut self, row: usize, col: usize, color: Color) {
         self.pxl_colors[row][col] = color
     }
 
