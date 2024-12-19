@@ -1,5 +1,5 @@
 mod image;
-mod ray;
+mod scene;
 
 pub use image::Image;
-pub use ray::Ray;
+pub use scene::Scene;

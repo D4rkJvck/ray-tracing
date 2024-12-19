@@ -1,13 +1,11 @@
-mod camera;
+mod optics;
 mod geometry;
-mod light;
 mod renderer;
-mod scenes;
 
-pub use camera::Camera;
+pub use optics::Camera;
 pub use geometry::*;
 pub use renderer::Image;
-pub use scenes::Scene;
+pub use renderer::Scene;
 
 const ASPECT_RATIO: f32 = 16.0 / 9.0;
 pub const IMAGE_WIDTH: i32 = 400;

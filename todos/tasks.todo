@@ -17,9 +17,9 @@ Geometrics:
         ✔ Color @jefaye @started(24-12-18 06:00) @done(24-12-18 14:07) @lasted(8h7m38s)
 
 Optics:
-    ⭘ Camera @jefaye @started(24-12-19 09:49)
+    ✔ Camera @ndiediop @jefaye @started(24-12-19 09:49) @done(24-12-19 14:46) @lasted(4h57m29s)
     ☐ Light
 
 Rendering:
     ✔ Ray tracer @jefaye @started(24-12-19 06:25) @done(24-12-19 08:52) @lasted(2h27m4s)
-    ✔ Image @jefaye @started(24-12-16 23:30) @done(24-12-17 02:10) @lasted(2h40m1s)
+    ! Image @jefaye @ndiediop @blocked(24-12-19 14:46)

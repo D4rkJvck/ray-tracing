@@ -1,4 +1,5 @@
-use crate::{renderer::Ray, Direction, Position, ASPECT_RATIO};
+use super::Ray;
+use crate::{Direction, Position, ASPECT_RATIO};
 
 #[allow(unused)]
 pub struct Camera {

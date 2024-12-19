@@ -65,70 +65,69 @@ tree --dirsfirst
 
     📂./
       |
-      +- 📂 assets/
+      +-📂 assets/
       |       |
-      |       +- 🌄 ferris.svg
-      |       +- 🌄 ray_trace_diagram.svg
-      |       +- 🌄 rays_viewport_schema.png
-      |       +- 🌄 raytrace.png
+      |       +-🌄 ferris.svg
+      |       +-🌄 ray_trace_diagram.svg
+      |       +-🌄 rays_viewport_schema.png
+      |       +-🌄 raytrace.png
       |
-      +- 📂 scripts/
+      +-📂 scripts/
       |       |
-      |       +- 📜 gitify.sh
-      |       +- 📜 utils.sh
+      |       +-📜 gitify.sh
+      |       +-📜 utils.sh
       |
-      +-- 📂 src/
+      +---📂 src/
       |       |
-      |       +- 📂 camera/
+      |       +-📂 geometry/
       |       |       |
-      |       |       +- 📄 camera.rs
-      |       |       +- 📄 mod.rs
-      |       |
-      |       +- 📂 geometry/
-      |       |       |
-      |       |       +- 📂 objects/
+      |       |       +-📂 objects/
       |       |       |       |
-      |       |       |       +- 📄 cube.rs
-      |       |       |       +- 📄 cylinder.rs
-      |       |       |       +- 📄 mod.rs
-      |       |       |       +- 📄 plane.rs
-      |       |       |       +- 📄 sphere.rs
+      |       |       |       +-📄 cube.rs
+      |       |       |       +-📄 cylinder.rs
+      |       |       |       +-📄 mod.rs
+      |       |       |       +-📄 plane.rs
+      |       |       |       +-📄 sphere.rs
       |       |       |
-      |       |       +- 📂 vectors/
-      |       |               |
-      |       |               +- 📄 mod.rs
-      |       |               +- 📄 traits.rs
-      |       |
-      |       +- 📂 light/
+      |       |       +-📂 vectors/
+      |       |       |       |
+      |       |       |       +-📄 mod.rs
+      |       |       |       +-📄 traits.rs
       |       |       |
-      |       |       +- 📄 light.rs
-      |       |       +- 📄 mod.rs
+      |       |       +-📄 mod.rs
       |       |
-      |       +- 📂 renderer/
+      |       +-📂 optics/
       |       |       |
-      |       |       +- 📄 mod.rs
-      |       |       +- 📄 ray_tracer.rs
-      |       |       +- 📄 scene.rs
+      |       |       +-📄 camera.rs
+      |       |       +-📄 light.rs
+      |       |       +-📄 mod.rs
+      |       |       +-📄 ray.rs
       |       |
-      |       +- 📄 lib.rs
-      |       +- 📄 main.rs
-      |
-      |
-      +- 📂 tests/
+      |       +-📂 renderer/
+      |       |       |
+      |       |       +-📄 image.rs
+      |       |       +-📄 mod.rs
+      |       |       +-📄 scene.rs
       |       |
-      |       +- 📄 vector_test.rs
+      |       +-📄 lib.rs
+      |       +-📄 main.rs
       |
-      +- 📂 todos/
+      |
+      +-📂 tests/
       |       |
-      |       +- 📝 audit.todo
-      |       +- 📝 tasks.todo
+      |       +-📄 vector_test.rs
       |
-      +- 🚫 .gitignore
-      +- 🔒 Cargo.lock
-      +- ⚙️ Cargo.toml
-      +- 🔑 LICENSE
-      +- 📖 README.md
-      +- ⚙️ rustfmt.toml
+      +-📂 todos/
+      |       |
+      |       +-📝 audit.todo
+      |       +-📝 tasks.todo
+      |
+      +-🚫 .gitignore
+      +-🔒 Cargo.lock
+      +-⚙️ Cargo.toml
+      +-🔑 LICENSE
+      +-📖 README.md
+      +-⚙️ rustfmt.toml
 
 ## Usage
 
