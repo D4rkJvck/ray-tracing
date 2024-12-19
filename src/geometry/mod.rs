@@ -1,5 +1,5 @@
 mod objects;
-mod vectors;
+mod vector;
 
 pub use objects::Hittable;
-pub use vectors::*;
+pub use vector::*;

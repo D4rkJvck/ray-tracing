@@ -1,4 +1,7 @@
-use crate::{Camera, Hittable, Image, IMAGE_HEIGTH as height, IMAGE_WIDTH as width};
+use crate::{
+    Camera, Hittable, Image, IMAGE_HEIGTH as height,
+    IMAGE_WIDTH as width,
+};
 
 pub struct Scene {
     camera: Camera,
@@ -6,7 +9,10 @@ pub struct Scene {
 }
 
 impl Scene {
-    pub fn new(camera: Camera, objects: Vec<Box<dyn Hittable>>) -> Self {
+    pub fn new(
+        camera: Camera,
+        objects: Vec<Box<dyn Hittable>>,
+    ) -> Self {
         Self {
             camera,
             objects,

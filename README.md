@@ -13,13 +13,14 @@
   - [Cloning](#cloning)
   - [File System](#file-system)
 - [Usage](#usage)
-  - [Mechanism](#mechanism)
-  - [Calculate rays for rectangular viewport](#calculate-rays-for-rectangular-viewport)
   - [Create objects](#create-objects)
     - [Sphere](#sphere)
     - [Cube](#cube)
     - [Cylinder](#cylinder)
     - [Flat plane](#flat-plane)
+  - [Mechanism](#mechanism)
+    - [Camera](#camera)
+    - [Ray](#ray)
 - [Contributors](#contributors)
   - [Collaborators](#collaborators)
   - [Peers](#peers)
@@ -91,8 +92,10 @@ tree --dirsfirst
       |       |       |
       |       |       +-📂 vectors/
       |       |       |       |
+      |       |       |       +-📄 arithmetics.rs
       |       |       |       +-📄 mod.rs
-      |       |       |       +-📄 traits.rs
+      |       |       |       +-📄 mutation.rs
+      |       |       |       +-📄 scalar_ops.rs
       |       |       |
       |       |       +-📄 mod.rs
       |       |
@@ -103,7 +106,7 @@ tree --dirsfirst
       |       |       +-📄 mod.rs
       |       |       +-📄 ray.rs
       |       |
-      |       +-📂 renderer/
+      |       +-📂 graphics/
       |       |       |
       |       |       +-📄 image.rs
       |       |       +-📄 mod.rs
@@ -132,24 +135,8 @@ tree --dirsfirst
 ## Usage
 
 ```shell
-cargo run > scenes/output.ppm
+cargo run > assets/output.ppm
 ```
-
-### Mechanism
-
-<figure align=center>
-    <img alt="rt_diagram" src="assets/ray_trace_diagram.svg">
-    <br>
-    <figcaption>By <a href="//commons.wikimedia.org/wiki/User:Henrik" title="User:Henrik">Henrik</a> - <span class="int-own-work" lang="en">Own work</span>, <a href="https://creativecommons.org/licenses/by-sa/4.0" title="Creative Commons Attribution-Share Alike 4.0">CC BY-SA 4.0</a>, <a href="https://commons.wikimedia.org/w/index.php?curid=3869326">Link</a></figcaption>
-</figure>
-
-### Calculate rays for rectangular viewport
-
-<figure align=center>
-    <img alt="rays_schemas" src="assets/rays_viewport_schema.png">
-    <br>
-    <figcaption>By <a href="//commons.wikimedia.org/w/index.php?title=User:Kamil_Kielczewski&amp;action=edit&amp;redlink=1" class="new" title="User:Kamil Kielczewski (page does not exist)">Kamil Kielczewski</a> - <span class="int-own-work" lang="en">Own work</span>, <a href="https://creativecommons.org/licenses/by-sa/4.0" title="Creative Commons Attribution-Share Alike 4.0">CC BY-SA 4.0</a>, <a href="https://commons.wikimedia.org/w/index.php?curid=76049175">Link</a></figcaption>
-</figure>
 
 ### Create objects
 
@@ -160,6 +147,24 @@ cargo run > scenes/output.ppm
 #### Cylinder
 
 #### Flat plane
+
+## Mechanism
+
+### Camera
+
+<figure align=center>
+    <img alt="rays_schemas" src="assets/rays_viewport_schema.png">
+    <br>
+    <figcaption>By <a href="//commons.wikimedia.org/w/index.php?title=User:Kamil_Kielczewski&amp;action=edit&amp;redlink=1" class="new" title="User:Kamil Kielczewski (page does not exist)">Kamil Kielczewski</a> - <span class="int-own-work" lang="en">Own work</span>, <a href="https://creativecommons.org/licenses/by-sa/4.0" title="Creative Commons Attribution-Share Alike 4.0">CC BY-SA 4.0</a>, <a href="https://commons.wikimedia.org/w/index.php?curid=76049175">Link</a></figcaption>
+</figure>
+
+### Ray
+
+<figure align=center>
+    <img alt="rt_diagram" src="assets/ray_trace_diagram.svg">
+    <br>
+    <figcaption>By <a href="//commons.wikimedia.org/wiki/User:Henrik" title="User:Henrik">Henrik</a> - <span class="int-own-work" lang="en">Own work</span>, <a href="https://creativecommons.org/licenses/by-sa/4.0" title="Creative Commons Attribution-Share Alike 4.0">CC BY-SA 4.0</a>, <a href="https://commons.wikimedia.org/w/index.php?curid=3869326">Link</a></figcaption>
+</figure>
 
 ## Contributors
 
