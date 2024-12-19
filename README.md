@@ -96,10 +96,8 @@ tree --dirsfirst
       |       |       |
       |       |       +- 📂 vectors/
       |       |               |
-      |       |               +- 📄 color.rs
-      |       |               +- 📄 direction.rs
       |       |               +- 📄 mod.rs
-      |       |               +- 📄 position.rs
+      |       |               +- 📄 traits.rs
       |       |
       |       +- 📂 light/
       |       |       |
@@ -118,13 +116,12 @@ tree --dirsfirst
       |
       +- 📂 tests/
       |       |
-      |       +- 📄 scene_test.rs
+      |       +- 📄 vector_test.rs
       |
       +- 📂 todos/
       |       |
-      |       +- 📄 audit.todo
-      |       +- 📄 rules.todo
-      |       +- 📄 tasks.todo
+      |       +- 📝 audit.todo
+      |       +- 📝 tasks.todo
       |
       +- 🚫 .gitignore
       +- 🔒 Cargo.lock

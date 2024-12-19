@@ -20,12 +20,6 @@ Optics:
     ⭘ Camera @ndiediop @started(24-12-18 11:48)
     ☐ Light
 
-Mechanisms:
-    ☐ Ray tracer
-    ☐ Scene
-        -> width
-        -> height
-        -> pixels
-
-Tasks:
-    ✔ Create `.ppm` image format @jefaye @started(24-12-16 23:30) @done(24-12-17 02:10) @lasted(2h40m1s)
+Rendering:
+    ⭘ Ray tracer @jefaye @started(24-12-19 06:25)
+    ✔ Viewport @jefaye @started(24-12-16 23:30) @done(24-12-17 02:10) @lasted(2h40m1s)

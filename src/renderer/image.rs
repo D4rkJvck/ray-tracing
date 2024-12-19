@@ -1,22 +1,22 @@
 use crate::Color;
 
 #[allow(unused)]
-pub struct Scene {
+pub struct Image {
     width: usize,
     height: usize,
-    pixels: Vec<Vec<Color>>,
+    pxl_colors: Vec<Vec<Color>>,
 }
 
 #[allow(unused)]
-impl Scene {
+impl Image {
     pub fn new(width: usize, height: usize) -> Self {
-        let pixels =
+        let pxl_colors =
             vec![vec![Color::default(); width]; height];
 
         Self {
             width,
             height,
-            pixels,
+            pxl_colors,
         }
     }
 
@@ -28,7 +28,7 @@ impl Scene {
         col: usize,
         color: Color,
     ) {
-        self.pixels[row][col] = color
+        self.pxl_colors[row][col] = color
     }
 
     /// This function is responsible for generating the image file
@@ -37,7 +37,9 @@ impl Scene {
     pub fn display(&self) {
         println!("P3\n{} {}\n255", self.width, self.height);
 
-        for row in self.pixels.iter() {
-              }
-}
+        self.pxl_colors
+            .iter()
+            .flat_map(|row| row.iter())
+            .for_each(|color| println!("{color}"));
+    }
 }

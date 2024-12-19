@@ -7,13 +7,13 @@ pub type Direction = Vector;
 #[allow(unused)]
 #[derive(Debug, Clone, Copy, Default, PartialEq)]
 pub struct Vector {
-    x: f64,
-    y: f64,
-    z: f64,
+    x: f32,
+    y: f32,
+    z: f32,
 }
 
 impl Vector {
-    pub fn new(x: f64, y: f64, z: f64) -> Self {
+    pub fn new(x: f32, y: f32, z: f32) -> Self {
         Self {
             x,
             y,
@@ -21,18 +21,23 @@ impl Vector {
         }
     }
 
-    pub fn magnitude(&self) -> f64 {
+    pub fn dot(&self, other: Self) -> f32 {
+        let v = *self * other;
+        v.x + v.y + v.z
+    }
+
+    pub fn magnitude(&self) -> f32 {
         (self.x.powf(2.0)
             + self.y.powf(2.0)
             + self.z.powf(2.0))
         .sqrt()
     }
 
-    pub fn normalize(&mut self) {
+    pub fn normalized(&mut self) {
         *self /= self.magnitude()
     }
 
-    pub(super) fn x(&self) -> f64 { self.x }
-    pub(super) fn y(&self) -> f64 { self.y }
-    pub(super) fn z(&self) -> f64 { self.z }
+    pub fn x(&self) -> f32 { self.x }
+    pub fn y(&self) -> f32 { self.y }
+    pub fn z(&self) -> f32 { self.z }
 }

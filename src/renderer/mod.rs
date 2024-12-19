@@ -1,4 +1,4 @@
+mod image;
 mod ray_tracer;
-mod scene;
 
-pub use scene::Scene;
+pub use image::Image;

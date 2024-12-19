@@ -1,10 +1,10 @@
-use rt::{Color, Scene};
+use rt::{Color, Image};
 
 // use rt::*;
 fn main() {
     let width = 4;
     let height = 4;
-    let mut img = Scene::new(width, height);
+    let mut img = Image::new(width, height);
 
     for row in 0..height {
         for col in 0..width {
