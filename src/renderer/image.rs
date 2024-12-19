@@ -28,11 +28,12 @@ impl Image {
     /// This function is responsible for generating the image file
     /// in `.ppm` format in the `scenes/` directory from the renderer's
     /// implementation's result.
-    pub fn display(&self) {
+    pub fn write_ppm(&self) {
         println!("P3\n{} {}\n255", self.width, self.height);
 
         self.pxl_colors
             .iter()
+            .rev()
             .flat_map(|row| row.iter())
             .for_each(|color| println!("{color}"));
     }

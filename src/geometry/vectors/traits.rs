@@ -6,7 +6,11 @@ use std::{
 
 impl Display for Color {
     fn fmt(&self, f: &mut Formatter<'_>) -> Result {
-        write!(f, "{} {} {}", self.x as i32, self.y as i32, self.z as i32)
+        let r = (255.999 * self.x()) as i32;
+        let g = (255.999 * self.y()) as i32;
+        let b = (255.999 * self.z()) as i32;
+
+        write!(f, "{} {} {}", r, g, b)
     }
 }
 
