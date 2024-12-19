@@ -17,15 +17,11 @@ impl Display for Color {
 impl Neg for Vector {
     type Output = Self;
 
-    fn neg(self) -> Self::Output {
-        Self::new(-self.x(), -self.y(), -self.z())
-    }
+    fn neg(self) -> Self::Output { Self::new(-self.x(), -self.y(), -self.z()) }
 }
 
 impl AddAssign for Vector {
-    fn add_assign(&mut self, other: Self) {
-        *self = *self + other;
-    }
+    fn add_assign(&mut self, other: Self) { *self = *self + other; }
 }
 
 impl MulAssign<f32> for Vector {

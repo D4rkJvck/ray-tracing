@@ -11,18 +11,14 @@ pub type Position = Vector;
 pub type Direction = Vector;
 
 impl Vector {
-    pub fn new(x: f32, y: f32, z: f32) -> Self {
-        Self(x, y, z)
-    }
+    pub fn new(x: f32, y: f32, z: f32) -> Self { Self(x, y, z) }
 
     pub fn x(&self) -> f32 { self.0 }
     pub fn y(&self) -> f32 { self.1 }
     pub fn z(&self) -> f32 { self.2 }
 
     fn magnitude(&self) -> f32 {
-        let squared_length = self.x().powf(2.0)
-            + self.y().powf(2.0)
-            + self.z().powf(2.0);
+        let squared_length = self.x().powf(2.0) + self.y().powf(2.0) + self.z().powf(2.0);
 
         squared_length.sqrt()
     }
@@ -32,7 +28,5 @@ impl Vector {
         factor.x() + factor.y() + factor.z()
     }
 
-    pub fn normalized(&mut self) {
-        *self /= self.magnitude()
-    }
+    pub fn normalized(&mut self) { *self /= self.magnitude() }
 }

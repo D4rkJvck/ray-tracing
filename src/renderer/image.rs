@@ -10,8 +10,7 @@ pub struct Image {
 #[allow(unused)]
 impl Image {
     pub fn new(width: usize, height: usize) -> Self {
-        let pxl_colors =
-            vec![vec![Color::default(); width]; height];
+        let pxl_colors = vec![vec![Color::default(); width]; height];
 
         Self {
             width,
