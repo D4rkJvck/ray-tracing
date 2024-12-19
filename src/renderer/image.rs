@@ -21,8 +21,16 @@ impl Image {
 
     /// This function will simply set the `color` of the given pixel
     /// through its position's coordonates in the vector of pixels.
+    
+ 
+
+
+
+
     pub fn set_pxl_color(&mut self, row: usize, col: usize, color: Color) {
-        self.pxl_colors[row][col] = color
+        if row < self.height && col < self.width {
+            self.pxl_colors[row][col] = color;
+        }
     }
 
     /// This function is responsible for generating the image file

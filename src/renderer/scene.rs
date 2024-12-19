@@ -16,13 +16,16 @@ impl Scene {
     pub fn display(&self) {
         let mut img = Image::new(width as usize, height as usize);
 
-        for row in (0..height).rev() {
-            for col in 0..width {
-                let u = (col / (width - 1)) as f32;
-                let v = (row / (height - 1)) as f32;
+       
 
-                let mut ray = self.camera.get_ray(u, v);
-                img.set_pxl_color(row as usize, col as usize, ray.color());
+        for row in 0..height {
+            for col in 0..width {
+                let u = col as f32 / (width as f32 - 1.0); 
+                let v = row as f32 / (height as f32 - 1.0); 
+        
+                let ray = self.camera.get_ray(u, v);
+                let color = ray.color();
+                img.set_pxl_color(row as usize, col as usize, color);
             }
         }
 

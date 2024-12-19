@@ -9,7 +9,7 @@ pub struct Ray {
 #[allow(unused)]
 impl Ray {
     pub fn new(origin: Position, mut direction: Direction) -> Self {
-        direction.normalized();
+       direction.normalized();
 
         Self {
             origin,
