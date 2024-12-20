@@ -1,43 +1,39 @@
-use crate::Vector;
+use {
+    super::Object,
+    crate::{
+        optics::Ray,
+        Color,
+        Position,
+    },
+};
 
 #[allow(unused)]
 pub struct FlatPlane {
-    plane:  Vector,
-    normal: Vector,
+    plane:  Position,
+    normal: Position,
+    color:  Color,
 }
 
 impl FlatPlane {
-    #[allow(unused)]
-    pub fn new(plane: Vector, normal: Vector) -> Self {
-        FlatPlane { plane,
-                    normal }
+    pub fn new(plane: Position, normal: Position, color: Color) -> Self {
+        Self { plane,
+               normal,
+               color }
     }
+}
 
-    // ? for later (potentially):
-    // & Intersects the plane with a ray and returns the distance along the
-    // ray to the intersection point, & if an intersection exists.
-    // Otherwise, returns None.
+impl Object for FlatPlane {
+    fn color(&self) -> Color { self.color }
 
-    #[allow(unused)]
-    // Calculates the intersection of a ray with the plane.
-    pub fn intersect(&self,
-                     ray_origin: &Vector,
-                     ray_direction: &Vector)
-                     -> Option<f64> {
-        let denominator = ray_direction.dot(self.normal);
+    fn got_hit_by(&self, ray: &Ray) -> bool {
+        let denominator = ray.direction().dot(self.normal);
 
         if denominator.abs() > 1e-6 {
-            let ray = self.plane - *ray_origin;
-            let t = ray.dot(self.normal) / denominator;
-            if t >= 0.0 {
-                Some(t.into())
-            }
-            else {
-                None
-            }
-        }
-        else {
-            None
+            let ray_to_plane = self.plane - ray.origin();
+            let t = ray_to_plane.dot(self.normal) / denominator;
+            t >= 0.0
+        } else {
+            false
         }
     }
 }

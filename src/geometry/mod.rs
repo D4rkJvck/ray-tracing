@@ -5,6 +5,7 @@ pub use {
     objects::{
         Object,
         Sphere,
+        FlatPlane,
     },
     vector::*,
 };

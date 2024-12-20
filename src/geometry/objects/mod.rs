@@ -3,7 +3,10 @@ mod cylinder;
 mod plane;
 mod sphere;
 
-pub use sphere::Sphere;
+pub use {
+    sphere::Sphere,
+    plane::FlatPlane,
+};
 use {
     super::Color,
     crate::optics::Ray,
