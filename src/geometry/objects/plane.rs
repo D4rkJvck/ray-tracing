@@ -14,8 +14,8 @@ impl FlatPlane {
 
     /*
         ? for later (potentially):
-        & Intersects the plane with a ray and returns the distance along the ray to the intersection point,
-        & if an intersection exists. Otherwise, returns None.
+            & getters
+            & setters
     */
 
     #[allow(unused)]
