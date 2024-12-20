@@ -2,5 +2,7 @@ mod camera;
 mod light;
 mod ray;
 
-pub use camera::Camera;
-pub use ray::Ray;
+pub use {
+    camera::Camera,
+    ray::Ray,
+};

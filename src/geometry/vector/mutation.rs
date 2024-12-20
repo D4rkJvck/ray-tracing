@@ -1,7 +1,21 @@
-use super::{Color, Vector};
-use std::{
-    fmt::{Display, Formatter, Result},
-    ops::{AddAssign, DivAssign, MulAssign, Neg},
+use {
+    super::{
+        Color,
+        Vector,
+    },
+    std::{
+        fmt::{
+            Display,
+            Formatter,
+            Result,
+        },
+        ops::{
+            AddAssign,
+            DivAssign,
+            MulAssign,
+            Neg,
+        },
+    },
 };
 
 impl Display for Color {
@@ -17,7 +31,11 @@ impl Display for Color {
 impl Neg for Vector {
     type Output = Self;
 
-    fn neg(self) -> Self::Output { Self::new(-self.x(), -self.y(), -self.z()) }
+    fn neg(self) -> Self::Output {
+        Self::new(-self.x(),
+                  -self.y(),
+                  -self.z())
+    }
 }
 
 impl AddAssign for Vector {

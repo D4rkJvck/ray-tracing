@@ -7,7 +7,7 @@ Scenes:
 Geometrics:
     Objects:
         ☐ Sphere @papebsow @started(24-12-19 14:55)
-        ☐ Cube
+        ⭘ Cube @npouille @started(24-12-20 07:38)
         ☐ Cylinder @ndiediop @started(24-12-20 00:06)
         ☐ Flat plane
     
@@ -22,4 +22,4 @@ Optics:
 
 Rendering:
     ✔ Ray tracer @jefaye @started(24-12-19 06:25) @done(24-12-19 08:52) @lasted(2h27m4s)
-    ! Image @jefaye @ndiediop @blocked(24-12-19 14:46)
+    ✔ Image @jefaye @ndiediop @blocked(24-12-19 14:46) @done(24-12-20 07:38)

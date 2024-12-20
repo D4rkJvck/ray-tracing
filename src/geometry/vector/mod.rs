@@ -14,14 +14,16 @@ impl Vector {
     pub fn new(x: f32, y: f32, z: f32) -> Self { Self(x, y, z) }
 
     pub fn x(&self) -> f32 { self.0 }
+
     pub fn y(&self) -> f32 { self.1 }
+
     pub fn z(&self) -> f32 { self.2 }
 
-    fn magnitude(&self) -> f32 {
-        let squared_length = self.x().powf(2.0) + self.y().powf(2.0) + self.z().powf(2.0);
-
-        squared_length.sqrt()
+    pub fn squared(&self) -> f32 {
+        self.x().powf(2.0) + self.y().powf(2.0) + self.z().powf(2.0)
     }
+
+    fn magnitude(&self) -> f32 { self.squared().sqrt() }
 
     pub fn dot(&self, other: Self) -> f32 {
         let factor = *self * other;
