@@ -2,6 +2,9 @@ mod objects;
 mod vector;
 
 pub use {
-    objects::Object,
+    objects::{
+        Object,
+        Sphere,
+    },
     vector::*,
 };

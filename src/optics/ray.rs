@@ -1,6 +1,7 @@
 use crate::{
     Color,
     Direction,
+    Object,
     Position,
 };
 
@@ -23,7 +24,13 @@ impl Ray {
         self.origin + t * self.direction
     }
 
-    pub fn color(&self) -> Color {
+    pub fn color(&self, objects: &Vec<impl Object>) -> Color {
+        for object in objects {
+            if object.got_hit_by(self) {
+                return object.color();
+            }
+        }
+
         let t = 0.5 * (self.direction.y() + 1.0);
 
         (1.0 - t) * Color::new(1.0, 1.0, 1.0)

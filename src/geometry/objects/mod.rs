@@ -3,8 +3,13 @@ mod cylinder;
 mod plane;
 mod sphere;
 
-use crate::optics::Ray;
+pub use sphere::Sphere;
+use {
+    super::Color,
+    crate::optics::Ray,
+};
 
 pub trait Object {
-    fn get_hit(&self, ray: Ray) -> bool;
+    fn color(&self) -> Color;
+    fn got_hit_by(&self, ray: &Ray) -> bool;
 }

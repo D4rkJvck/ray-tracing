@@ -8,6 +8,7 @@ pub use {
         Direction,
         Object,
         Position,
+        Sphere,
         Vector,
     },
     optics::Camera,

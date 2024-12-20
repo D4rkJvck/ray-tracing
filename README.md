@@ -173,7 +173,9 @@ $$
 $\small Where:\\$
 $\small a = b \cdot b\\$
 $\small b = 2b \cdot (A - C)\\$
-$\small c = (A - C) \cdot (A - C) - r^2\\[50pt]$
+$\small c = (A - C) \cdot (A - C) - r^2\\[25pt]$
+
+The `discriminant` (square root part) here can be `positive` meaning `2` real solutions, `zero` for `1` real solution, or `negative`, `0` real solution. In this context, if the discriminant is either `positive` or `null` $(b^2 - 4ac \ge 0)$, it means that the ray touches the sphere.
 
 ### Cube
 
