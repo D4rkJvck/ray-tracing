@@ -3,13 +3,13 @@ mod cylinder;
 mod plane;
 mod sphere;
 
-pub use {
-    sphere::Sphere,
-    plane::FlatPlane,
-};
 use {
     super::Color,
     crate::optics::Ray,
+};
+pub use {
+    plane::FlatPlane,
+    sphere::Sphere,
 };
 
 pub trait Object {

@@ -49,6 +49,6 @@ read -r -p "Enter Commit Message: " commit_message
 git commit -a -m "$commit_message"
 
 # Pushes the changes...
-git push origin "$BRANCH"
-git push mirror "$BRANCH"
+git push -u origin "$BRANCH":"$BRANCH"
+git push -u  mirror "$BRANCH":"$BRANCH"
 log "Well done!"

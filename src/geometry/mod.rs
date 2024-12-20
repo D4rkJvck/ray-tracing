@@ -3,9 +3,9 @@ mod vector;
 
 pub use {
     objects::{
+        FlatPlane,
         Object,
         Sphere,
-        FlatPlane,
     },
     vector::*,
 };

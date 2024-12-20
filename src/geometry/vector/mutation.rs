@@ -32,9 +32,11 @@ impl Neg for Vector {
     type Output = Self;
 
     fn neg(self) -> Self::Output {
-        Self::new(-self.x(),
-                  -self.y(),
-                  -self.z())
+        Self::new(
+            -self.x(),
+            -self.y(),
+            -self.z(),
+        )
     }
 }
 

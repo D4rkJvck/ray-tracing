@@ -16,9 +16,11 @@ pub struct Sphere {
 
 impl Sphere {
     pub fn new(center: Position, radius: f32, color: Color) -> Self {
-        Self { center,
-               radius,
-               color }
+        Self {
+            center,
+            radius,
+            color,
+        }
     }
 }
 

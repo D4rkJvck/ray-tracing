@@ -7,20 +7,24 @@ use crate::{
 };
 
 #[allow(unused)]
-pub struct Scene<T: Object> {
+pub struct Scene {
     camera:  Camera,
-    objects: Vec<T>,
+    objects: Vec<Box<dyn Object>>,
 }
 
-impl<T: Object> Scene<T> {
-    pub fn new(camera: Camera, objects: Vec<T>) -> Self {
-        Self { camera,
-               objects }
+impl Scene {
+    pub fn new(camera: Camera, objects: Vec<Box<dyn Object>>) -> Self {
+        Self {
+            camera,
+            objects,
+        }
     }
 
     pub fn display(&self) {
-        let mut img = Image::new(width as usize,
-                                 height as usize);
+        let mut img = Image::new(
+            width as usize,
+            height as usize,
+        );
 
         for row in 0..height {
             for col in 0..width {
@@ -30,9 +34,11 @@ impl<T: Object> Scene<T> {
                 let ray = self.camera.get_ray(u, v);
                 let color = ray.color(&self.objects);
 
-                img.set_pxl_color(row as usize,
-                                  col as usize,
-                                  color);
+                img.set_pxl_color(
+                    row as usize,
+                    col as usize,
+                    color,
+                );
             }
         }
 

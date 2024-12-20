@@ -12,9 +12,11 @@ impl Image {
     pub fn new(width: usize, height: usize) -> Self {
         let pxl_colors = vec![vec![Color::default(); width]; height];
 
-        Self { width,
-               height,
-               pxl_colors }
+        Self {
+            width,
+            height,
+            pxl_colors,
+        }
     }
 
     /// This function will simply set the `color` of the given pixel
@@ -28,8 +30,10 @@ impl Image {
     /// in `.ppm` format in the `scenes/` directory from the renderer's
     /// implementation's result.
     pub fn write_ppm(&self) {
-        println!("P3\n{} {}\n255",
-                 self.width, self.height);
+        println!(
+            "P3\n{} {}\n255",
+            self.width, self.height
+        );
 
         self.pxl_colors
             .iter()

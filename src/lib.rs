@@ -6,11 +6,11 @@ pub use {
     geometry::{
         Color,
         Direction,
+        FlatPlane,
         Object,
         Position,
         Sphere,
         Vector,
-        FlatPlane,
     },
     optics::Camera,
     renderer::{
