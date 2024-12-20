@@ -10,6 +10,7 @@ pub use {
         Position,
         Sphere,
         Vector,
+        FlatPlane,
     },
     optics::Camera,
     renderer::{
