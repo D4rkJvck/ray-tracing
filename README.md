@@ -13,14 +13,14 @@
   - [Cloning](#cloning)
   - [File System](#file-system)
 - [Usage](#usage)
-  - [Create objects](#create-objects)
-    - [Sphere](#sphere)
-    - [Cube](#cube)
-    - [Cylinder](#cylinder)
-    - [Flat plane](#flat-plane)
-  - [Mechanism](#mechanism)
-    - [Camera](#camera)
-    - [Ray](#ray)
+- [Create objects](#create-objects)
+  - [Sphere](#sphere)
+  - [Cube](#cube)
+  - [Cylinder](#cylinder)
+  - [Flat plane](#flat-plane)
+- [Mechanism](#mechanism)
+  - [Camera](#camera)
+  - [Ray](#ray)
 - [Contributors](#contributors)
   - [Collaborators](#collaborators)
   - [Peers](#peers)
@@ -138,15 +138,48 @@ tree --dirsfirst
 cargo run > assets/output.ppm
 ```
 
-### Create objects
+## Create objects
 
-#### Sphere
+### Sphere
 
-#### Cube
+First of all, the condition for a given point to be considered as being on the sphere is to have its **coordonates' absolute value** `equal` to the sphere's **radius**, better illustrated with the equation: $x^2 + y^2 + z^2 = R^2$. Given the center of the sphere the equation, that specific point's coordonates will be the difference between its **coordonates** and the sphere's **center** `C`:
 
-#### Cylinder
+$$
+\\[25pt] \huge (x - C_x)^2 + (y - C_y)^2 + (z - C_z)^2 = r^2 \\[50pt]
+$$
 
-#### Flat plane
+Considering these coordonates as part of a vector, those `x,y,z` operations can be shortcut to a **difference** between the given position `P` and de sphere's center `C`:
+$$
+\large (P_{(x, y, z)} - C_{(x, y, z)})\cdot(P_{(x, y, z)} - C_{(x, y, z)}) = (x - C_x)^2 + (y - C_y)^2 + (z - C_z)^2 = r^2 \\[15pt]
+\Downarrow \\[15pt]
+\huge (P - C)\cdot(P - C) = r^2 \\[50pt]
+$$
+
+Now from the `ray casting` function, $P(t) = A + tb$, the point resulting from `t` should satify the contidion to be considered as hitting the sphere:
+
+$$
+\large (P(t) - C)\cdot(P(t) - C) = r^2 \\[15pt]
+\Downarrow \\[15pt]
+\large (A + tb - C)\cdot(A + tb - C) = r^2 \\[15pt]
+\Downarrow \\[15pt]
+\Large t^2b\cdot b + 2tb \cdot (A - C) + (A - C) \cdot (A - C) - r^2 = 0 \\[50pt]
+$$
+
+Finally, since $\large t$ is the only unknown, the `variable` so to say, and given that the equation is `quadratic`, $\large t$ can be solve using the quadratic formula:
+
+$$
+\\[25pt] \Huge t = \frac{-b \pm \sqrt{b^2 - 4ac}}{2a} \\[-20pt]
+$$
+$\small Where:\\$
+$\small a = b \cdot b\\$
+$\small b = 2b \cdot (A - C)\\$
+$\small c = (A - C) \cdot (A - C) - r^2\\[50pt]$
+
+### Cube
+
+### Cylinder
+
+### Flat plane
 
 ## Mechanism
 

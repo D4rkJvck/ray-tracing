@@ -3,4 +3,8 @@ mod cylinder;
 mod plane;
 mod sphere;
 
-pub trait Object {}
+use crate::optics::Ray;
+
+pub trait Object {
+    fn get_hit(&self, ray: Ray) -> bool;
+}
