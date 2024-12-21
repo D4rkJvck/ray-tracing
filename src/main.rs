@@ -18,7 +18,7 @@ fn main() {
         camera,
         vec![
             Box::new(FlatPlane::new(
-                Position::new(0.0, -0.5, 0.0),
+                Position::new(0.0, -0.5, -2.0),
                 Position::new(0.0, 1.0, 0.0),
                 Color::new(0.0, 1.0, 0.0),
             )),

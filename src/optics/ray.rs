@@ -22,9 +22,7 @@ impl Ray {
         }
     }
 
-    pub fn cast(&self, t: f32) -> Position {
-        self.origin + t * self.direction
-    }
+    pub fn cast(&self, t: f32) -> Position { self.origin + t * self.direction }
 
     pub fn color(&self, objects: &Vec<Box<dyn Object>>) -> Color {
         for object in objects {
@@ -35,8 +33,7 @@ impl Ray {
 
         let t = 0.5 * (self.direction.y() + 1.0);
 
-        (1.0 - t) * Color::new(1.0, 1.0, 1.0)
-            + t * Color::new(0.5, 0.7, 1.0)
+        (1.0 - t) * Color::new(1.0, 1.0, 1.0) + t * Color::new(0.5, 0.7, 1.0)
     }
 
     pub fn origin(&self) -> Position { self.origin }

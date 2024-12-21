@@ -19,9 +19,7 @@ impl Vector {
 
     pub fn z(&self) -> f32 { self.2 }
 
-    pub fn squared(&self) -> f32 {
-        self.x().powf(2.0) + self.y().powf(2.0) + self.z().powf(2.0)
-    }
+    pub fn squared(&self) -> f32 { self.x().powf(2.0) + self.y().powf(2.0) + self.z().powf(2.0) }
 
     fn magnitude(&self) -> f32 { self.squared().sqrt() }
 

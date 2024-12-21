@@ -15,11 +15,7 @@ pub struct FlatPlane {
 }
 
 impl FlatPlane {
-    pub fn new(
-        position: Position,
-        normal: Position,
-        color: Color,
-    ) -> Self {
+    pub fn new(position: Position, normal: Position, color: Color) -> Self {
         Self {
             position,
             normal,
