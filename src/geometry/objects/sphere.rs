@@ -7,7 +7,6 @@ use {
     },
 };
 
-#[allow(unused)]
 pub struct Sphere {
     center: Position,
     radius: f32,
@@ -19,13 +18,15 @@ impl Sphere {
         Self {
             center,
             radius,
-            color,
+            color: color.normal(),
         }
     }
 }
 
 impl Object for Sphere {
     fn color(&self) -> Color { self.color }
+
+    fn position(&self) -> Position { self.center }
 
     fn hit(&self, ray: &Ray) -> f32 {
         let direction = ray.direction();
@@ -38,10 +39,20 @@ impl Object for Sphere {
         let discriminant = h * h - a * c;
 
         if discriminant < 0.0 {
-            -1.0
+            return -1.0;
         }
-        else {
-            (-h - discriminant.sqrt()) / a
-        }
+
+        let root = (-h - discriminant.sqrt()) / a;
+        // let mut root = (-h - discriminant.sqrt()) / a;
+
+        // if root <= t_min || t_max <= root {
+        //     root = (-h + discriminant.sqrt()) / a;
+
+        //     if root <= t_min || t_max <= root {
+        //         return false;
+        //     };
+        // };
+
+        root
     }
 }

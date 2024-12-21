@@ -7,7 +7,6 @@ use {
     },
 };
 
-#[allow(unused)]
 pub struct FlatPlane {
     position: Position,
     normal:   Position,
@@ -15,17 +14,23 @@ pub struct FlatPlane {
 }
 
 impl FlatPlane {
-    pub fn new(position: Position, normal: Position, color: Color) -> Self {
+    pub fn new(
+        position: Position,
+        normal: Position,
+        color: Color,
+    ) -> Self {
         Self {
             position,
             normal,
-            color,
+            color: color.normal(),
         }
     }
 }
 
 impl Object for FlatPlane {
     fn color(&self) -> Color { self.color }
+
+    fn position(&self) -> Position { self.position }
 
     fn hit(&self, ray: &Ray) -> f32 {
         let denominator = ray

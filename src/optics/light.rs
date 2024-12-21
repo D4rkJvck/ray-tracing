@@ -1,4 +1,3 @@
-#[allow(unused)]
-struct Light {}
+// struct Light {}
 
-impl Light {}
+// impl Light {}

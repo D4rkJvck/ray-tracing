@@ -5,12 +5,12 @@ mod renderer;
 pub use {
     geometry::{
         Color,
+        Cylinder,
         Direction,
         FlatPlane,
         Object,
         Position,
         Sphere,
-        Cylinder,
         Vector,
     },
     optics::Camera,

@@ -1,4 +1,3 @@
-#[allow(unused)]
-struct Cube {}
+// pub struct Cube {}
 
-impl Cube {}
+// impl Cube {}

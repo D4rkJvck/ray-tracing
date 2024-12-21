@@ -1,13 +1,11 @@
 use crate::Color;
 
-#[allow(unused)]
 pub struct Image {
     width:      usize,
     height:     usize,
     pxl_colors: Vec<Vec<Color>>,
 }
 
-#[allow(unused)]
 impl Image {
     pub fn new(width: usize, height: usize) -> Self {
         let pxl_colors = vec![vec![Color::default(); width]; height];
