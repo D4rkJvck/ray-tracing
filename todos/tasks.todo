@@ -24,3 +24,7 @@ Optics:
 Rendering:
     ✔ Image @jefaye @ndiediop @blocked(24-12-19 14:46) @done(24-12-20 07:38)
     ✔ Scene @jefaye @done(24-12-20 07:00)
+
+TO_FIXE:
+    ☐ Objects colors 💢
+        the objects are in the same color regardless of customization at creation.
