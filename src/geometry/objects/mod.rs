@@ -1,13 +1,19 @@
-mod cube;
 mod cylinder;
 mod plane;
 mod sphere;
 
+
+// use crate::{
+//     Color,
+//     optics::Ray,
+// };
 use {
     super::Color,
     crate::optics::Ray,
 };
+
 pub use {
+    cylinder::Cylinder,
     plane::FlatPlane,
     sphere::Sphere,
 };

@@ -10,6 +10,7 @@ pub use {
         Object,
         Position,
         Sphere,
+        Cylinder,
         Vector,
     },
     optics::Camera,
