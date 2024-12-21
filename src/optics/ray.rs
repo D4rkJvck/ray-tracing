@@ -23,7 +23,7 @@ impl Ray {
     }
 
     pub fn color(&self, objects: &mut Vec<Box<dyn Object>>) -> Color {
-        objects.sort_by_key(|object| object.depth());
+        objects.sort_by_key(|object| -object.depth());
 
         for object in objects {
             let t = object.hit(self);
