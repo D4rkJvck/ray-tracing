@@ -168,14 +168,23 @@ $$
 Finally, since $\large t$ is the only unknown, the `variable` so to say, and given that the equation is `quadratic`, $\large t$ can be solve using the quadratic formula:
 
 $$
-\\[25pt] \Huge t = \frac{-b \pm \sqrt{b^2 - 4ac}}{2a} \\[-20pt]
+\\[25pt] \huge t = \frac{-b \pm \sqrt{b^2 - 4ac}}{2a} \\[-20pt]
 $$
 $\small Where:\\$
 $\small a = b \cdot b\\$
 $\small b = 2b \cdot (A - C)\\$
-$\small c = (A - C) \cdot (A - C) - r^2\\[25pt]$
+$\small c = (A - C) \cdot (A - C) - r^2\\[15pt]$
+$$
+b = 2h: \\[15pt]
+\Downarrow \\[15pt]
+\large t = \frac{-2h \pm \sqrt{(2h)^2 - 4ac}}{2a} \\[15pt]
+\Downarrow \\[15pt]
+\large t = \frac{-2h \pm 2\sqrt{h^2 - ac}}{2a} \\[15pt]
+\Downarrow \\[25pt]
+\Huge t = \frac{-h \pm \sqrt{h^2 - ac}}{a} \\[25pt]
+$$
 
-The `discriminant` (square root part) here can be `positive` meaning `2` real solutions, `zero` for `1` real solution, or `negative`, `0` real solution. In this context, if the discriminant is either `positive` or `null` $(b^2 - 4ac \ge 0)$, it means that the ray touches the sphere.
+The `discriminant` (square root part) here can be `positive` meaning `2` real solutions, `zero` for `1` real solution, or `negative`, `0` real solution. In this context, if the discriminant is either `positive` or `null`, so $(h^2 - ac) \ge 0$, it means that the ray touches the sphere.
 
 ### Cube
 

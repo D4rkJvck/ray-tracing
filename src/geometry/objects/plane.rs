@@ -27,7 +27,7 @@ impl FlatPlane {
 impl Object for FlatPlane {
     fn color(&self) -> Color { self.color }
 
-    fn got_hit_by(&self, ray: &Ray) -> bool {
+    fn hit(&self, ray: &Ray) -> f32 {
         let denominator = ray
             .direction()
             .dot(self.normal);
@@ -35,10 +35,10 @@ impl Object for FlatPlane {
         if denominator.abs() > 1e-6 {
             let ray_to_plane = self.position - ray.origin();
             let t = ray_to_plane.dot(self.normal) / denominator;
-            t >= 0.0
+            t
         }
         else {
-            false
+            -1.0
         }
     }
 }

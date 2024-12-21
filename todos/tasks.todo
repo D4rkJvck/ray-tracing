@@ -9,7 +9,7 @@ Geometrics:
         ✔ Sphere @jefaye @started(24-12-20 09:25) @done(24-12-20 15:29) @lasted(6h4m31s)
         ⭘ Cube @npouille @started(24-12-20 07:38)
         ☐ Cylinder @ndiediop @started(24-12-20 00:06)
-        ⭘ Flat plane @papebsow @started(24-12-20 09:25) @testing
+        ✔ Flat plane @papebsow @started(24-12-20 09:25) @done(24-12-21 01:57) @lasted(16h33m)
     
     Vectors:
         ✔ Position @jefaye @started(24-12-18 06:00) @done(24-12-18 14:07) @lasted(8h7m38s)
@@ -19,7 +19,8 @@ Geometrics:
 Optics:
     ✔ Camera @ndiediop @jefaye @started(24-12-19 09:49) @done(24-12-19 14:46) @lasted(4h57m29s)
     ☐ Light
+    ✔ Ray @jefaye @started(24-12-19 06:25) @done(24-12-19 08:52) @lasted(2h27m4s)
 
 Rendering:
-    ✔ Ray tracer @jefaye @started(24-12-19 06:25) @done(24-12-19 08:52) @lasted(2h27m4s)
     ✔ Image @jefaye @ndiediop @blocked(24-12-19 14:46) @done(24-12-20 07:38)
+    ✔ Scene @jefaye @done(24-12-20 07:00)

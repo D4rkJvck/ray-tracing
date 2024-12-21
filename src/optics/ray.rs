@@ -14,7 +14,7 @@ pub struct Ray {
 #[allow(unused)]
 impl Ray {
     pub fn new(origin: Position, mut direction: Direction) -> Self {
-        direction.normalized();
+        let direction = direction.normal();
 
         Self {
             origin,
@@ -26,8 +26,16 @@ impl Ray {
 
     pub fn color(&self, objects: &Vec<Box<dyn Object>>) -> Color {
         for object in objects {
-            if object.got_hit_by(self) {
-                return object.color();
+            let t = object.hit(self);
+
+            if t > 0.0 {
+                let n = self.cast(t).normal() - Direction::new(0.0, 0.0, -1.0);
+                return 0.5
+                    * Color::new(
+                        n.x() + 1.0,
+                        n.y() + 1.0,
+                        n.z() + 1.0,
+                    );
             }
         }
 

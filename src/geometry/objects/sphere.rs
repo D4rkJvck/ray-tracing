@@ -27,16 +27,21 @@ impl Sphere {
 impl Object for Sphere {
     fn color(&self) -> Color { self.color }
 
-    fn got_hit_by(&self, ray: &Ray) -> bool {
+    fn hit(&self, ray: &Ray) -> f32 {
         let direction = ray.direction();
         let distance = ray.origin() - self.center;
 
         let a = direction.dot(direction);
-        let b = 2.0 * direction.dot(distance);
+        let h = direction.dot(distance);
         let c = distance.dot(distance) - self.radius.powf(2.0);
 
-        let discriminant = b * b - 4.0 * a * c;
+        let discriminant = h * h - a * c;
 
-        discriminant >= 0.0
+        if discriminant < 0.0 {
+            -1.0
+        }
+        else {
+            (-h - discriminant.sqrt()) / a
+        }
     }
 }

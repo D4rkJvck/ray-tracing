@@ -19,14 +19,12 @@ impl Vector {
 
     pub fn z(&self) -> f32 { self.2 }
 
-    pub fn squared(&self) -> f32 { self.x().powf(2.0) + self.y().powf(2.0) + self.z().powf(2.0) }
-
-    fn magnitude(&self) -> f32 { self.squared().sqrt() }
+    fn magnitude(&self) -> f32 { self.dot(*self).sqrt() }
 
     pub fn dot(&self, other: Self) -> f32 {
         let factor = *self * other;
         factor.x() + factor.y() + factor.z()
     }
 
-    pub fn normalized(&mut self) { *self /= self.magnitude() }
+    pub fn normal(&mut self) -> Self { *self / self.magnitude() }
 }

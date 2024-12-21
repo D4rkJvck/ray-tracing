@@ -14,5 +14,5 @@ pub use {
 
 pub trait Object {
     fn color(&self) -> Color;
-    fn got_hit_by(&self, ray: &Ray) -> bool;
+    fn hit(&self, ray: &Ray) -> f32;
 }
