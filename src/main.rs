@@ -22,12 +22,12 @@ fn main() {
 
         vec![
             Box::new(Sphere::new(
-                Position::new(0.0, 0.0, -1.0),  // Position originale de la sphère
+                Position::new(0.0, 0.0, -1.0),
                 0.5,
                 Color::new(1.0, 0.0, 0.0),
             )),
 
-              Box::new(FlatPlane::new(
+            Box::new(FlatPlane::new(
                 Position::new(0.0, -0.5, 0.0),
                 Position::new(0.0, 0.1, 0.0),
                 Color::new(0.0, 1.0, 0.0),
