@@ -1,14 +1,14 @@
 Scenes:
     ☐ Sphere
     ☐ Flat plane + Cube [`Brightness`]: lower than Sphere
-    ☐ Cube + Sphere + Cylinder + Flat plane
+    ⭘ Cube + Sphere + Cylinder + Flat plane @ @started(24-12-21 22:53)
     ☐ Cube + Sphere + Cylinder + Flat plane [`Camera`]: different position
 
 Geometrics:
     Objects:
         ✔ Sphere @jefaye @started(24-12-20 09:25) @done(24-12-20 15:29) @lasted(6h4m31s)
         ⭘ Cube @npouille @started(24-12-20 07:38)
-        ☐ Cylinder @ndiediop @started(24-12-20 00:06)
+        ✔ Cylinder @ndiediop @started(24-12-20 00:06) @done(24-12-21 22:53) @lasted(1d22h47m1s)
         ✔ Flat plane @papebsow @started(24-12-20 09:25) @done(24-12-21 01:57) @lasted(16h33m)
     
     Vectors:
