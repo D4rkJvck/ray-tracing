@@ -22,7 +22,7 @@ impl FlatPlane {
         Self {
             position,
             normal,
-            color: color.normal(),
+            color: color.unit(),
         }
     }
 }

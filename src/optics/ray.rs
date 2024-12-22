@@ -14,7 +14,7 @@ impl Ray {
     pub fn new(origin: Position, direction: Direction) -> Self {
         Self {
             origin,
-            direction: direction.normal(),
+            direction: direction.unit(),
         }
     }
 
@@ -30,7 +30,7 @@ impl Ray {
 
             if t > 0.0 {
                 let n =
-                    self.cast(t).normal() - Direction::new(0.0, 0.0, -1.0);
+                    self.cast(t).unit() - Direction::new(0.0, 0.0, -1.0);
                 return 0.5
                     * Color::new(
                         n.x() + 1.0,

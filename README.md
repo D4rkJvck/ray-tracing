@@ -92,10 +92,10 @@ tree --dirsfirst
       |       |       |
       |       |       +-📂 vectors/
       |       |       |       |
-      |       |       |       +-📄 arithmetics.rs
       |       |       |       +-📄 mod.rs
       |       |       |       +-📄 mutation.rs
       |       |       |       +-📄 scalar_ops.rs
+      |       |       |       +-📄 vector_ops.rs
       |       |       |
       |       |       +-📄 mod.rs
       |       |
@@ -150,19 +150,19 @@ $$
 
 Considering these coordonates as part of a vector, those `x,y,z` operations can be shortcut to a **difference** between the given position `P` and de sphere's center `C`:
 $$
-\large (P_{(x, y, z)} - C_{(x, y, z)})\cdot(P_{(x, y, z)} - C_{(x, y, z)}) = (x - C_x)^2 + (y - C_y)^2 + (z - C_z)^2 = r^2 \\[15pt]
+\large (\vec{P}_{(x, y, z)} - \vec{C}_{(x, y, z)})\cdot(\vec{P}_{(x, y, z)} - \vec{C}_{(x, y, z)}) = (x - C_x)^2 + (y - C_y)^2 + (z - C_z)^2 = r^2 \\[15pt]
 \Downarrow \\[15pt]
-\huge (P - C)\cdot(P - C) = r^2 \\[50pt]
+\huge (\vec{P} - \vec{C})\cdot(\vec{P} - \vec{C}) = r^2 \\[50pt]
 $$
 
 Now from the `ray casting` function, $P(t) = A + tb$, the point resulting from `t` should satify the contidion to be considered as hitting the sphere:
 
 $$
-\large (P(t) - C)\cdot(P(t) - C) = r^2 \\[15pt]
+\large (\vec{P}(t) - \vec{C}) \cdot (\vec{P}(t) - \vec{C}) = r^2 \\[15pt]
 \Downarrow \\[15pt]
-\large (A + tb - C)\cdot(A + tb - C) = r^2 \\[15pt]
+\large (\vec{A} + t\vec{b} - \vec{C}) \cdot (\vec{A} + t\vec{b} - \vec{C}) = r^2 \\[15pt]
 \Downarrow \\[15pt]
-\Large t^2b\cdot b + 2tb \cdot (A - C) + (A - C) \cdot (A - C) - r^2 = 0 \\[50pt]
+\Large t^2\vec{b}^2 + 2t\vec{b} \cdot (\vec{A} - \vec{C}) + (\vec{A} - \vec{C}) \cdot (\vec{A} - \vec{C}) - r^2 = 0 \\[50pt]
 $$
 
 Finally, since $\large t$ is the only unknown, the `variable` so to say, and given that the equation is `quadratic`, $\large t$ can be solve using the quadratic formula:
@@ -171,9 +171,9 @@ $$
 \\[25pt] \huge t = \frac{-b \pm \sqrt{b^2 - 4ac}}{2a} \\[-20pt]
 $$
 $\small Where:\\$
-$\small a = b \cdot b\\$
-$\small b = 2b \cdot (A - C)\\$
-$\small c = (A - C) \cdot (A - C) - r^2\\[15pt]$
+$\small a = \vec{b}^2\\$
+$\small b = 2\vec{b} \cdot (\vec{A} - \vec{C})\\$
+$\small c = (\vec{A} - \vec{C}) \cdot (\vec{A} - \vec{C}) - r^2\\[15pt]$
 $$
 b = 2h: \\[15pt]
 \Downarrow \\[15pt]

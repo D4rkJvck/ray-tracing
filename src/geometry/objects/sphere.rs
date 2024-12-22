@@ -18,7 +18,7 @@ impl Sphere {
         Self {
             center,
             radius,
-            color: color.normal(),
+            color: color.unit(),
         }
     }
 }

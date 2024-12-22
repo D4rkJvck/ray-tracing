@@ -28,8 +28,8 @@ impl Cylinder {
             center,
             radius,
             height,
-            orientation: orientation.normal(),
-            color: color.normal(),
+            orientation: orientation.unit(),
+            color: color.unit(),
         }
     }
 }
@@ -100,7 +100,7 @@ impl Object for Cylinder {
             }
 
             let point = ray.cast(t);
-            if (point - base_center).magnitude() <= self.radius {
+            if (point - base_center).length() <= self.radius {
                 t
             }
             else {

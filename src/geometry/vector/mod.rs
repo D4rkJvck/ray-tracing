@@ -1,4 +1,4 @@
-mod arithmetics;
+mod vector_ops;
 mod mutation;
 mod scalar_ops;
 
@@ -23,7 +23,7 @@ impl Vector {
         factor.x() + factor.y() + factor.z()
     }
 
-    pub fn magnitude(&self) -> f32 { self.dot(*self).sqrt() }
+    pub fn length(&self) -> f32 { self.dot(*self).sqrt() }
 
-    pub fn normal(self) -> Self { self / self.magnitude() }
+    pub fn unit(self) -> Self { self / self.length() }
 }
