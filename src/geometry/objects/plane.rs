@@ -1,5 +1,5 @@
 use {
-    super::Object,
+    super::{Impact, Object},
     crate::{
         optics::Ray,
         Color,
@@ -32,18 +32,18 @@ impl Object for FlatPlane {
 
     fn position(&self) -> Position { self.position }
 
-    fn hit(&self, ray: &Ray) -> f32 {
+    fn hit(&self, ray: &Ray, _t_min: f32, _t_max: f32, impact: &mut Impact) -> bool {
         let denominator = ray
             .direction()
             .dot(self.normal);
 
-        if denominator.abs() > 1e-6 {
-            let ray_to_plane = self.position - ray.origin();
-            let t = ray_to_plane.dot(self.normal) / denominator;
-            t
+        if denominator.abs() <= 1e-6 {
+            return false
         }
-        else {
-            -1.0
-        }
+
+        // let ray_to_plane = self.position - ray.origin();
+        // let t = ray_to_plane.dot(self.normal) / denominator;
+
+        true
     }
 }

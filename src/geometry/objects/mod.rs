@@ -5,8 +5,7 @@ mod sphere;
 
 use {
     super::{
-        Color,
-        Position,
+        Color, Direction, Position
     },
     crate::optics::Ray,
 };
@@ -17,11 +16,33 @@ pub use {
     sphere::Sphere,
 };
 
+#[derive(Default, Clone)]
+pub struct Impact {
+    pub point: Position,
+    pub normal: Direction,
+    pub t: f32,
+    pub front_face: bool,
+}
+
+impl Impact {
+    pub fn new() -> Self {
+        Default::default()
+    }
+
+    pub fn set_face_normal(&mut self, ray: &Ray, outward_normal: Direction) {
+        self.normal = if ray.direction().dot(outward_normal) < 0.0 {
+            outward_normal
+        } else {
+            -outward_normal
+        }
+    }
+}
+
 pub trait Object {
     fn color(&self) -> Color;
     fn position(&self) -> Position;
     // fn hit(&self, ray: &Ray, t_min: f32, t_max: f32) -> bool;
-    fn hit(&self, ray: &Ray) -> f32;
+    fn hit(&self, ray: &Ray, t_min: f32, t_max: f32, impact: &mut Impact) -> bool;
 
     fn depth(&self) -> i32 { (self.position().z() * 1e6) as i32 }
 }

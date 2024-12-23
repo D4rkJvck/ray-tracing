@@ -1,5 +1,5 @@
 use {
-    super::Object,
+    super::{Impact, Object},
     crate::{
         optics::Ray,
         Color,
@@ -39,7 +39,7 @@ impl Object for Cylinder {
 
     fn position(&self) -> Position { self.center }
 
-    fn hit(&self, ray: &Ray) -> f32 {
+    fn hit(&self, ray: &Ray, _t_min: f32, _t_max: f32, impact: &mut Impact) -> bool {
         let oc = ray.origin() - self.center;
 
         let a = ray
@@ -65,7 +65,7 @@ impl Object for Cylinder {
         let discriminant = b * b - 4.0 * a * c;
 
         if discriminant < 0.0 {
-            return -1.0;
+            return false;
         }
 
         let t1 = (-b - discriminant.sqrt()) / (2.0 * a);
@@ -122,6 +122,6 @@ impl Object for Cylinder {
                 }
             }
         }
-        t
+        true
     }
 }

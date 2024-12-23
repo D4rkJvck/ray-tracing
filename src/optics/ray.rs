@@ -1,8 +1,8 @@
-use crate::{
-    Color,
-    Direction,
-    Object,
-    Position,
+use {
+    crate::{
+        geometry::Impact, Color, Direction, Object, Position
+    },
+    std::f32::INFINITY,
 };
 
 pub struct Ray {
@@ -23,20 +23,13 @@ impl Ray {
     }
 
     pub fn color(&self, objects: &mut Vec<Box<dyn Object>>) -> Color {
+        let mut impact = Impact::new();
+
         objects.sort_by_key(|object| -object.depth());
 
         for object in objects {
-            let t = object.hit(self);
-
-            if t > 0.0 {
-                let n =
-                    self.cast(t).unit() - Direction::new(0.0, 0.0, -1.0);
-                return 0.5
-                    * Color::new(
-                        n.x() + 1.0,
-                        n.y() + 1.0,
-                        n.z() + 1.0,
-                    );
+            if object.hit(self, 0.0, INFINITY, &mut impact) {
+                return 0.5 * (impact.normal + Color::new(1.0, 1.0, 1.0))
             }
         }
 

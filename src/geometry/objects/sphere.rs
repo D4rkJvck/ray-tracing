@@ -1,9 +1,7 @@
 use {
-    super::Object,
+    super::{Impact, Object},
     crate::{
-        optics::Ray,
-        Color,
-        Position,
+        optics::Ray, Color, Position
     },
 };
 
@@ -28,7 +26,7 @@ impl Object for Sphere {
 
     fn position(&self) -> Position { self.center }
 
-    fn hit(&self, ray: &Ray) -> f32 {
+    fn hit(&self, ray: &Ray, t_min: f32, t_max: f32, impact: &mut Impact) -> bool {
         let direction = ray.direction();
         let distance = ray.origin() - self.center;
 
@@ -39,20 +37,24 @@ impl Object for Sphere {
         let discriminant = h * h - a * c;
 
         if discriminant < 0.0 {
-            return -1.0;
+            return false;
         }
 
-        let root = (-h - discriminant.sqrt()) / a;
-        // let mut root = (-h - discriminant.sqrt()) / a;
+        let mut root = (-h - discriminant.sqrt()) / a;
 
-        // if root <= t_min || t_max <= root {
-        //     root = (-h + discriminant.sqrt()) / a;
+        if root <= t_min || t_max <= root {
+            root = (-h + discriminant.sqrt()) / a;
 
-        //     if root <= t_min || t_max <= root {
-        //         return false;
-        //     };
-        // };
+            if root <= t_min || t_max <= root {
+                return false;
+            };
+        };
 
-        root
+        impact.t = root;
+        impact.point = ray.cast(impact.t);
+        let outward_normal = (impact.point - self.center) / self.radius;
+        impact.set_face_normal(ray, outward_normal);
+
+        true
     }
 }

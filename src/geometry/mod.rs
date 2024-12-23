@@ -7,6 +7,7 @@ pub use {
         FlatPlane,
         Object,
         Sphere,
+        Impact,
     },
     vector::*,
 };
