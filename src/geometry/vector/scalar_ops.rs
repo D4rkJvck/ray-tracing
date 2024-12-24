@@ -6,10 +6,10 @@ use {
     },
 };
 
-impl Mul<f32> for Vector {
+impl Mul<f64> for Vector {
     type Output = Self;
 
-    fn mul(self, rhs: f32) -> Self::Output {
+    fn mul(self, rhs: f64) -> Self::Output {
         Self::new(
             self.x() * rhs,
             self.y() * rhs,
@@ -18,10 +18,10 @@ impl Mul<f32> for Vector {
     }
 }
 
-impl Div<f32> for Vector {
+impl Div<f64> for Vector {
     type Output = Self;
 
-    fn div(self, rhs: f32) -> Self::Output {
+    fn div(self, rhs: f64) -> Self::Output {
         Self::new(
             self.x() / rhs,
             self.y() / rhs,
@@ -30,7 +30,7 @@ impl Div<f32> for Vector {
     }
 }
 
-impl Mul<Vector> for f32 {
+impl Mul<Vector> for f64 {
     type Output = Vector;
 
     fn mul(self, rhs: Vector) -> Self::Output {

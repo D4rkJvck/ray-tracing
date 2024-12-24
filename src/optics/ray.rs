@@ -2,7 +2,7 @@ use {
     crate::{
         geometry::Impact, Color, Direction, Object, Position
     },
-    std::f32::INFINITY,
+    std::f64::INFINITY,
 };
 
 pub struct Ray {
@@ -18,7 +18,7 @@ impl Ray {
         }
     }
 
-    pub fn cast(&self, t: f32) -> Position {
+    pub fn cast(&self, t: f64) -> Position {
         self.origin + t * self.direction
     }
 

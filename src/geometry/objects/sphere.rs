@@ -7,12 +7,12 @@ use {
 
 pub struct Sphere {
     center: Position,
-    radius: f32,
+    radius: f64,
     color:  Color,
 }
 
 impl Sphere {
-    pub fn new(center: Position, radius: f32, color: Color) -> Self {
+    pub fn new(center: Position, radius: f64, color: Color) -> Self {
         Self {
             center,
             radius,
@@ -26,7 +26,7 @@ impl Object for Sphere {
 
     fn position(&self) -> Position { self.center }
 
-    fn hit(&self, ray: &Ray, t_min: f32, t_max: f32, impact: &mut Impact) -> bool {
+    fn hit(&self, ray: &Ray, t_min: f64, t_max: f64, impact: &mut Impact) -> bool {
         let direction = ray.direction();
         let distance = ray.origin() - self.center;
 

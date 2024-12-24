@@ -27,8 +27,8 @@ impl Scene {
 
         for row in 0..height {
             for col in 0..width {
-                let u = col as f32 / (width as f32 - 1.0);
-                let v = row as f32 / (height as f32 - 1.0);
+                let u = col as f64 / (width as f64 - 1.0);
+                let v = row as f64 / (height as f64 - 1.0);
 
                 let ray = self.camera.get_ray(u, v);
                 let color = ray.color(&mut self.objects);

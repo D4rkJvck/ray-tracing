@@ -20,7 +20,7 @@ pub use {
 pub struct Impact {
     pub point: Position,
     pub normal: Direction,
-    pub t: f32,
+    pub t: f64,
     pub front_face: bool,
 }
 
@@ -41,8 +41,8 @@ impl Impact {
 pub trait Object {
     fn color(&self) -> Color;
     fn position(&self) -> Position;
-    // fn hit(&self, ray: &Ray, t_min: f32, t_max: f32) -> bool;
-    fn hit(&self, ray: &Ray, t_min: f32, t_max: f32, impact: &mut Impact) -> bool;
+    // fn hit(&self, ray: &Ray, t_min: f64, t_max: f64) -> bool;
+    fn hit(&self, ray: &Ray, t_min: f64, t_max: f64, impact: &mut Impact) -> bool;
 
     fn depth(&self) -> i32 { (self.position().z() * 1e6) as i32 }
 }

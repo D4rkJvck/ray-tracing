@@ -10,8 +10,8 @@ use {
 
 pub struct Cylinder {
     center:      Position,
-    radius:      f32,
-    height:      f32,
+    radius:      f64,
+    height:      f64,
     orientation: Direction,
     color:       Color,
 }
@@ -19,8 +19,8 @@ pub struct Cylinder {
 impl Cylinder {
     pub fn new(
         center: Position,
-        radius: f32,
-        height: f32,
+        radius: f64,
+        height: f64,
         orientation: Direction,
         color: Color,
     ) -> Self {
@@ -39,7 +39,7 @@ impl Object for Cylinder {
 
     fn position(&self) -> Position { self.center }
 
-    fn hit(&self, ray: &Ray, _t_min: f32, _t_max: f32, impact: &mut Impact) -> bool {
+    fn hit(&self, ray: &Ray, _t_min: f64, _t_max: f64, impact: &mut Impact) -> bool {
         let oc = ray.origin() - self.center;
 
         let a = ray
@@ -71,7 +71,7 @@ impl Object for Cylinder {
         let t1 = (-b - discriminant.sqrt()) / (2.0 * a);
         let t2 = (-b + discriminant.sqrt()) / (2.0 * a);
 
-        let check_height = |t: f32| -> bool {
+        let check_height = |t: f64| -> bool {
             if t < 0.0 {
                 return false;
             }
@@ -83,7 +83,7 @@ impl Object for Cylinder {
             height >= 0.0 && height <= self.height
         };
 
-        let t_base = |height: f32| -> f32 {
+        let t_base = |height: f64| -> f64 {
             let base_center = self.center + height * self.orientation;
             let denom = ray
                 .direction()

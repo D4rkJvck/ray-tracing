@@ -44,10 +44,10 @@ impl AddAssign for Vector {
     fn add_assign(&mut self, other: Self) { *self = *self + other; }
 }
 
-impl MulAssign<f32> for Vector {
-    fn mul_assign(&mut self, t: f32) { *self = *self * t; }
+impl MulAssign<f64> for Vector {
+    fn mul_assign(&mut self, t: f64) { *self = *self * t; }
 }
 
-impl DivAssign<f32> for Vector {
-    fn div_assign(&mut self, t: f32) { *self = *self / t; }
+impl DivAssign<f64> for Vector {
+    fn div_assign(&mut self, t: f64) { *self = *self / t; }
 }

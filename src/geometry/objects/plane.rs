@@ -32,7 +32,7 @@ impl Object for FlatPlane {
 
     fn position(&self) -> Position { self.position }
 
-    fn hit(&self, ray: &Ray, _t_min: f32, _t_max: f32, impact: &mut Impact) -> bool {
+    fn hit(&self, ray: &Ray, _t_min: f64, _t_max: f64, impact: &mut Impact) -> bool {
         let denominator = ray
             .direction()
             .dot(self.normal);

@@ -17,8 +17,8 @@ pub struct Camera {
 
 impl Camera {
     pub fn new(origin: Position) -> Self {
-        let width = IMAGE_WIDTH as f32 / 100.0;
-        let height = IMAGE_HEIGTH as f32 / 100.0;
+        let width = IMAGE_WIDTH as f64 / 100.0;
+        let height = IMAGE_HEIGTH as f64 / 100.0;
 
         let horizontal = Direction::new(width, 0.0, 0.0);
         let vertical = Direction::new(0.0, height, 0.0);
@@ -36,7 +36,7 @@ impl Camera {
         }
     }
 
-    pub fn get_ray(&self, u: f32, v: f32) -> Ray {
+    pub fn get_ray(&self, u: f64, v: f64) -> Ray {
         Ray::new(
             self.origin,
             self.bottom_left + u * self.horizontal + v * self.vertical
