@@ -11,9 +11,7 @@ use rt::{
 
 fn main() {
     let mut scene = Scene::new(
-        Camera::new(Position::new(
-            0.0, 0.25, 0.0,
-        )),
+        Camera::new(Position::default()),
         vec![
             // Box::new(FlatPlane::new(
             //     Position::new(0.0, 0.0, -100.0),
