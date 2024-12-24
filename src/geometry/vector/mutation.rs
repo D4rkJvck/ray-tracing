@@ -3,6 +3,10 @@ use {
         Color,
         Vector,
     },
+    crate::common::{
+        clamp,
+        SAMPLES_PER_PXL,
+    },
     std::{
         fmt::{
             Display,
@@ -20,11 +24,23 @@ use {
 
 impl Display for Color {
     fn fmt(&self, f: &mut Formatter<'_>) -> Result {
-        let r = (255.999 * self.x()) as i32;
-        let g = (255.999 * self.y()) as i32;
-        let b = (255.999 * self.z()) as i32;
+        let mut r = self.x();
+        let mut g = self.y();
+        let mut b = self.z();
 
-        write!(f, "{} {} {}", r, g, b)
+        let scale = 1.0 / SAMPLES_PER_PXL as f64;
+
+        r *= scale;
+        g *= scale;
+        b *= scale;
+
+        write!(
+            f,
+            "{} {} {}",
+            (256.0 * clamp(r, 0.0, 0.999)) as i32,
+            (256.0 * clamp(g, 0.0, 0.999)) as i32,
+            (256.0 * clamp(b, 0.0, 0.999)) as i32,
+        )
     }
 }
 
