@@ -1,3 +1,8 @@
+use crate::common::{
+    random_double,
+    random_double_range,
+};
+
 mod mutation;
 mod scalar_ops;
 mod vector_ops;
@@ -11,6 +16,22 @@ pub type Direction = Vector;
 
 impl Vector {
     pub fn new(x: f64, y: f64, z: f64) -> Self { Self(x, y, z) }
+
+    pub fn random() -> Self {
+        Self(
+            random_double(),
+            random_double(),
+            random_double(),
+        )
+    }
+
+    pub fn random_range(min: f64, max: f64) -> Self {
+        Self(
+            random_double_range(min, max),
+            random_double_range(min, max),
+            random_double_range(min, max),
+        )
+    }
 
     pub fn x(&self) -> f64 { self.0 }
 
