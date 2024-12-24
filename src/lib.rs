@@ -1,8 +1,13 @@
+mod common;
 mod geometry;
 mod optics;
 mod renderer;
 
 pub use {
+    common::{
+        IMAGE_HEIGTH,
+        IMAGE_WIDTH,
+    },
     geometry::{
         Color,
         Cylinder,
@@ -19,7 +24,3 @@ pub use {
         Scene,
     },
 };
-
-const ASPECT_RATIO: f64 = 4.0 / 3.0;
-pub const IMAGE_WIDTH: i32 = 800;
-pub const IMAGE_HEIGTH: i32 = (IMAGE_WIDTH as f64 / ASPECT_RATIO) as i32;
