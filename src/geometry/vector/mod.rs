@@ -1,6 +1,6 @@
-mod vector_ops;
 mod mutation;
 mod scalar_ops;
+mod vector_ops;
 
 #[derive(Debug, Clone, Copy, Default, PartialEq, PartialOrd)]
 pub struct Vector(f64, f64, f64);

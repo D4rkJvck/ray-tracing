@@ -5,9 +5,9 @@ pub use {
     objects::{
         Cylinder,
         FlatPlane,
+        Impact,
         Object,
         Sphere,
-        Impact,
     },
     vector::*,
 };

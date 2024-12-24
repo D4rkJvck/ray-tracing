@@ -1,5 +1,8 @@
 use {
-    super::{Impact, Object},
+    super::{
+        Impact,
+        Object,
+    },
     crate::{
         optics::Ray,
         Color,
@@ -39,7 +42,13 @@ impl Object for Cylinder {
 
     fn position(&self) -> Position { self.center }
 
-    fn hit(&self, ray: &Ray, _t_min: f64, _t_max: f64, impact: &mut Impact) -> bool {
+    fn hit(
+        &self,
+        ray: &Ray,
+        _t_min: f64,
+        _t_max: f64,
+        impact: &mut Impact,
+    ) -> bool {
         let oc = ray.origin() - self.center;
 
         let a = ray

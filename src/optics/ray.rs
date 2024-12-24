@@ -1,6 +1,10 @@
 use {
     crate::{
-        geometry::Impact, Color, Direction, Object, Position
+        geometry::Impact,
+        Color,
+        Direction,
+        Object,
+        Position,
     },
     std::f64::INFINITY,
 };
@@ -28,8 +32,13 @@ impl Ray {
         objects.sort_by_key(|object| -object.depth());
 
         for object in objects {
-            if object.hit(self, 0.0, INFINITY, &mut impact) {
-                return 0.5 * (impact.normal + Color::new(1.0, 1.0, 1.0))
+            if object.hit(
+                self,
+                0.0,
+                INFINITY,
+                &mut impact,
+            ) {
+                return 0.5 * (impact.normal + Color::new(1.0, 1.0, 1.0));
             }
         }
 
