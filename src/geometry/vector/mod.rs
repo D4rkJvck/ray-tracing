@@ -1,11 +1,11 @@
+mod mutation;
+mod scalar_ops;
+mod vector_ops;
+
 use crate::common::{
     random_double,
     random_double_range,
 };
-
-mod mutation;
-mod scalar_ops;
-mod vector_ops;
 
 #[derive(Debug, Clone, Copy, Default, PartialEq, PartialOrd)]
 pub struct Vector(f64, f64, f64);
@@ -31,6 +31,16 @@ impl Vector {
             random_double_range(min, max),
             random_double_range(min, max),
         )
+    }
+
+    pub fn random_unit() -> Self {
+        loop {
+            let vec = Self::random_range(-1.0, 1.0);
+
+            if vec.dot(vec) < 1.0 {
+                return vec;
+            }
+        }
     }
 
     pub fn x(&self) -> f64 { self.0 }

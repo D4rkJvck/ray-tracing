@@ -1,7 +1,6 @@
 use crate::{
     common::{
-        random_double,
-        SAMPLES_PER_PXL,
+        random_double, MAX_DEPTH, SAMPLES_PER_PXL
     },
     Camera,
     Color,
@@ -43,7 +42,7 @@ impl Scene {
                         + random_double()) / (height as f64 - 1.0);
 
                     let ray = self.camera.get_ray(u, v);
-                    pxl_color += ray.color(&self.objects);
+                    pxl_color += ray.color(&self.objects, MAX_DEPTH);
                 }
 
                 img.set_pxl_color(

@@ -26,7 +26,11 @@ impl Ray {
         self.origin + t * self.direction
     }
 
-    pub fn color(&self, objects: &Vec<Box<dyn Object>>) -> Color {
+    pub fn color(
+        &self,
+        objects: &Vec<Box<dyn Object>>,
+        depth: i32,
+    ) -> Color {
         let t = 0.5 * (self.direction.y() + 1.0);
 
         let mut ray_color = (1.0 - t) * Color::new(1.0, 1.0, 1.0)
@@ -41,8 +45,11 @@ impl Ray {
                 INFINITY,
                 &mut impact,
             ) {
-                ray_color =
-                    0.5 * (impact.normal + Color::new(1.0, 1.0, 1.0));
+                let direction = impact.normal + Direction::random_unit();
+
+                ray_color = 0.5
+                    * Ray::new(impact.point, direction)
+                        .color(objects, depth - 1);
             }
         }
 
