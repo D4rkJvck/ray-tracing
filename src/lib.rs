@@ -1,6 +1,6 @@
 mod common;
 mod geometry;
-mod optics;
+pub mod optics;  // Make optics module public
 mod renderer;
 
 pub use {
@@ -18,7 +18,7 @@ pub use {
         Sphere,
         Vector,
     },
-    optics::Camera,
+    optics::{Camera, Light},  
     renderer::{
         Image,
         Scene,
