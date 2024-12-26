@@ -1,7 +1,7 @@
 Scenes:
     ☐ Sphere
     ☐ Flat plane + Cube [`Brightness`]: lower than Sphere
-    ⭘ Cube + Sphere + Cylinder + Flat plane @ @started(24-12-21 22:53)
+    ⭘ Cube + Sphere + Cylinder + Flat plane 
     ☐ Cube + Sphere + Cylinder + Flat plane [`Camera`]: different position
 
 Geometrics:
@@ -18,7 +18,7 @@ Geometrics:
 
 Optics:
     ✔ Camera @ndiediop @jefaye @started(24-12-19 09:49) @done(24-12-19 14:46) @lasted(4h57m29s)
-    ☐ Light
+    ✔ Light @ndiediop @started(24-12-23 15:59) @done(24-12-26 15:59) @lasted(3d42s)
     ✔ Ray @jefaye @started(24-12-19 06:25) @done(24-12-19 08:52) @lasted(2h27m4s)
 
 Rendering:
