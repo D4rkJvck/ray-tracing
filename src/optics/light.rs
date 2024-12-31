@@ -24,7 +24,7 @@ impl Light {
         let light_dir = (self.position - impact.point).unit();
 
         let diffuse = impact
-            .normal
+            .surface_normal
             .dot(light_dir)
             .max(0.0);
 

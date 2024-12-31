@@ -184,7 +184,13 @@ b = 2h: \\[15pt]
 \Huge t = \frac{-h \pm \sqrt{h^2 - ac}}{a} \\[25pt]
 $$
 
-The `discriminant` (square root part) here can be `positive` meaning `2` real solutions, `zero` for `1` real solution, or `negative`, `0` real solution. In this context, if the discriminant is either `positive` or `null`, so $(h^2 - ac) \ge 0$, it means that the ray touches the sphere.
+The `discriminant` ($h^2 - ac$), helps to identify how many intersection points exist between the ray and the sphere:
+
+- `discriminant > 0`: There are two distinct intersection points. This means the ray enters and exits the sphere.
+
+- `discriminant == 0`: There is exactly one intersection point (the ray is tangent to the sphere). This means the ray just touches the sphere at one point.
+
+- `discriminant < 0`: There are no intersection points. This means the ray does not intersect the sphere at all.
 
 ### Cube
 

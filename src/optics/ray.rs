@@ -36,12 +36,14 @@ impl Ray {
 
         for object in objects {
             let mut impact = Impact::new();
-            if object.hit(
+            let got_hit = object.hit(
                 self,
                 0.001,
                 closest_t,
                 &mut impact,
-            ) {
+            );
+
+            if got_hit {
                 closest_t = impact.t;
                 closest_impact = impact;
                 closest_object = Some(object);
@@ -57,8 +59,8 @@ impl Ray {
 
             // Add contribution from each light
             for light in lights {
-                let light_contribution = light.illuminate(&closest_impact);
-                final_color += light_contribution * object.color();
+                let illumination = light.illuminate(&closest_impact);
+                final_color += illumination * object.color();
             }
 
             final_color
