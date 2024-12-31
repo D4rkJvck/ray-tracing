@@ -7,11 +7,11 @@ use_field_init_shorthand = true
 use_try_shorthand = true
 wrap_comments = true
 
-max_width = 75
+# max_width = 75
 chain_width = 30
 struct_lit_width = 10
 attr_fn_like_width = 25
-fn_call_width = 25
+fn_call_width = 30
 struct_field_align_threshold = 20
 
 control_brace_style = "ClosingNextLine"

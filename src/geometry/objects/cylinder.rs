@@ -42,13 +42,7 @@ impl Object for Cylinder {
 
     fn position(&self) -> Position { self.center }
 
-    fn hit(
-        &self,
-        ray: &Ray,
-        _t_min: f64,
-        _t_max: f64,
-        impact: &mut Impact,
-    ) -> bool {
+    fn hit(&self, ray: &Ray, _t_min: f64, _t_max: f64, impact: &mut Impact) -> bool {
         let oc = ray.origin() - self.center;
 
         let a = ray
@@ -102,8 +96,7 @@ impl Object for Cylinder {
                 return -1.0;
             }
 
-            let t =
-                (base_center - ray.origin()).dot(self.orientation) / denom;
+            let t = (base_center - ray.origin()).dot(self.orientation) / denom;
             if t < 0.0 {
                 return -1.0;
             }
@@ -123,10 +116,7 @@ impl Object for Cylinder {
         let mut t = -1.0;
         for candidate_t in [t1, t2, t_bottom, t_top].iter() {
             if *candidate_t > 0.0 && (t < 0.0 || *candidate_t < t) {
-                if check_height(*candidate_t)
-                    || *candidate_t == t_bottom
-                    || *candidate_t == t_top
-                {
+                if check_height(*candidate_t) || *candidate_t == t_bottom || *candidate_t == t_top {
                     t = *candidate_t;
                 }
             }

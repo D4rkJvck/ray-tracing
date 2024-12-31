@@ -28,10 +28,7 @@ fn test_sub_vectors() {
     let v1 = Vector::new(1.0, 3.0, 2.0);
     let v2 = Vector::new(1.0, 3.0, 2.0);
 
-    assert_eq!(
-        v1 - v2,
-        Vector::default()
-    )
+    assert_eq!(v1 - v2, Vector::default())
 }
 
 #[test]
@@ -89,10 +86,7 @@ fn test_add_assign() {
     let v2 = Vector::new(4.0, 5.0, 6.0);
     v1 += v2;
 
-    assert_eq!(
-        v1,
-        Vector::new(5.0, 7.0, 9.0)
-    );
+    assert_eq!(v1, Vector::new(5.0, 7.0, 9.0));
 }
 
 #[test]
@@ -100,10 +94,7 @@ fn test_mul_assign() {
     let mut v1 = Vector::new(1.0, 2.0, 3.0);
     v1 *= 2.0;
 
-    assert_eq!(
-        v1,
-        Vector::new(2.0, 4.0, 6.0)
-    );
+    assert_eq!(v1, Vector::new(2.0, 4.0, 6.0));
 }
 
 #[test]
@@ -111,10 +102,7 @@ fn test_div_assign() {
     let mut v1 = Vector::new(2.0, 4.0, 6.0);
     v1 /= 2.0;
 
-    assert_eq!(
-        v1,
-        Vector::new(1.0, 2.0, 3.0)
-    );
+    assert_eq!(v1, Vector::new(1.0, 2.0, 3.0));
 }
 
 #[test]

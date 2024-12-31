@@ -1,15 +1,15 @@
 Scenes:
     ☐ Sphere
     ☐ Flat plane + Cube [`Brightness`]: lower than Sphere
-    ⭘ Cube + Sphere + Cylinder + Flat plane 
+    ⭘ Cube + Sphere + Cylinder + Flat plane @ndiediop @started(24-12-27 19:30)
     ☐ Cube + Sphere + Cylinder + Flat plane [`Camera`]: different position
 
 Geometrics:
     Objects:
         ✔ Sphere @jefaye @started(24-12-20 09:25) @done(24-12-20 15:29) @lasted(6h4m31s)
         ⭘ Cube @npouille @started(24-12-20 07:38)
-        ✔ Cylinder @ndiediop @started(24-12-20 00:06) @done(24-12-21 22:53) @lasted(1d22h47m1s)
-        ✔ Flat plane @papebsow @started(24-12-20 09:25) @done(24-12-21 01:57) @lasted(16h33m)
+        ! Cylinder @ndiediop @blocked(24-12-31 14:49)
+        ! Flat plane @papebsow @blocked(24-12-31 14:49)
     
     Vectors:
         ✔ Position @jefaye @started(24-12-18 06:00) @done(24-12-18 14:07) @lasted(8h7m38s)
@@ -26,5 +26,8 @@ Rendering:
     ✔ Scene @jefaye @done(24-12-20 07:00)
 
 TO_FIXE:
-    ☐ Objects colors 💢
-        the objects are in the same color regardless of customization at creation.
+    ✔ Objects colors 💢 @done(24-12-27 19:22)
+        The objects are in the same color regardless of customization at creation.
+
+    ! Object shadow 💢 @blocked(24-12-31 14:47)
+        The shadow is not displayed.

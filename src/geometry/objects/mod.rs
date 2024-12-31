@@ -29,35 +29,15 @@ pub struct Impact {
 impl Impact {
     pub fn new() -> Self { Default::default() }
 
-    pub fn set_face_normal(
-        &mut self,
-        ray: &Ray,
-        outward_normal: Direction,
-    ) {
-        self.normal = if ray
-            .direction()
-            .dot(outward_normal)
-            < 0.0
-        {
-            outward_normal
-        }
-        else {
-            -outward_normal
-        }
+    pub fn set_face_normal(&mut self, incident: Direction, outward: Direction) {
+        let cos_angle = incident.dot(outward);
+        self.normal = if cos_angle < 0.0 { outward } else { -outward }
     }
 }
 
 pub trait Object {
     fn color(&self) -> Color;
     fn position(&self) -> Position;
-    // fn hit(&self, ray: &Ray, t_min: f64, t_max: f64) -> bool;
-    fn hit(
-        &self,
-        ray: &Ray,
-        t_min: f64,
-        t_max: f64,
-        impact: &mut Impact,
-    ) -> bool;
-
+    fn hit(&self, ray: &Ray, t_min: f64, t_max: f64, impact: &mut Impact) -> bool;
     fn depth(&self) -> i32 { (self.position().z() * 1e6) as i32 }
 }

@@ -17,11 +17,7 @@ pub struct FlatPlane {
 }
 
 impl FlatPlane {
-    pub fn new(
-        position: Position,
-        normal: Position,
-        color: Color,
-    ) -> Self {
+    pub fn new(position: Position, normal: Position, color: Color) -> Self {
         Self {
             position,
             normal,
@@ -35,13 +31,7 @@ impl Object for FlatPlane {
 
     fn position(&self) -> Position { self.position }
 
-    fn hit(
-        &self,
-        ray: &Ray,
-        _t_min: f64,
-        _t_max: f64,
-        impact: &mut Impact,
-    ) -> bool {
+    fn hit(&self, ray: &Ray, _t_min: f64, _t_max: f64, impact: &mut Impact) -> bool {
         let denominator = ray
             .direction()
             .dot(self.normal);

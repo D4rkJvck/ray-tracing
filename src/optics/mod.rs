@@ -4,6 +4,6 @@ mod ray;
 
 pub use {
     camera::Camera,
-    ray::Ray,
     light::Light,
+    ray::Ray,
 };

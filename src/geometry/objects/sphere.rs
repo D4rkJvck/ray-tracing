@@ -31,13 +31,7 @@ impl Object for Sphere {
 
     fn position(&self) -> Position { self.center }
 
-    fn hit(
-        &self,
-        ray: &Ray,
-        t_min: f64,
-        t_max: f64,
-        impact: &mut Impact,
-    ) -> bool {
+    fn hit(&self, ray: &Ray, t_min: f64, t_max: f64, impact: &mut Impact) -> bool {
         let direction = ray.direction();
         let distance = ray.origin() - self.center;
 
@@ -63,8 +57,9 @@ impl Object for Sphere {
 
         impact.t = root;
         impact.point = ray.cast(impact.t);
-        let outward_normal = (impact.point - self.center) / self.radius;
-        impact.set_face_normal(ray, outward_normal);
+
+        let outward = (impact.point - self.center) / self.radius;
+        impact.set_face_normal(ray.direction(), outward);
 
         true
     }

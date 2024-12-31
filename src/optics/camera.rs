@@ -23,10 +23,8 @@ impl Camera {
         let horizontal = Direction::new(width, 0.0, 0.0);
         let vertical = Direction::new(0.0, height, 0.0);
 
-        let bottom_left = origin
-            - horizontal / 2.0
-            - vertical / 2.0
-            - Direction::new(0.0, 0.0, 1.0);
+        let bottom_left =
+            origin - horizontal / 2.0 - vertical / 2.0 - Direction::new(0.0, 0.0, 1.0);
 
         Self {
             origin,
@@ -39,8 +37,7 @@ impl Camera {
     pub fn get_ray(&self, u: f64, v: f64) -> Ray {
         Ray::new(
             self.origin,
-            self.bottom_left + u * self.horizontal + v * self.vertical
-                - self.origin,
+            self.bottom_left + u * self.horizontal + v * self.vertical - self.origin,
         )
     }
 
