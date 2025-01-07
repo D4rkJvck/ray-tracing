@@ -6,7 +6,7 @@ use rt::{
     Scene,
     Sphere,
     // Cylinder,
-    // FlatPlane,
+    FlatPlane,
     // Direction,
 };
 
@@ -31,16 +31,16 @@ fn main() {
                 0.5,
                 Color::new(0.1, 0.0, 0.0),
             )),
-            Box::new(Sphere::new(
-                Position::new(0.0, -105.0, -1.0),
-                100.0,
-                Color::new(0.0, 0.1, 0.0),
-            )),
-            //  Box::new(FlatPlane::new(
-            //     Position::new(0.0, 0.0, -100.0),
-            //     Position::new(0.0, 0.1, 0.0),
-            //     Color::new(0.5, 0.5, 0.0),
+            // Box::new(Sphere::new(
+            //     Position::new(0.0, -105.0, -1.0),
+            //     100.0,
+            //     Color::new(0.0, 0.1, 0.0),
             // )),
+            Box::new(FlatPlane::new(
+                Position::new(0.0, -0.5, -1.0), // Position the plane slightly below the camera
+                Position::new(0.0, 1.0, 0.0),   // Use a unit vector pointing upwards as the normal
+                Color::new(0.1, 0.1, 0.0),
+            )),
             // Box::new(Cylinder::new(
             //     Position::new(-1.0, 0.0, -1.0),
             //     0.2,
