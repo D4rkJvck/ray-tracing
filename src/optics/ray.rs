@@ -59,7 +59,7 @@ impl Ray {
 
             // Add contribution from each light
             for light in lights {
-                let illumination = light.illuminate(&closest_impact);
+                let illumination = light.illuminate(&closest_impact, objects);
                 final_color += illumination * object.color();
             }
 

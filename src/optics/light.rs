@@ -1,9 +1,10 @@
+use std::f64::INFINITY;
+
 use crate::{
-    geometry::Impact,
-    Color,
-    Direction,
-    Position,
+    geometry::Impact, Color, Direction, Object, Position
 };
+
+use super::Ray;
 
 pub struct Light {
     position:  Position,
@@ -20,8 +21,17 @@ impl Light {
         }
     }
 
-    pub fn illuminate(&self, impact: &Impact) -> Color {
+    pub fn illuminate(&self, impact: &Impact, objects: &Vec<Box<dyn Object>>) -> Color {
         let light_dir = (self.position - impact.point).unit();
+        let shadow_ray = Ray::new(impact.point, light_dir);
+
+        // Check if the shadow ray hits any object
+        for object in objects {
+            if object.hit(&shadow_ray, 0.001, INFINITY, &mut Impact::new()) {
+                // If there's an intersection, the point is in shadow
+                return Color::new(0.0, 0.0, 0.0);
+            }
+        }
 
         let diffuse = impact
             .surface_normal
