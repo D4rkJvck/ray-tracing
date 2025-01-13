@@ -20,6 +20,7 @@ Optics:
     ✔ Camera @ndiediop @jefaye @started(24-12-19 09:49) @done(24-12-19 14:46) @lasted(4h57m29s)
     ✔ Light @ndiediop @started(24-12-23 15:59) @done(24-12-26 15:59) @lasted(3d42s)
     ✔ Ray @jefaye @started(24-12-19 06:25) @done(24-12-19 08:52) @lasted(2h27m4s)
+    ! shadow effect @papebsow @blocked(25-01-13 14:40)
 
 Rendering:
     ✔ Image @jefaye @ndiediop @blocked(24-12-19 14:46) @done(24-12-20 07:38)
