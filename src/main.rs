@@ -5,9 +5,9 @@ use rt::{
     Position,
     Scene,
     Sphere,
-    // Cylinder,
+    Cylinder,
     FlatPlane,
-    // Direction,
+    Direction,
 };
 
 fn main() {
@@ -41,13 +41,13 @@ fn main() {
                 Position::new(0.0, 1.0, 0.0),   // Use a unit vector pointing upwards as the normal
                 Color::new(0.1, 0.1, 0.0),
             )),
-            // Box::new(Cylinder::new(
-            //     Position::new(-1.0, 0.0, -1.0),
-            //     0.2,
-            //     1.0,
-            //     Direction::new(1.0, 1.0, -1.0),
-            //     Color::new(0.8, 0.0, 0.8),
-            // )),
+            Box::new(Cylinder::new(
+                Position::new(0.0, 0.0, -2.0),    
+                0.4,                              
+                1.2,                              
+                Direction::new(0.0, 1.0, 0.0),   
+                Color::new(0.2, 0.2, 0.2),        
+            )),
         ],
     );
 
