@@ -8,6 +8,7 @@ use {
     },
 };
 
+
 pub struct Camera {
     origin:      Position,
     bottom_left: Position,
