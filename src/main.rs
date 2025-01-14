@@ -1,13 +1,14 @@
 use rt::{
     Camera,
     Color,
-    Light, // Import Light directly
+    Light, 
     Position,
     Scene,
     Sphere,
     Cylinder,
     FlatPlane,
     Direction,
+
 };
 
 fn main() {
