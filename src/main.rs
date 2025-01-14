@@ -14,6 +14,8 @@ use rt::{
 fn main() {
     let mut scene = Scene::new(
         Camera::new(Position::default()),
+       // Camera::new(Position::new(0.0, 1.0, -3.0)),
+
         vec![
             Light::new(
                 Position::new(2.0, 2.0, -1.0),
@@ -32,6 +34,13 @@ fn main() {
                 0.5,
                 Color::new(0.1, 0.0, 0.0),
             )),
+            Box::new(Cylinder::new(
+                Position::new(1.0, 0.0, -2.0),  
+                0.5,                              
+                1.1,                              
+                Direction::new(0.0, 1.0, 0.0),   
+                Color::new(0.2, 0.2, 0.2),        
+            )),
             // Box::new(Sphere::new(
             //     Position::new(0.0, -105.0, -1.0),
             //     100.0,
@@ -42,13 +51,8 @@ fn main() {
                 Position::new(0.0, 1.0, 0.0),   // Use a unit vector pointing upwards as the normal
                 Color::new(0.1, 0.1, 0.0),
             )),
-            Box::new(Cylinder::new(
-                Position::new(0.0, 0.0, -2.0),    
-                0.4,                              
-                1.2,                              
-                Direction::new(0.0, 1.0, 0.0),   
-                Color::new(0.2, 0.2, 0.2),        
-            )),
+        
+            
         ],
     );
 
