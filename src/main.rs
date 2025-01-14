@@ -34,13 +34,22 @@ fn main() {
                 0.5,
                 Color::new(0.1, 0.0, 0.0),
             )),
+            // Box::new(Cylinder::new(
+            //     Position::new(2.0, 0.0, -2.0),  
+            //     0.5,                              
+            //     1.6,                              
+            //     Direction::new(0.0, 1.0, 0.0),   
+            //     Color::new(0.2, 0.2, 0.2),        
+            // )),
+
             Box::new(Cylinder::new(
-                Position::new(2.0, 0.0, -2.0),  
+                Position::new(2.0, -0.5, -3.0),  
                 0.5,                              
                 1.6,                              
                 Direction::new(0.0, 1.0, 0.0),   
                 Color::new(0.2, 0.2, 0.2),        
             )),
+            
            
             Box::new(FlatPlane::new(
                 Position::new(0.0, -0.5, -1.0), // Position the plane slightly below the camera

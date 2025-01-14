@@ -34,7 +34,6 @@ impl Camera {
             vertical,
         }
     }
-
     pub fn get_ray(&self, u: f64, v: f64) -> Ray {
         Ray::new(
             self.origin,

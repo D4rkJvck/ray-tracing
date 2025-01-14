@@ -11,7 +11,6 @@ use {
     },
 };
 
-
 pub struct Cylinder {
     center: Position,
     radius: f64,
@@ -46,19 +45,19 @@ impl Object for Cylinder {
     fn hit(&self, ray: &Ray, t_min: f64, t_max: f64, impact: &mut Impact) -> bool {
         let oc = ray.origin() - self.center;
         
-        // Calculate coefficients for quadratic equation
-        let a = ray.direction().dot(ray.direction()) 
-            - ray.direction().dot(self.orientation).powf(2.0);
-            
-        let b = 2.0 * (ray.direction().dot(oc) 
-            - ray.direction().dot(self.orientation) * oc.dot(self.orientation));
-            
-        let c = oc.dot(oc) 
-            - oc.dot(self.orientation).powf(2.0) 
-            - self.radius.powf(2.0);
+        // Calcul pour la surface latérale
+        let dot_dir_orient = ray.direction().dot(self.orientation);
+        let dot_oc_orient = oc.dot(self.orientation);
+        
+        let a = ray.direction().dot(ray.direction()) - dot_dir_orient * dot_dir_orient;
+        if a.abs() < 1e-6 {
+            return false;
+        }
+        
+        let b = 2.0 * (ray.direction().dot(oc) - dot_dir_orient * dot_oc_orient);
+        let c = oc.dot(oc) - dot_oc_orient * dot_oc_orient - self.radius * self.radius;
 
         let discriminant = b * b - 4.0 * a * c;
-        
         if discriminant < 0.0 {
             return false;
         }
@@ -71,10 +70,7 @@ impl Object for Cylinder {
             }
         }
 
-        // Calculate hit point
         let hit_point = ray.cast(t);
-        
-        // Check if hit point is within cylinder height
         let height_vec = hit_point - self.center;
         let height = height_vec.dot(self.orientation);
         
@@ -84,8 +80,7 @@ impl Object for Cylinder {
 
         impact.t = t;
         impact.point = hit_point;
-
-        // Calculate surface normal
+        
         let projected = self.center + height * self.orientation;
         let normal = (hit_point - projected).unit();
         impact.set_face_normal(ray.direction(), normal);
