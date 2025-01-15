@@ -8,6 +8,7 @@ pub use {
         Impact,
         Object,
         Sphere,
+        Cube,
     },
     vector::*,
 };

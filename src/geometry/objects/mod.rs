@@ -16,6 +16,7 @@ pub use {
     cylinder::Cylinder,
     plane::FlatPlane,
     sphere::Sphere,
+    cube::Cube,
 };
 
 pub trait Object {

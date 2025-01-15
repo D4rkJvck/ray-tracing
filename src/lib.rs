@@ -17,6 +17,7 @@ pub use {
         Position,
         Sphere,
         Vector,
+        Cube,
     },
     optics::{
         Camera,
