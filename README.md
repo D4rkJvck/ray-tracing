@@ -13,6 +13,7 @@
   - [Cloning](#cloning)
   - [File System](#file-system)
 - [Usage](#usage)
+  - [Classes](#classes)
 - [Create objects](#create-objects)
   - [Sphere](#sphere)
   - [Cube](#cube)
@@ -22,10 +23,11 @@
   - [Camera](#camera)
   - [Ray](#ray)
 - [Contributors](#contributors)
-  - [Collaborators](#collaborators)
+  - [Authors](#authors)
   - [Peers](#peers)
   - [Testers](#testers)
   - [Auditors](#auditors)
+- [Sources](#sources)
 - [License](#license)
 
 ## Tech Stack
@@ -39,7 +41,11 @@
 
 ## Overview
 
+This program is meant to render `3D` objects and places
+
 <div align=center><img alt="rt" src="assets/raytrace.png"></div>
+
+In the context of `3D` computer graphics, ray tracing is a technique for modeling light transport for use in a wide variety of rendering algorithms for generating digital images in `2D`.
 
 ## Installation
 
@@ -138,6 +144,51 @@ tree --dirsfirst
 cargo run > assets/output.ppm
 ```
 
+### Classes
+
+```mermaid
+classDiagram
+Object: +color()
+Object: +position()
+Object: +hit()
+Object: +depth()
+
+Object <|.. Sphere
+Object <|.. Cube
+Object <|.. Cylinder
+Object <|.. FlatPlane
+
+class Sphere {
+  -center
+  -radius
+  -color
+  +new()
+}
+
+class Cube {
+  -side
+  -position
+  -color
+  +new()
+}
+
+class Cylinder {
+  -center
+  -radius
+  -height
+  -orientation
+  -color
+  +new()
+}
+
+class FlatPlane {
+  -position
+  -normal
+  -color
+  +new()
+}
+```
+
 ## Create objects
 
 ### Sphere
@@ -218,7 +269,7 @@ The `discriminant` ($h^2 - ac$), helps to identify how many intersection points 
 
 ## Contributors
 
-### Collaborators
+### Authors
 
 [![ndiediop](https://shields.io/badge/Author-ndiediop-magenta)](http://learn.zone01dakar.sn/git/ndiediop)
 [![npouille](https://shields.io/badge/Author-npouille-magenta)](http://learn.zone01dakar.sn/git/npouille)
@@ -227,11 +278,17 @@ The `discriminant` ($h^2 - ac$), helps to identify how many intersection points 
 
 ### Peers
 
-[![jgoudiab](https://shields.io/badge/Author-jgoudiab-blue)](http://learn.zone01dakar.sn/git/jgoudiab)
+[![jgoudiab](https://shields.io/badge/Zone01-jgoudiab-blue)](http://learn.zone01dakar.sn/git/jgoudiab)
 
 ### Testers
 
 ### Auditors
+
+## Sources
+
+[![YOUTUBE](https://img.shields.io/badge/YouTube-FF0000?style=for-the-badge&logo=youtube&logoColor=white)]()
+
+[![WIKI](https://shields.io/badge/Ray_tracing-Wikipedia-white)](https://en.wikipedia.org/wiki/Ray_tracing_(graphics))
 
 ## License
 
