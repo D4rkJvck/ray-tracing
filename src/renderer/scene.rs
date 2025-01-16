@@ -29,8 +29,7 @@ impl Scene {
             lights,
         }
     }
-
-    pub fn display(&mut self) {
+    pub fn display(&mut self, output_file: &str) {
         let mut img = Image::new(
             width as usize,
             height as usize,
@@ -60,6 +59,6 @@ impl Scene {
             }
         }
 
-        img.write_ppm();
+        img.write_ppm(output_file);
     }
 }
