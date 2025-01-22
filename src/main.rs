@@ -99,7 +99,6 @@ fn main() {
     );
     scene3.display("scene3_output.ppm");
     
-    // Scène 4 : Même que la scène 3 mais avec une caméra déplacée
     let mut scene4 = Scene::new(
         Camera::new(Position::new(2.0, 1.0, 1.0)), // Caméra déplacée
         vec![
