@@ -12,11 +12,11 @@ use {
 };
 
 pub struct Cylinder {
-    center: Position,
-    radius: f64,
-    height: f64,
+    center:      Position,
+    radius:      f64,
+    height:      f64,
     orientation: Direction,
-    color: Color,
+    color:       Color,
 }
 
 impl Cylinder {
@@ -44,16 +44,21 @@ impl Object for Cylinder {
 
     fn hit(&self, ray: &Ray, t_min: f64, t_max: f64, impact: &mut Impact) -> bool {
         let oc = ray.origin() - self.center;
-        
+
         // Calcul pour la surface latérale
-        let dot_dir_orient = ray.direction().dot(self.orientation);
+        let dot_dir_orient = ray
+            .direction()
+            .dot(self.orientation);
         let dot_oc_orient = oc.dot(self.orientation);
-        
-        let a = ray.direction().dot(ray.direction()) - dot_dir_orient * dot_dir_orient;
+
+        let a = ray
+            .direction()
+            .dot(ray.direction())
+            - dot_dir_orient * dot_dir_orient;
         if a.abs() < 1e-6 {
             return false;
         }
-        
+
         let b = 2.0 * (ray.direction().dot(oc) - dot_dir_orient * dot_oc_orient);
         let c = oc.dot(oc) - dot_oc_orient * dot_oc_orient - self.radius * self.radius;
 
@@ -73,14 +78,14 @@ impl Object for Cylinder {
         let hit_point = ray.cast(t);
         let height_vec = hit_point - self.center;
         let height = height_vec.dot(self.orientation);
-        
+
         if height < 0.0 || height > self.height {
             return false;
         }
 
         impact.t = t;
         impact.point = hit_point;
-        
+
         let projected = self.center + height * self.orientation;
         let normal = (hit_point - projected).unit();
         impact.set_face_normal(ray.direction(), normal);

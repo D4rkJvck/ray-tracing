@@ -1,7 +1,7 @@
 mod common;
 mod geometry;
+mod graphics;
 pub mod optics; // Make optics module public
-mod renderer;
 
 pub use {
     common::{
@@ -10,6 +10,7 @@ pub use {
     },
     geometry::{
         Color,
+        Cube,
         Cylinder,
         Direction,
         FlatPlane,
@@ -17,14 +18,13 @@ pub use {
         Position,
         Sphere,
         Vector,
-        Cube,
+    },
+    graphics::{
+        Image,
+        Scene,
     },
     optics::{
         Camera,
         Light,
-    },
-    renderer::{
-        Image,
-        Scene,
     },
 };

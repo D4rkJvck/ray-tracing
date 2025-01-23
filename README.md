@@ -1,7 +1,7 @@
 <h1 align=center>
-    <img alt="Ferris" src="assets/ferris.svg">
-    <br>
     rt
+    <br>
+    <img alt="Ferris" src="assets/ferris.svg">
 </h1>
 
 ## Table of Contents
@@ -12,8 +12,9 @@
 - [Installation](#installation)
   - [Cloning](#cloning)
   - [File System](#file-system)
-- [Usage](#usage)
+- [Architecture](#architecture)
   - [Classes](#classes)
+- [Usage](#usage)
 - [Create objects](#create-objects)
   - [Sphere](#sphere)
   - [Cube](#cube)
@@ -74,62 +75,63 @@ tree --dirsfirst
       |
       +-📂 assets/
       |       |
-      |       +-🌄 ferris.svg
-      |       +-🌄 ray_trace_diagram.svg
-      |       +-🌄 rays_viewport_schema.png
-      |       +-🌄 raytrace.png
+      |       +-🏞 ferris.svg
+      |       +-🏞 ray_trace_diagram.svg
+      |       +-🏞 rays_viewport_schema.png
+      |       +-🏞 raytrace.png
       |
       +-📂 scripts/
       |       |
       |       +-📜 gitify.sh
       |       +-📜 utils.sh
       |
-      +---📂 src/
+      +---:folder: src/
       |       |
       |       +-📂 geometry/
       |       |       |
       |       |       +-📂 objects/
       |       |       |       |
-      |       |       |       +-📄 cube.rs
-      |       |       |       +-📄 cylinder.rs
-      |       |       |       +-📄 mod.rs
-      |       |       |       +-📄 plane.rs
-      |       |       |       +-📄 sphere.rs
+      |       |       |       +-📜 cube.rs
+      |       |       |       +-📜 cylinder.rs
+      |       |       |       +-📜 mod.rs
+      |       |       |       +-📜 plane.rs
+      |       |       |       +-📜 sphere.rs
       |       |       |
       |       |       +-📂 vectors/
       |       |       |       |
-      |       |       |       +-📄 mod.rs
-      |       |       |       +-📄 mutation.rs
-      |       |       |       +-📄 scalar_ops.rs
-      |       |       |       +-📄 vector_ops.rs
+      |       |       |       +-📜 mod.rs
+      |       |       |       +-📜 mutation.rs
+      |       |       |       +-📜 scalar_ops.rs
+      |       |       |       +-📜 vector_ops.rs
       |       |       |
-      |       |       +-📄 mod.rs
+      |       |       +-📜 mod.rs
       |       |
       |       +-📂 optics/
       |       |       |
-      |       |       +-📄 camera.rs
-      |       |       +-📄 light.rs
-      |       |       +-📄 mod.rs
-      |       |       +-📄 ray.rs
+      |       |       +-📜 camera.rs
+      |       |       +-📜 light.rs
+      |       |       +-📜 mod.rs
+      |       |       +-📜 ray.rs
       |       |
       |       +-📂 graphics/
       |       |       |
-      |       |       +-📄 image.rs
-      |       |       +-📄 mod.rs
-      |       |       +-📄 scene.rs
+      |       |       +-📜 image.rs
+      |       |       +-📜 mod.rs
+      |       |       +-📜 scene.rs
       |       |
-      |       +-📄 lib.rs
-      |       +-📄 main.rs
+      |       +-📜 common.rs
+      |       +-📜 lib.rs
+      |       +-📜 main.rs
       |
       |
       +-📂 tests/
       |       |
-      |       +-📄 vector_test.rs
+      |       +-📜 vector_test.rs
       |
       +-📂 todos/
       |       |
-      |       +-📝 audit.todo
-      |       +-📝 tasks.todo
+      |       +-📜 audit.todo
+      |       +-📜 tasks.todo
       |
       +-🚫 .gitignore
       +-🔒 Cargo.lock
@@ -138,55 +140,247 @@ tree --dirsfirst
       +-📖 README.md
       +-⚙️ rustfmt.toml
 
-## Usage
+## Architecture
 
-```shell
-cargo run > assets/output.ppm
+```mermaid
+architecture-beta
+  group rt(logos:rust)[rt]
+  group src(logos:rust)[src] in rt
+  group geometry(logos:rust)[geometry] in src
+  group optics(logos:rust)[optics] in src
+  group graphics(logos:rust)[graphics] in src
+
+  service objects(logos:apostrophe)[objects] in geometry
+  service vector(logos:rust)[vector] in geometry
+
+  service image(logos:imagemin)[image] in graphics
+  service scene(logos:google-play-console-icon)[scene] in graphics
+
+  service camera(logos:google-meet)[camera] in optics
+  service light(logos:amp-icon)[light] in optics
+  service ray(logos:rust)[ray] in optics
+  service output(logos:google-keep)[output] in rt
+
+  junction vec3 in src
+
+  vector:R -- L:vec3
+  vec3:T --> L:camera
+  vec3:R --> L:ray
+  vec3:B --> L:light
+  vector:T --> B:objects
+  camera:B --> T:ray
+  scene:R <-- T:camera
+  image:B --> T:scene
+  objects:T --> B:scene
+  output:R <-- L:scene
 ```
 
 ### Classes
 
 ```mermaid
 classDiagram
-Object: +color()
-Object: +position()
-Object: +hit()
-Object: +depth()
+%% direction LR
 
-Object <|.. Sphere
-Object <|.. Cube
-Object <|.. Cylinder
-Object <|.. FlatPlane
-
-class Sphere {
-  -center
-  -radius
-  -color
-  +new()
+namespace Graphics {
+  class Image {
+    <<struct>>
+    -width
+    -height
+    -pxl_colors
+    +new(width, height) Image
+    +set_pxl_color(row, col, color)
+    +write_ppm(output_file)
+  }
+  
+  class Scene {
+    <<struct>>
+    -id
+    -camera
+    -lights
+    -objects
+    +new(id, camera, lights, objects) Scene
+    +display()
+  }
 }
 
-class Cube {
-  -side
-  -position
-  -color
-  +new()
+namespace Optics {
+  class Camera {
+    <<struct>>
+    -origin
+    -bottom_left
+    -horizontal
+    -vertical
+    +new(origin) Camera
+    +get_ray(u, v) Ray
+  }
+
+  class Light {
+    <<struct>>
+    -position
+    -color
+    -intensity
+    +intensity() f64
+    +new(position, color, intensity) Light
+    +illuminate(impact, objects) Color
+  }
+
+  class Ray {
+    <<struct>>
+    -origin
+    -direction
+    +new(origin, direction) Ray
+    +cast(t) Position
+    +color(objects, lights, depth) Color
+  }
+
+  class Impact {
+    <<struct>>
+    +point
+    +surface_normal
+    +t
+    +new() Impact
+    +set_face_normal(incident, outward)
+  }
 }
 
-class Cylinder {
-  -center
-  -radius
-  -height
-  -orientation
-  -color
-  +new()
+namespace Objects {
+  class Object {
+    <<trait>>
+    +color() Color
+    +position() Position
+    +hit(ray, t_min, t_max, impact) bool
+    +depth() i32
+  }
+  
+  class Sphere {
+    <<struct>>
+    -center
+    -radius
+    -color
+    +new() Sphere
+  }
+  
+  class Cube {
+    <<struct>>
+    -side
+    -position
+    -color
+    +new() Cube
+  }
+  
+  class Cylinder {
+    <<struct>>
+    -center
+    -radius
+    -height
+    -orientation
+    -color
+    +new() Cylinder
+  }
+  
+  class FlatPlane {
+    <<struct>>
+    -position
+    -normal
+    -color
+    +new() FlatPlane
+  }
 }
 
-class FlatPlane {
-  -position
-  -normal
-  -color
-  +new()
+namespace Vectors {
+  class Vector {
+    <<struct>>
+    +new(x, y, z) Vector
+    +random() Vector
+    +random_range(min, max) Vector
+    +random_unit() Vector
+    +x() f64
+    +y() f64
+    +z() f64
+    +dot(other) f64
+    +length() f64
+    +unit() Vector
+  }
+
+  class Color {
+    <<type>>
+  }
+
+  class Position {
+    <<type>>
+  }
+
+  class Direction {
+    <<type>>
+  }
 }
+
+Scene -- Image: Generates
+Scene *-- Camera: Has
+Scene *-- Light: Has
+Scene *-- Object: Has
+
+Camera *-- Ray: Generates
+
+Ray -- Impact: Finds
+
+Impact -- Object: On
+Impact -- Light: Reflects
+
+Color ..> Vector: Is
+Position ..> Vector: Is
+Direction ..> Vector: Is
+
+Sphere ..|> Object: Implements
+Cube ..|> Object: Implements
+Cylinder ..|> Object: Implements
+FlatPlane ..|> Object: Implements
+
+Object o-- Position: Has
+Object o-- Color: Has
+
+Cylinder o-- Direction: Has
+
+FlatPlane o-- Direction: Has
+
+Ray o-- Position: Has
+Ray o-- Direction: Has
+
+Impact o-- Position: Has
+Impact o-- Direction: Has
+
+Light o-- Position: Has
+Light o-- Color: Has
+
+Camera o-- Position: Has
+Camera o-- Direction: Has
+
+Vector --() Display
+Vector --() Neg
+Vector --() AddAssign
+Vector --() MulAssign_f64
+Vector --() DivAssign_f64
+Vector --() Add
+Vector --() Sub
+Vector --() Mul
+Vector --() Mul_f64
+Vector --() Div_f64
+Vector --() Debug
+Vector --() Clone
+Vector --() Copy
+Vector --() Default
+Vector --() PartialEq
+Vector --() PartialOrd
+
+Impact --() Clone
+Impact --() Copy
+Impact --() Default
+```
+
+## Usage
+
+```shell
+cargo run > assets/output.ppm
 ```
 
 ## Create objects

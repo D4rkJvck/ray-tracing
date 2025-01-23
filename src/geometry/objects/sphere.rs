@@ -1,10 +1,10 @@
 use {
-    super::{
-        Impact,
-        Object,
-    },
+    super::Object,
     crate::{
-        optics::Ray,
+        optics::{
+            Impact,
+            Ray,
+        },
         Color,
         Position,
     },

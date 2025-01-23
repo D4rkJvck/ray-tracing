@@ -3,12 +3,11 @@ mod vector;
 
 pub use {
     objects::{
+        Cube,
         Cylinder,
         FlatPlane,
-        Impact,
         Object,
         Sphere,
-        Cube,
     },
     vector::*,
 };

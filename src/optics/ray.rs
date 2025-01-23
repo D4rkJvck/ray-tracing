@@ -1,6 +1,6 @@
 use {
+    super::Impact,
     crate::{
-        geometry::Impact,
         optics::Light,
         Color,
         Direction,
@@ -25,17 +25,14 @@ impl Ray {
 
     pub fn cast(&self, t: f64) -> Position { self.origin + t * self.direction }
 
-    pub fn color(&self, objects: &Vec<Box<dyn Object>>, lights: &Vec<Light>, depth: i32) -> Color {
-        if depth <= 0 {
-            return Color::new(0.0, 0.0, 0.0);
-        }
-
+    pub fn color(&self, objects: &Vec<Box<dyn Object>>, lights: &Vec<Light>) -> Color {
         let mut closest_impact = Impact::new();
         let mut closest_object: Option<&Box<dyn Object>> = None;
         let mut closest_t = INFINITY;
 
         for object in objects {
             let mut impact = Impact::new();
+
             let got_hit = object.hit(
                 self,
                 0.001,
@@ -51,7 +48,7 @@ impl Ray {
         }
 
         if let Some(object) = closest_object {
-            let mut final_color = Color::new(0.0, 0.0, 0.0);
+            let mut final_color = Color::default();
             let ambient = Color::new(0.1, 0.1, 0.1); // Ambient light
 
             // Add ambient light

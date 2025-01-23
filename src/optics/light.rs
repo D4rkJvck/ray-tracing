@@ -1,10 +1,15 @@
-use std::f64::INFINITY;
-
-use crate::{
-    geometry::Impact, Color, Direction, Object, Position
+use {
+    super::{
+        Impact,
+        Ray,
+    },
+    crate::{
+        Color,
+        Object,
+        Position,
+    },
+    std::f64::INFINITY,
 };
-
-use super::Ray;
 
 pub struct Light {
     position:  Position,
@@ -27,7 +32,12 @@ impl Light {
 
         // Check if the shadow ray hits any object
         for object in objects {
-            if object.hit(&shadow_ray, 0.001, INFINITY, &mut Impact::new()) {
+            if object.hit(
+                &shadow_ray,
+                0.001,
+                INFINITY,
+                &mut Impact::new(),
+            ) {
                 // If there's an intersection, the point is in shadow
                 return Color::new(0.0, 0.0, 0.0);
             }

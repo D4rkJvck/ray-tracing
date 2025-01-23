@@ -1,5 +1,7 @@
-use crate::Color;
-use std::io::Write;
+use {
+    crate::Color,
+    std::io::Write,
+};
 
 pub struct Image {
     width:      usize,
@@ -30,7 +32,12 @@ impl Image {
     /// implementation's result.
     pub fn write_ppm(&self, output_file: &str) {
         let mut file = std::fs::File::create(output_file).unwrap();
-        writeln!(&mut file, "P3\n{} {}\n255", self.width, self.height).unwrap();
+        writeln!(
+            &mut file,
+            "P3\n{} {}\n255",
+            self.width, self.height
+        )
+        .unwrap();
 
         self.pxl_colors
             .iter()
@@ -38,5 +45,4 @@ impl Image {
             .flat_map(|row| row.iter())
             .for_each(|color| writeln!(&mut file, "{color}").unwrap());
     }
-  
 }

@@ -6,7 +6,8 @@ use {
     crate::{
         optics::Ray,
         Color,
-        Position, Vector,
+        Position,
+        Vector,
     },
 };
 
@@ -16,8 +17,8 @@ use {
 
 pub struct Cube {
     pub position: Position,
-    pub size: f64,
-    pub color: Color,
+    pub size:     f64,
+    pub color:    Color,
 }
 
 impl Cube {
@@ -36,7 +37,11 @@ impl Object for Cube {
     fn position(&self) -> Position { self.position }
 
     fn hit(&self, ray: &Ray, t_min: f64, t_max: f64, impact: &mut Impact) -> bool {
-        let half_size = Vector::new(self.size / 2.0, self.size / 2.0, self.size / 2.0);
+        let half_size = Vector::new(
+            self.size / 2.0,
+            self.size / 2.0,
+            self.size / 2.0,
+        );
         let min = self.position - half_size;
         let max = self.position + half_size;
 
@@ -44,20 +49,21 @@ impl Object for Cube {
         let mut t_max_current = t_max;
 
         for i in 0..3 {
-            let inv_d = 1.0 / match i {
-                0 => ray.direction().x(),
-                1 => ray.direction().y(),
-                2 => ray.direction().z(),
-                _ => unreachable!(),
-            };
-    
+            let inv_d = 1.0
+                / match i {
+                    0 => ray.direction().x(),
+                    1 => ray.direction().y(),
+                    2 => ray.direction().z(),
+                    _ => unreachable!(),
+                };
+
             let mut t0 = (match i {
                 0 => min.x() - ray.origin().x(),
                 1 => min.y() - ray.origin().y(),
                 2 => min.z() - ray.origin().z(),
                 _ => unreachable!(),
             }) * inv_d;
-    
+
             let mut t1 = (match i {
                 0 => max.x() - ray.origin().x(),
                 1 => max.y() - ray.origin().y(),
@@ -79,7 +85,10 @@ impl Object for Cube {
 
         impact.t = t_min_current;
         impact.point = ray.cast(impact.t);
-        impact.set_face_normal(ray.direction(), (impact.point - self.position).unit());
+        impact.set_face_normal(
+            ray.direction(),
+            (impact.point - self.position).unit(),
+        );
 
         true
     }

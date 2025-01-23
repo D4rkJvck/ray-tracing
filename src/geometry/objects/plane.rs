@@ -1,10 +1,10 @@
 use {
-    super::{
-        Impact,
-        Object,
-    },
+    super::Object,
     crate::{
-        optics::Ray,
+        optics::{
+            Impact,
+            Ray,
+        },
         Color,
         Position,
     },
@@ -32,7 +32,9 @@ impl Object for FlatPlane {
     fn position(&self) -> Position { self.position }
 
     fn hit(&self, ray: &Ray, t_min: f64, t_max: f64, impact: &mut Impact) -> bool {
-        let denominator = ray.direction().dot(self.normal);
+        let denominator = ray
+            .direction()
+            .dot(self.normal);
 
         if denominator.abs() <= 1e-6 {
             return false;
