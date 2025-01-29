@@ -1,6 +1,9 @@
 use {
     crate::Color,
-    std::io::Write,
+    std::io::{
+        Result,
+        Write,
+    },
 };
 
 pub struct Image {
@@ -30,19 +33,23 @@ impl Image {
     /// This function is responsible for generating the image file
     /// in `.ppm` format in the `scenes/` directory from the renderer's
     /// implementation's result.
-    pub fn write_ppm(&self, output_file: &str) {
-        let mut file = std::fs::File::create(output_file).unwrap();
+    pub fn write_ppm(&self, output_file: &str) -> Result<()> {
+        let mut file = std::fs::File::create(output_file)?;
         writeln!(
             &mut file,
             "P3\n{} {}\n255",
             self.width, self.height
-        )
-        .unwrap();
+        )?;
 
-        self.pxl_colors
+        for color in self
+            .pxl_colors
             .iter()
             .rev()
             .flat_map(|row| row.iter())
-            .for_each(|color| writeln!(&mut file, "{color}").unwrap());
+        {
+            writeln!(&mut file, "{color}")?
+        }
+        
+        Ok(())
     }
 }

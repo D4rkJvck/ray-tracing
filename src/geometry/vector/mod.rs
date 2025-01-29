@@ -32,8 +32,12 @@ impl Vector {
             random_double_range(min, max),
         )
     }
-
+    
     pub fn random_unit() -> Self {
+        Self::random_unit_sphere()
+    }
+
+    fn random_unit_sphere() -> Self {
         loop {
             let vec = Self::random_range(-1.0, 1.0);
 

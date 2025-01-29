@@ -1,15 +1,19 @@
-use crate::{
-    common::{
-        random_double,
-        SAMPLES_PER_PXL,
+use {
+    crate::{
+        common::{
+            random_double,
+            MAX_DEPTH,
+            SAMPLES_PER_PXL,
+        },
+        optics::Light,
+        Camera,
+        Color,
+        Image,
+        Object,
+        IMAGE_HEIGTH as height,
+        IMAGE_WIDTH as width,
     },
-    optics::Light,
-    Camera,
-    Color,
-    Image,
-    Object,
-    IMAGE_HEIGTH as height,
-    IMAGE_WIDTH as width,
+    std::io::Result,
 };
 
 pub struct Scene {
@@ -36,7 +40,7 @@ impl Scene {
         }
     }
 
-    pub fn display(&mut self) {
+    pub fn display(&mut self) -> Result<()> {
         let mut img = Image::new(
             width as usize,
             height as usize,
@@ -51,7 +55,11 @@ impl Scene {
                     let v = (row as f64 + random_double()) / (height as f64 - 1.0);
 
                     let ray = self.camera.get_ray(u, v);
-                    pxl_color += ray.color(&self.objects, &self.lights);
+                    pxl_color += ray.color(
+                        &self.objects,
+                        &self.lights,
+                        MAX_DEPTH,
+                    );
                 }
 
                 img.set_pxl_color(
@@ -68,6 +76,6 @@ impl Scene {
                 self.id
             )
             .as_str(),
-        );
+        )
     }
 }

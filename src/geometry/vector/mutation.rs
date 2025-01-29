@@ -30,9 +30,9 @@ impl Display for Color {
 
         let scale = 1.0 / SAMPLES_PER_PXL as f64;
 
-        r *= scale;
-        g *= scale;
-        b *= scale;
+        r = f64::sqrt(scale * r);
+        g = f64::sqrt(scale * g);
+        b = f64::sqrt(scale * b);
 
         write!(
             f,
