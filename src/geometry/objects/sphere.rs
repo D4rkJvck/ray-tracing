@@ -31,7 +31,7 @@ impl Object for Sphere {
 
     fn position(&self) -> Position { self.center }
 
-    fn hit(&self, ray: &Ray, t_min: f64, t_max: f64, impact: &mut Impact) -> bool {
+    fn hit(&self, ray: &Ray, t_min: f64, t_max: f64) -> Option<Impact> {
         let direction = ray.direction();
         let distance = ray.origin() - self.center;
 
@@ -42,7 +42,7 @@ impl Object for Sphere {
         let discriminant = h * h - a * c;
 
         if discriminant < 0.0 {
-            return false;
+            return None;
         }
 
         let mut root = (-h - discriminant.sqrt()) / a;
@@ -51,16 +51,12 @@ impl Object for Sphere {
             root = (-h + discriminant.sqrt()) / a;
 
             if root <= t_min || t_max <= root {
-                return false;
+                return None;
             };
         };
 
-        impact.t = root;
-        impact.point = ray.cast(impact.t);
-
-        let outward = (impact.point - self.center) / self.radius;
-        impact.set_face_normal(ray.direction(), outward);
-
-        true
+        let outward = (ray.cast(root) - self.center) / self.radius;
+        
+        Some(ray.generate_impact(outward, root))
     }
 }

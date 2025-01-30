@@ -36,7 +36,7 @@ impl Object for Cube {
 
     fn position(&self) -> Position { self.position }
 
-    fn hit(&self, ray: &Ray, t_min: f64, t_max: f64, impact: &mut Impact) -> bool {
+    fn hit(&self, ray: &Ray, t_min: f64, t_max: f64) -> Option<Impact> {
         let half_size = Vector::new(
             self.size / 2.0,
             self.size / 2.0,

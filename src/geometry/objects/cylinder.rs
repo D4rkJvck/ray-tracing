@@ -42,7 +42,7 @@ impl Object for Cylinder {
 
     fn position(&self) -> Position { self.center }
 
-    fn hit(&self, ray: &Ray, t_min: f64, t_max: f64, impact: &mut Impact) -> bool {
+    fn hit(&self, ray: &Ray, t_min: f64, t_max: f64) -> Option<Impact> {
         let oc = ray.origin() - self.center;
 
         // Calcul pour la surface latérale

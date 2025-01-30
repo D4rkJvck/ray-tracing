@@ -22,8 +22,16 @@ impl Ray {
             direction: direction.unit(),
         }
     }
-
+    
     pub fn cast(&self, t: f64) -> Position { self.origin + t * self.direction }
+
+    pub fn generate_impact(&self, outward: Direction, t: f64) -> Impact {
+        let point = self.cast(t);
+        let cos_angle = self.direction().dot(outward);
+        let surface_normal = if cos_angle < 0. { outward } else { -outward };
+
+        Impact::new(point, surface_normal, t)
+    }
 
     pub fn color(
         &self,
@@ -40,17 +48,10 @@ impl Ray {
         // let mut closest_t = INFINITY;
 
         for object in objects {
-            let mut impact = Impact::new();
-
-            let got_hit = object.hit(
-                self,
-                0.001,
-                // closest_t,
+            if let Some(impact) = object.hit(
+                self, 0.001, // closest_t,
                 INFINITY,
-                &mut impact,
-            );
-
-            if got_hit {
+            ) {
                 let direction = impact.surface_normal + Direction::random_unit();
                 return 0.5
                     * Self::new(impact.point, direction).color(objects, lights, max_depth - 1);

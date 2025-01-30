@@ -1,10 +1,10 @@
 use rt::{
     Camera,
     Color,
-    Cube,
-    Cylinder,
+    // Cube,
+    // Cylinder,
     Direction,
-    FlatPlane,
+    Plane,
     Light,
     Position,
     Scene,
@@ -27,7 +27,7 @@ fn main() {
                 0.5,
                 Color::new(0.1, 0.0, 0.0),
             )),
-            Box::new(FlatPlane::new(
+            Box::new(Plane::new(
                 Position::new(0.0, -0.5, -1.0),
                 Position::new(0.0, 1.0, 0.0),
                 Color::new(0.5, 0.5, 0.5),
@@ -49,7 +49,7 @@ fn main() {
     //         0.5, // Luminosité réduite
     //     )],
     //     vec![
-    //         Box::new(FlatPlane::new(
+    //         Box::new(Plane::new(
     //             Position::new(0.0, -0.5, -1.0),
     //             Position::new(0.0, 1.0, 0.0),
     //             Color::new(0.5, 0.5, 0.5),
@@ -86,7 +86,7 @@ fn main() {
     //             Direction::new(0.0, 1.0, 0.0),
     //             Color::new(0.2, 0.2, 0.2),
     //         )),
-    //         Box::new(FlatPlane::new(
+    //         Box::new(Plane::new(
     //             Position::new(0.0, -0.5, -1.0),
     //             Position::new(0.0, 1.0, 0.0),
     //             Color::new(0.1, 0.1, 0.0),
@@ -121,7 +121,7 @@ fn main() {
     //             Direction::new(0.0, 1.0, 0.0),
     //             Color::new(0.2, 0.2, 0.2),
     //         )),
-    //         Box::new(FlatPlane::new(
+    //         Box::new(Plane::new(
     //             Position::new(0.0, -0.5, -1.0),
     //             Position::new(0.0, 1.0, 0.0),
     //             Color::new(0.1, 0.1, 0.0),

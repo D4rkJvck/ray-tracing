@@ -10,10 +10,10 @@ pub use {
     },
     geometry::{
         Color,
-        Cube,
-        Cylinder,
+        // Cube,
+        // Cylinder,
         Direction,
-        FlatPlane,
+        Plane,
         Object,
         Position,
         Sphere,

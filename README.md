@@ -278,12 +278,12 @@ namespace Objects {
     +new() Cylinder
   }
   
-  class FlatPlane {
+  class Plane {
     <<struct>>
     -position
     -normal
     -color
-    +new() FlatPlane
+    +new() Plane
   }
 }
 
@@ -334,14 +334,14 @@ Direction ..> Vector: Is
 Sphere ..|> Object: Implements
 Cube ..|> Object: Implements
 Cylinder ..|> Object: Implements
-FlatPlane ..|> Object: Implements
+Plane ..|> Object: Implements
 
 Object o-- Position: Has
 Object o-- Color: Has
 
 Cylinder o-- Direction: Has
 
-FlatPlane o-- Direction: Has
+Plane o-- Direction: Has
 
 Ray o-- Position: Has
 Ray o-- Direction: Has
