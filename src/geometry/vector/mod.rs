@@ -32,10 +32,8 @@ impl Vector {
             random_double_range(min, max),
         )
     }
-    
-    pub fn random_unit() -> Self {
-        Self::random_unit_sphere()
-    }
+
+    pub fn random_unit() -> Self { Self::random_unit_sphere() }
 
     fn random_unit_sphere() -> Self {
         loop {
@@ -61,4 +59,12 @@ impl Vector {
     pub fn length(&self) -> f64 { self.dot(*self).sqrt() }
 
     pub fn unit(self) -> Self { self / self.length() }
+
+    pub fn cross(&self, other: Self) -> Self {
+        Self::new(
+            self.y() * other.z() - self.z() * other.y(),
+            self.z() * other.x() - self.x() * other.z(),
+            self.x() * other.y() - self.y() * other.x(),
+        )
+    }
 }

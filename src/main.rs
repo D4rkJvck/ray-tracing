@@ -4,8 +4,8 @@ use rt::{
     // Cube,
     // Cylinder,
     Direction,
-    Plane,
     Light,
+    Plane,
     Position,
     Scene,
     Sphere,
@@ -15,7 +15,12 @@ fn main() {
     // Scène 1 : Une sphère
     let mut scene1 = Scene::new(
         1,
-        Camera::new(Position::default()),
+        Camera::new(
+            Position::new(-2., 2., 1.),
+            Position::new(0., 0., -1.),
+            Direction::new(0., 1., 0.),
+            20.,
+        ),
         vec![Light::new(
             Position::new(2.0, 2.0, 0.0),
             Color::new(1.0, 1.0, 1.0),

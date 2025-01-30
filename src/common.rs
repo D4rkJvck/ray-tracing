@@ -3,7 +3,7 @@ use {
     std::f64::consts::PI,
 };
 
-const ASPECT_RATIO: f64 = 4.0 / 3.0;
+pub const ASPECT_RATIO: f64 = 4.0 / 3.0;
 pub const IMAGE_WIDTH: i32 = 800;
 pub const IMAGE_HEIGTH: i32 = (IMAGE_WIDTH as f64 / ASPECT_RATIO) as i32;
 pub const SAMPLES_PER_PXL: i32 = 100;
