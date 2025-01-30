@@ -33,7 +33,7 @@ impl Image {
     /// This function is responsible for generating the image file
     /// in `.ppm` format in the `scenes/` directory from the renderer's
     /// implementation's result.
-    pub fn write_ppm(&self, output_file: &str) -> Result<()> {
+    pub fn write_ppm(&self, output_file: String) -> Result<()> {
         let mut file = std::fs::File::create(output_file)?;
         writeln!(
             &mut file,

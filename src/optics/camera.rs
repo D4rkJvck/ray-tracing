@@ -2,25 +2,22 @@ use {
     super::Ray,
     crate::{
         common::{
-            self,
             degrees_to_radians,
             ASPECT_RATIO,
         },
         Direction,
         Position,
-        IMAGE_HEIGTH,
-        IMAGE_WIDTH,
     },
 };
 
 pub struct Camera {
     origin:          Position,
-    target:          Position,
-    view_up:         Direction,
+    // target:          Position,
+    // view_up:         Direction,
     horizontal:      Direction,
     vertical:        Direction,
     bottom_leftmost: Position,
-    focal_length:    f64,
+    // focal_length:    f64,
 }
 
 impl Camera {
@@ -45,12 +42,12 @@ impl Camera {
 
         Self {
             origin,
-            target,
-            view_up,
+            // target,
+            // view_up,
             horizontal,
             vertical,
             bottom_leftmost,
-            focal_length: 1.,
+            // focal_length: 1.,
         }
     }
 
@@ -60,12 +57,4 @@ impl Camera {
             self.bottom_leftmost + s * self.horizontal + v * self.vertical - self.origin,
         )
     }
-
-    pub fn origin(&self) -> Position { self.origin }
-
-    pub fn bottom_leftmost(&self) -> Position { self.bottom_leftmost }
-
-    pub fn vertical(&self) -> Direction { self.vertical }
-
-    pub fn horizontal(&self) -> Direction { self.horizontal }
 }

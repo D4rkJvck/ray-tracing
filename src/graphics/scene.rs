@@ -13,7 +13,15 @@ use {
         IMAGE_HEIGTH as height,
         IMAGE_WIDTH as width,
     },
-    std::io::Result,
+    indicatif::{
+        ProgressBar,
+        ProgressStyle,
+    },
+    std::io::{
+        Error,
+        ErrorKind,
+        Result,
+    },
 };
 
 pub struct Scene {
@@ -46,6 +54,19 @@ impl Scene {
             height as usize,
         );
 
+        let total_pxls = (width * height) as u64;
+        let progress_bar = ProgressBar::new(total_pxls);
+        let style_tmpl = format!(
+            "[{{elapsed_precise}}] [{{bar:40.cyan/blue}}] [{{pos}}/{} pixels] [{{eta}}]",
+            total_pxls
+        );
+        progress_bar.set_style(
+            ProgressStyle::default_bar()
+                .template(style_tmpl.as_str())
+                .map_err(|error| Error::new(ErrorKind::Other, error))?
+                .progress_chars("=|-"),
+        );
+
         for row in 0..height {
             for col in 0..width {
                 let mut pxl_color = Color::default();
@@ -53,7 +74,6 @@ impl Scene {
                 for _ in 0..SAMPLES_PER_PXL {
                     let u = (col as f64 + random_double()) / (width as f64 - 1.0);
                     let v = (row as f64 + random_double()) / (height as f64 - 1.0);
-
                     let ray = self.camera.get_ray(u, v);
                     pxl_color += ray.color(
                         &self.objects,
@@ -67,15 +87,19 @@ impl Scene {
                     col as usize,
                     pxl_color,
                 );
+
+                progress_bar.inc(1);
             }
         }
 
-        img.write_ppm(
-            format!(
-                "assets/scenes/00{}.ppm",
-                self.id
-            )
-            .as_str(),
-        )
+        progress_bar.finish_with_message(format!(
+            "Scene {} generated",
+            self.id
+        ));
+
+        img.write_ppm(format!(
+            "assets/scenes/00{}.ppm",
+            self.id
+        ))
     }
 }

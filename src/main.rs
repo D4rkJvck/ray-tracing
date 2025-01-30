@@ -19,7 +19,7 @@ fn main() {
             Position::new(-2., 2., 1.),
             Position::new(0., 0., -1.),
             Direction::new(0., 1., 0.),
-            20.,
+            90.,
         ),
         vec![Light::new(
             Position::new(2.0, 2.0, 0.0),
