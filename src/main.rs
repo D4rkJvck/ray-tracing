@@ -2,7 +2,7 @@ use rt::{
     Camera,
     Color,
     // Cube,
-    // Cylinder,
+   Cylinder ,
     Direction,
     Light,
     Plane,
@@ -22,9 +22,9 @@ fn main() {
             90.,
         ),
         vec![Light::new(
-            Position::new(2.0, 2.0, 0.0),
+            Position::new(2.0, 2.0, -1.0),
             Color::new(1.0, 1.0, 1.0),
-            1.0,
+            15.0,
         )],
         vec![
             Box::new(Sphere::new(
@@ -33,10 +33,19 @@ fn main() {
                 Color::new(0.1, 0.0, 0.0),
             )),
             Box::new(Plane::new(
-                Position::new(0.0, -0.5, -1.0),
+                Position::new(2.0, -0.5, -2.0),
                 Position::new(0.0, 1.0, 0.0),
                 Color::new(0.5, 0.5, 0.5),
             )),
+            
+            Box::new(Cylinder::new(
+                            Position::new(-1.0, -0.5, -1.0),
+                            0.25,
+                            1.5, 
+                            Direction::new(0.0, 1.0, 0.0),
+                            Color::new(1.0, 0.5, 0.0),
+                        )),
+            
         ],
     );
 

@@ -11,7 +11,7 @@ pub use {
     geometry::{
         Color,
         // Cube,
-        // Cylinder,
+         Cylinder,
         Direction,
         Plane,
         Object,

@@ -4,7 +4,7 @@ mod vector;
 pub use {
     objects::{
         // Cube,
-        // Cylinder,
+        Cylinder,
         Plane,
         Object,
         Sphere,

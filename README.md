@@ -576,6 +576,7 @@ The `discriminant` ($h^2 - ac$), helps to identify how many intersection points 
 
 ### Cylinder
 
+
 ### Flat plane
 
 ## Mechanism
