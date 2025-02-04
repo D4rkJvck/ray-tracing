@@ -1,5 +1,5 @@
 // mod cube;
- mod cylinder;
+mod cylinder;
 mod plane;
 mod sphere;
 
@@ -16,7 +16,7 @@ use {
 pub use {
     // cube::Cube,
     // cube::Cube,
-     cylinder::Cylinder,
+    cylinder::Cylinder,
     plane::Plane,
     sphere::Sphere,
 };

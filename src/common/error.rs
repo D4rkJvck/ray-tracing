@@ -11,13 +11,13 @@ pub enum Error {
     FileWrite(io::Error),
     InvalidCamera(&'static str),
     InvalidDimension(&'static str),
+    InvalidScene(&'static str),
     Custom(&'static str),
 }
 
 pub type Result<T> = result::Result<T, Error>;
 
 impl fmt::Display for Error {
-    #[rustfmt::skip::max_width]
     fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
         match self {
             Self::FileCreation(err) => {
@@ -32,6 +32,7 @@ impl fmt::Display for Error {
             Self::InvalidDimension(msg) => {
                 writeln!(f, "Invalid Dimensions: {msg}")
             }
+            Self::InvalidScene(msg) => writeln!(f, "Invalid Scene: {msg}"),
             Self::Custom(msg) => writeln!(f, "{msg}"),
         }
     }

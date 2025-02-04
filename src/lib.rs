@@ -1,16 +1,16 @@
+mod camera;
 mod common;
-mod error;
 mod geometry;
 mod graphics;
 mod optics;
-mod utils;
 
 pub use {
+    camera::Camera,
     common::{
+        Result,
         IMAGE_HEIGTH,
         IMAGE_WIDTH,
     },
-    error::Result,
     geometry::{
         Color,
         // Cube,
@@ -26,8 +26,5 @@ pub use {
         Image,
         Scene,
     },
-    optics::{
-        Camera,
-        Light,
-    },
+    optics::Light,
 };

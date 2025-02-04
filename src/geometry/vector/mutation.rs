@@ -3,9 +3,9 @@ use {
         Color,
         Vector,
     },
-    crate::{
-        common::SAMPLES_PER_PX,
-        utils::clamp,
+    crate::common::{
+        clamp,
+        SAMPLES_PER_PX,
     },
     std::{
         fmt::{

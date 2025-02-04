@@ -2,7 +2,7 @@ mod mutation;
 mod scalar_ops;
 mod vector_ops;
 
-use crate::utils::{
+use crate::common::{
     random_double,
     random_double_range,
 };

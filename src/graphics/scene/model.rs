@@ -1,16 +1,17 @@
 use {
+    super::builder::SceneBuilder,
     crate::{
         common::{
+            random_double,
             MAX_DEPTH,
             SAMPLES_PER_PX,
         },
-        error::Result,
         optics::Light,
-        utils::random_double,
         Camera,
         Color,
         Image,
         Object,
+        Result,
         IMAGE_HEIGTH as height,
         IMAGE_WIDTH as width,
     },
@@ -32,14 +33,12 @@ pub struct Scene {
 }
 
 impl Scene {
-    pub fn new(
+    pub(super) fn new(
         id: u8,
         camera: Camera,
         lights: Vec<Light>,
-        mut objects: Vec<Box<dyn Object>>,
+        objects: Vec<Box<dyn Object>>,
     ) -> Self {
-        objects.sort_by_key(|object| -object.depth());
-
         Self {
             id,
             camera,
@@ -47,6 +46,8 @@ impl Scene {
             objects,
         }
     }
+
+    pub fn builder() -> SceneBuilder { SceneBuilder::default() }
 
     pub fn display(&mut self) -> Result<()> {
         let mut img = Image::new(width as usize, height as usize)?;

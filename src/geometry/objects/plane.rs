@@ -17,7 +17,11 @@ pub struct Plane {
 }
 
 impl Plane {
-    pub fn new(position: Position, normal: Position, color: Color) -> Self {
+    pub fn new(
+        position: Position,
+        normal: Position,
+        color: Color,
+    ) -> Self {
         Self {
             position,
             normal,
@@ -46,7 +50,7 @@ impl Object for Plane {
         if t < t_min || t > t_max {
             return None;
         }
-        
+
         Some(ray.generate_impact(self.normal, t))
     }
 }

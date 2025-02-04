@@ -1,9 +1,12 @@
 use {
-    super::Camera,
+    super::{
+        utils::{
+            compute,
+            validate_params,
+        },
+        Camera,
+    },
     crate::{
-        common::ASPECT_RATIO,
-        error::Error,
-        utils::degrees_to_radians,
         Position,
         Result,
     },
@@ -67,42 +70,17 @@ impl CameraBuilder {
             .focus_dist
             .unwrap_or_else(|| (self.origin - self.target).length());
 
-        if focus_dist <= 0. {
-            return Err(Error::InvalidCamera(
-                "Focus distance must be positive",
-            ));
-        }
+        validate_params(focus_dist, self.aperture, self.vfov)?;
 
-        if self.aperture < 0. {
-            return Err(Error::InvalidCamera(
-                "Aperture must be non-negative",
-            ));
-        }
-
-        let theta = degrees_to_radians(self.vfov);
-        let h = f64::tan(theta / 2.);
-        let viewport_height = h * 2.;
-        let viewport_width = viewport_height * ASPECT_RATIO;
-
-        let w = (self.origin - self.target).unit();
-        let u = self.vup.cross(w).unit();
-        let v = w.cross(u);
-
-        let horizontal = focus_dist * viewport_width * u;
-        let vertical = focus_dist * viewport_height * v;
-        let bottom_leftmost =
-            self.origin - horizontal / 2. - vertical / 2. - focus_dist * w;
-
-        let lens_radius = self.aperture / 2.;
-
-        Ok(Camera::new(
+        let params = compute(
             self.origin,
-            horizontal,
-            vertical,
-            bottom_leftmost,
-            u,
-            v,
-            lens_radius,
-        ))
+            self.target,
+            self.vup,
+            self.vfov,
+            focus_dist,
+            self.aperture,
+        );
+
+        Ok(Camera::new(params))
     }
 }

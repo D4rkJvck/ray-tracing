@@ -1,17 +1,15 @@
 use {
     crate::{
-        error::{
-            Error,
-            Result,
-        },
+        common::Error,
         Color,
+        Result,
     },
     std::io::Write,
 };
 
 pub struct Image {
-    width:      usize,
-    height:     usize,
+    width:     usize,
+    height:    usize,
     px_colors: Vec<Vec<Color>>,
 }
 
@@ -22,7 +20,7 @@ impl Image {
                 "Dimensions must be greater than 0",
             ));
         }
-        
+
         let px_colors = vec![vec![Color::default(); width]; height];
 
         Ok(Self {
@@ -34,7 +32,6 @@ impl Image {
 
     /// This function will simply set the `color` of the given pixel
     /// through its position's coordonates in the vector of pixels.
-
     pub fn set_px_color(&mut self, row: usize, col: usize, color: Color) {
         self.px_colors[row][col] = color;
     }

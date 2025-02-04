@@ -26,17 +26,17 @@ impl Light {
         }
     }
 
-    pub fn illuminate(&self, impact: &Impact, objects: &Vec<Box<dyn Object>>) -> Color {
+    pub fn illuminate(
+        &self,
+        impact: &Impact,
+        objects: &Vec<Box<dyn Object>>,
+    ) -> Color {
         let light_dir = (self.position - impact.point).unit();
         let shadow_ray = Ray::new(impact.point, light_dir);
 
         // Check if the shadow ray hits any object
         for object in objects {
-            if let Some(_) = object.hit(
-                &shadow_ray,
-                0.001,
-                INFINITY,
-            ) {
+            if let Some(_) = object.hit(&shadow_ray, 0.001, INFINITY) {
                 // If there's an intersection, the point is in shadow
                 return Color::new(0.0, 0.0, 0.0);
             }

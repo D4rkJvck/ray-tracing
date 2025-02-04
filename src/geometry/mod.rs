@@ -5,8 +5,8 @@ pub use {
     objects::{
         // Cube,
         Cylinder,
-        Plane,
         Object,
+        Plane,
         Sphere,
     },
     vector::*,

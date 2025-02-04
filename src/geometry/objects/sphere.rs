@@ -56,7 +56,7 @@ impl Object for Sphere {
         };
 
         let outward = (ray.cast(root) - self.center) / self.radius;
-        
+
         Some(ray.generate_impact(outward, root))
     }
 }
