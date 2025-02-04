@@ -12,18 +12,18 @@ use rt::{
 };
 
 fn main() -> Result<()> {
-    let origin = Position::new(3., 3., 2.);
-    let target = Position::new(0., 0., -1.);
-    let view_up = Position::new(0., 1., 0.);
-    let focus_dist = (origin - target).length();
-    let aperture = 0.1;
+    let camera = Camera::builder()
+        .origin(Position::new(3., 3., 2.))
+        .target(Position::new(0., 0., -1.))
+        .view_up(Position::new(0., 1., 0.))
+        .vertical_field_of_view(90.0)
+        .aperture(0.1)
+        .build()?;
 
     // Scène 1 : Une sphère
     let mut scene1 = Scene::new(
         1,
-        Camera::new(
-            origin, target, view_up, 90., aperture, focus_dist,
-        ),
+        camera,
         vec![Light::new(
             Position::new(2.0, 2.0, -1.0),
             Color::new(1.0, 1.0, 1.0),
@@ -31,7 +31,7 @@ fn main() -> Result<()> {
         )],
         vec![
             Box::new(Sphere::new(
-                Position::new(0., 0.1, -1.),
+                Position::new(0., 0.25, -1.),
                 0.5,
                 Color::new(0.1, 0., 0.),
             )),

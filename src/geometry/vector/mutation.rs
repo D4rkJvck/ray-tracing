@@ -4,7 +4,7 @@ use {
         Vector,
     },
     crate::{
-        common::SAMPLES_PER_px,
+        common::SAMPLES_PER_PX,
         utils::clamp,
     },
     std::{
@@ -28,7 +28,7 @@ impl Display for Color {
         let mut g = self.y();
         let mut b = self.z();
 
-        let scale = 1.0 / SAMPLES_PER_px as f64;
+        let scale = 1.0 / SAMPLES_PER_PX as f64;
 
         r = f64::sqrt(scale * r);
         g = f64::sqrt(scale * g);
@@ -48,11 +48,7 @@ impl Neg for Vector {
     type Output = Self;
 
     fn neg(self) -> Self::Output {
-        Self::new(
-            -self.x(),
-            -self.y(),
-            -self.z(),
-        )
+        Self::new(-self.x(), -self.y(), -self.z())
     }
 }
 

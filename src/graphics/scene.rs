@@ -2,7 +2,7 @@ use {
     crate::{
         common::{
             MAX_DEPTH,
-            SAMPLES_PER_px,
+            SAMPLES_PER_PX,
         },
         error::Result,
         optics::Light,
@@ -69,7 +69,7 @@ impl Scene {
             for col in 0..width {
                 let mut px_color = Color::default();
 
-                for _ in 0..SAMPLES_PER_px {
+                for _ in 0..SAMPLES_PER_PX {
                     let u = (col as f64 + random_double())
                         / (width as f64 - 1.0);
                     let v = (row as f64 + random_double())

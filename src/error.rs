@@ -9,7 +9,7 @@ use std::{
 pub enum Error {
     FileCreation(io::Error),
     FileWrite(io::Error),
-
+    InvalidCamera(&'static str),
     InvalidDimension(&'static str),
     Custom(&'static str),
 }
@@ -17,11 +17,21 @@ pub enum Error {
 pub type Result<T> = result::Result<T, Error>;
 
 impl fmt::Display for Error {
+    #[rustfmt::skip::max_width]
     fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
         match self {
-            Self::FileCreation(err) => writeln!(f, "File Creation Failure: {err}"),
-            Self::FileWrite(err) => writeln!(f, "File Write Failure: {err}"),
-            Self::InvalidDimension(msg) => writeln!(f, "Invalid Dimensions: {msg}"),
+            Self::FileCreation(err) => {
+                writeln!(f, "File Creation Failure: {err}")
+            }
+            Self::FileWrite(err) => {
+                writeln!(f, "File Write Failure: {err}")
+            }
+            Self::InvalidCamera(msg) => {
+                writeln!(f, "Invalid Camera: {msg}")
+            }
+            Self::InvalidDimension(msg) => {
+                writeln!(f, "Invalid Dimensions: {msg}")
+            }
             Self::Custom(msg) => writeln!(f, "{msg}"),
         }
     }
