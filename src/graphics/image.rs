@@ -1,33 +1,42 @@
 use {
-    crate::Color,
-    std::io::{
-        Result,
-        Write,
+    crate::{
+        error::{
+            Error,
+            Result,
+        },
+        Color,
     },
+    std::io::Write,
 };
 
 pub struct Image {
     width:      usize,
     height:     usize,
-    pxl_colors: Vec<Vec<Color>>,
+    px_colors: Vec<Vec<Color>>,
 }
 
 impl Image {
-    pub fn new(width: usize, height: usize) -> Self {
-        let pxl_colors = vec![vec![Color::default(); width]; height];
+    pub fn new(width: usize, height: usize) -> Result<Self> {
+        if width == 0 || height == 0 {
+            return Err(Error::InvalidDimension(
+                "Dimensions must be greater than 0",
+            ));
+        }
+        
+        let px_colors = vec![vec![Color::default(); width]; height];
 
-        Self {
+        Ok(Self {
             width,
             height,
-            pxl_colors,
-        }
+            px_colors,
+        })
     }
 
     /// This function will simply set the `color` of the given pixel
     /// through its position's coordonates in the vector of pixels.
 
-    pub fn set_pxl_color(&mut self, row: usize, col: usize, color: Color) {
-        self.pxl_colors[row][col] = color;
+    pub fn set_px_color(&mut self, row: usize, col: usize, color: Color) {
+        self.px_colors[row][col] = color;
     }
 
     /// This function is responsible for generating the image file
@@ -42,14 +51,14 @@ impl Image {
         )?;
 
         for color in self
-            .pxl_colors
+            .px_colors
             .iter()
             .rev()
             .flat_map(|row| row.iter())
         {
             writeln!(&mut file, "{color}")?
         }
-        
+
         Ok(())
     }
 }

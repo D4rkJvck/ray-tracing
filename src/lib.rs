@@ -1,20 +1,23 @@
 mod common;
+mod error;
 mod geometry;
 mod graphics;
-pub mod optics; // Make optics module public
+mod optics;
+mod utils;
 
 pub use {
     common::{
         IMAGE_HEIGTH,
         IMAGE_WIDTH,
     },
+    error::Result,
     geometry::{
         Color,
         // Cube,
-         Cylinder,
+        Cylinder,
         Direction,
-        Plane,
         Object,
+        Plane,
         Position,
         Sphere,
         Vector,

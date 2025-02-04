@@ -1,10 +1,8 @@
 use {
     super::Ray,
     crate::{
-        common::{
-            degrees_to_radians,
-            ASPECT_RATIO,
-        },
+        common::ASPECT_RATIO,
+        utils::degrees_to_radians,
         Direction,
         Position,
     },
@@ -12,20 +10,22 @@ use {
 
 pub struct Camera {
     origin:          Position,
-    // target:          Position,
-    // view_up:         Direction,
     horizontal:      Direction,
     vertical:        Direction,
     bottom_leftmost: Position,
-    // focal_length:    f64,
+    u:               Direction,
+    v:               Direction,
+    lens_radius:     f64,
 }
 
 impl Camera {
     pub fn new(
         origin: Position,
         target: Position,
-        view_up: Direction,
+        view_up: Position,
         vertical_field_of_view: f64,
+        aperture: f64,
+        focus_dist: f64,
     ) -> Self {
         let theta = degrees_to_radians(vertical_field_of_view);
         let h = f64::tan(theta / 2.);
@@ -36,25 +36,29 @@ impl Camera {
         let u = view_up.cross(w).unit();
         let v = w.cross(u);
 
-        let horizontal = viewport_width * u;
-        let vertical = viewport_height * v;
-        let bottom_leftmost = origin - horizontal / 2. - vertical / 2. - w;
+        let horizontal = focus_dist * viewport_width * u;
+        let vertical = focus_dist * viewport_height * v;
+        let bottom_leftmost = origin - horizontal / 2. - vertical / 2. - focus_dist * w;
+
+        let lens_radius = aperture / 2.;
 
         Self {
             origin,
-            // target,
-            // view_up,
             horizontal,
             vertical,
             bottom_leftmost,
-            // focal_length: 1.,
+            u,
+            v,
+            lens_radius,
         }
     }
 
-    pub fn get_ray(&self, s: f64, v: f64) -> Ray {
+    pub fn get_ray(&self, s: f64, t: f64) -> Ray {
+        let rd = self.lens_radius * Direction::random_unit_lens();
+        let offset = self.u * rd.x() + self.v * rd.y();
         Ray::new(
-            self.origin,
-            self.bottom_leftmost + s * self.horizontal + v * self.vertical - self.origin,
+            self.origin + offset,
+            self.bottom_leftmost + s * self.horizontal + t * self.vertical - self.origin - offset,
         )
     }
 }

@@ -194,9 +194,9 @@ classDiagram
     <<struct>>
     -width
     -height
-    -pxl_colors
+    -px_colors
     +new(width, height) Image
-    +set_pxl_color(row, col, color)
+    +set_px_color(row, col, color)
     +write_ppm(output_file)
   }
   
@@ -501,7 +501,7 @@ title Scene::display()
         Ray -->> Scene: Color
       end
 
-      Scene ->>+ Image: .set_pxl_color()
+      Scene ->>+ Image: .set_px_color()
       Image ->>- Color: Updates
     end
   end

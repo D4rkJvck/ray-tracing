@@ -2,7 +2,7 @@ mod mutation;
 mod scalar_ops;
 mod vector_ops;
 
-use crate::common::{
+use crate::utils::{
     random_double,
     random_double_range,
 };
@@ -45,6 +45,21 @@ impl Vector {
         }
     }
 
+    pub fn random_unit_lens() -> Self {
+        loop {
+            let p = Self::new(
+                random_double_range(-1., 1.),
+                random_double_range(-1., 1.),
+                0.,
+            );
+
+            if p.length_squared() >= 1. {
+                continue;
+            }
+            return p;
+        }
+    }
+
     pub fn x(&self) -> f64 { self.0 }
 
     pub fn y(&self) -> f64 { self.1 }
@@ -56,7 +71,9 @@ impl Vector {
         factor.x() + factor.y() + factor.z()
     }
 
-    pub fn length(&self) -> f64 { self.dot(*self).sqrt() }
+    pub fn length_squared(&self) -> f64 { self.dot(*self) }
+
+    pub fn length(&self) -> f64 { self.length_squared().sqrt() }
 
     pub fn unit(self) -> Self { self / self.length() }
 

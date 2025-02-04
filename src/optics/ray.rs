@@ -22,7 +22,7 @@ impl Ray {
             direction: direction.unit(),
         }
     }
-    
+
     pub fn cast(&self, t: f64) -> Position { self.origin + t * self.direction }
 
     pub fn generate_impact(&self, outward: Direction, t: f64) -> Impact {
@@ -78,7 +78,7 @@ impl Ray {
         // }
         // else {
         let t = 0.5 * (self.direction.y() + 1.0);
-        (1.0 - t) * Color::new(0.1, 0.1, 0.1) + t * Color::new(0.05, 0.07, 0.1)
+        (1.0 - t) * Color::new(1., 1., 1.) + t * Color::new(0.5, 0.7, 1.)
         // }
     }
 

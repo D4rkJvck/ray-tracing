@@ -1,25 +1,28 @@
 use rt::{
     Camera,
     Color,
-    // Cube,
-   Cylinder ,
+    Cylinder,
     Direction,
     Light,
     Plane,
     Position,
+    Result,
     Scene,
     Sphere,
 };
 
-fn main() {
+fn main() -> Result<()> {
+    let origin = Position::new(3., 3., 2.);
+    let target = Position::new(0., 0., -1.);
+    let view_up = Position::new(0., 1., 0.);
+    let focus_dist = (origin - target).length();
+    let aperture = 0.1;
+
     // Scène 1 : Une sphère
     let mut scene1 = Scene::new(
         1,
         Camera::new(
-            Position::new(-2., 2., 1.),
-            Position::new(0., 0., -1.),
-            Direction::new(0., 1., 0.),
-            90.,
+            origin, target, view_up, 90., aperture, focus_dist,
         ),
         vec![Light::new(
             Position::new(2.0, 2.0, -1.0),
@@ -28,50 +31,46 @@ fn main() {
         )],
         vec![
             Box::new(Sphere::new(
-                Position::new(0.0, 0.0, -1.0),
+                Position::new(0., 0.1, -1.),
                 0.5,
-                Color::new(0.1, 0.0, 0.0),
+                Color::new(0.1, 0., 0.),
+            )),
+            Box::new(Cylinder::new(
+                Position::new(-1.0, -0.5, -1.0),
+                0.25,
+                1.5,
+                Direction::new(0.0, 1.0, 0.0),
+                Color::new(1.0, 0.5, 0.0),
             )),
             Box::new(Plane::new(
                 Position::new(2.0, -0.5, -2.0),
                 Position::new(0.0, 1.0, 0.0),
                 Color::new(0.5, 0.5, 0.5),
             )),
-            
-            Box::new(Cylinder::new(
-                            Position::new(-1.0, -0.5, -1.0),
-                            0.25,
-                            1.5, 
-                            Direction::new(0.0, 1.0, 0.0),
-                            Color::new(1.0, 0.5, 0.0),
-                        )),
-            
         ],
     );
 
-    if let Err(error) = scene1.display() {
-        dbg!(error);
-    }
+    scene1.display()
 
     // Scène 2 : Plan et cube avec luminosité réduite
     // let mut scene2 = Scene::new(
     //     2,
     //     Camera::new(Position::default()),
     //     vec![Light::new(
-    //         Position::new(2.0, 2.0, -1.0),
-    //         Color::new(1.0, 1.0, 1.0),
+    //         Position::new(2., 2., -1.),
+    //         Color::new(1., 1., 1.),
     //         0.5, // Luminosité réduite
     //     )],
     //     vec![
     //         Box::new(Plane::new(
-    //             Position::new(0.0, -0.5, -1.0),
-    //             Position::new(0.0, 1.0, 0.0),
+    //             Position::new(0., -0.5, -1.),
+    //             Position::new(0., 1., 0.),
     //             Color::new(0.5, 0.5, 0.5),
     //         )),
     //         Box::new(Cube::new(
-    //             Position::new(0.0, 0.0, -1.0),
-    //             1.0,
-    //             Color::new(0.0, 0.2, 0.5),
+    //             Position::new(0., 0., -1.),
+    //             1.,
+    //             Color::new(0., 0.2, 0.5),
     //         )),
     //     ],
     // );
@@ -81,34 +80,34 @@ fn main() {
     // // Scène 3 : Tous les objets
     // let mut scene3 = Scene::new(
     //     3,
-    //     Camera::new(Position::new(0.0, 1.0, 0.0)),
+    //     Camera::new(Position::new(0., 1., 0.)),
     //     vec![Light::new(
-    //         Position::new(-2.0, 2.0, -1.0),
-    //         Color::new(1.0, 1.0, 1.0),
-    //         1.0,
+    //         Position::new(-2., 2., -1.),
+    //         Color::new(1., 1., 1.),
+    //         1.,
     //     )],
     //     vec![
     //         Box::new(Sphere::new(
-    //             Position::new(0.0, 0.0, -2.0),
+    //             Position::new(0., 0., -2.),
     //             0.5,
-    //             Color::new(0.1, 0.0, 0.0),
+    //             Color::new(0.1, 0., 0.),
     //         )),
     //         Box::new(Cylinder::new(
-    //             Position::new(2.0, -0.5, -2.0),
+    //             Position::new(2., -0.5, -2.),
     //             0.5,
     //             1.6,
-    //             Direction::new(0.0, 1.0, 0.0),
+    //             Direction::new(0., 1., 0.),
     //             Color::new(0.2, 0.2, 0.2),
     //         )),
     //         Box::new(Plane::new(
-    //             Position::new(0.0, -0.5, -1.0),
-    //             Position::new(0.0, 1.0, 0.0),
-    //             Color::new(0.1, 0.1, 0.0),
+    //             Position::new(0., -0.5, -1.),
+    //             Position::new(0., 1., 0.),
+    //             Color::new(0.1, 0.1, 0.),
     //         )),
     //         Box::new(Cube::new(
-    //             Position::new(-1.5, 0.0, -2.5),
-    //             1.0,
-    //             Color::new(0.0, 0.2, 0.5),
+    //             Position::new(-1.5, 0., -2.5),
+    //             1.,
+    //             Color::new(0., 0.2, 0.5),
     //         )),
     //     ],
     // );
@@ -116,34 +115,34 @@ fn main() {
 
     // let mut scene4 = Scene::new(
     //     4,
-    //     Camera::new(Position::new(2.0, 1.0, 1.0)), // Caméra déplacée
+    //     Camera::new(Position::new(2., 1., 1.)), // Caméra déplacée
     //     vec![Light::new(
-    //         Position::new(2.0, 2.0, -1.0),
-    //         Color::new(1.0, 1.0, 1.0),
-    //         1.0,
+    //         Position::new(2., 2., -1.),
+    //         Color::new(1., 1., 1.),
+    //         1.,
     //     )],
     //     vec![
     //         Box::new(Sphere::new(
-    //             Position::new(0.0, 0.0, -2.0),
+    //             Position::new(0., 0., -2.),
     //             0.5,
-    //             Color::new(0.1, 0.0, 0.0),
+    //             Color::new(0.1, 0., 0.),
     //         )),
     //         Box::new(Cylinder::new(
-    //             Position::new(2.0, -0.5, -3.0),
+    //             Position::new(2., -0.5, -3.),
     //             0.5,
     //             1.6,
-    //             Direction::new(0.0, 1.0, 0.0),
+    //             Direction::new(0., 1., 0.),
     //             Color::new(0.2, 0.2, 0.2),
     //         )),
     //         Box::new(Plane::new(
-    //             Position::new(0.0, -0.5, -1.0),
-    //             Position::new(0.0, 1.0, 0.0),
-    //             Color::new(0.1, 0.1, 0.0),
+    //             Position::new(0., -0.5, -1.),
+    //             Position::new(0., 1., 0.),
+    //             Color::new(0.1, 0.1, 0.),
     //         )),
     //         Box::new(Cube::new(
-    //             Position::new(-1.5, 0.0, -2.5),
-    //             1.0,
-    //             Color::new(0.0, 0.2, 0.5),
+    //             Position::new(-1.5, 0., -2.5),
+    //             1.,
+    //             Color::new(0., 0.2, 0.5),
     //         )),
     //     ],
     // );

@@ -3,9 +3,9 @@ use {
         Color,
         Vector,
     },
-    crate::common::{
-        clamp,
-        SAMPLES_PER_PXL,
+    crate::{
+        common::SAMPLES_PER_px,
+        utils::clamp,
     },
     std::{
         fmt::{
@@ -28,7 +28,7 @@ impl Display for Color {
         let mut g = self.y();
         let mut b = self.z();
 
-        let scale = 1.0 / SAMPLES_PER_PXL as f64;
+        let scale = 1.0 / SAMPLES_PER_px as f64;
 
         r = f64::sqrt(scale * r);
         g = f64::sqrt(scale * g);
