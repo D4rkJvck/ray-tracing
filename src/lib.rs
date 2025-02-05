@@ -27,6 +27,9 @@ pub use {
         Image,
         Scene,
     },
-    material::Lambertian,
+    material::{
+        Lambertian,
+        Metal,
+    },
     optics::Light,
 };

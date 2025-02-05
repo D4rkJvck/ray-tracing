@@ -1,6 +1,10 @@
 mod lambertian;
+mod metal;
 
-pub use lambertian::Lambertian;
+pub use {
+    lambertian::Lambertian,
+    metal::Metal,
+};
 
 use crate::{
     optics::{

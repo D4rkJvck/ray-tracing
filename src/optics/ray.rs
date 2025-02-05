@@ -46,17 +46,11 @@ impl Ray {
             return Color::default();
         }
 
-        // let mut closest_impact = Impact::new();
-        // let mut closest_object: Option<&Box<dyn Object>> = None;
-        // let mut closest_t = INFINITY;
-
         for object in objects {
             if let Some(impact) = object.hit(
                 self, 0.001, // closest_t,
                 INFINITY,
             ) {
-                // let direction =
-                //     impact.surface_normal + Direction::random_unit();
                 if let Some((attenuation, scattered)) = object
                     .material()
                     .scatter(self, &impact)
@@ -64,9 +58,7 @@ impl Ray {
                     return attenuation
                         * scattered.color(objects, lights, max_depth - 1);
                 }
-                // closest_t = impact.t;
-                // closest_impact = impact;
-                // closest_object = Some(object);
+                return Color::default()
             }
         }
 
@@ -87,8 +79,7 @@ impl Ray {
         // }
         // else {
         let t = 0.5 * (self.direction.y() + 1.);
-        (1. - t) * Color::new(1., 1., 1.)
-            + t * Color::new(0.5, 0.7, 1.)
+        (1. - t) * Color::new(1., 1., 1.) + t * Color::new(0.5, 0.7, 1.)
         // }
     }
 

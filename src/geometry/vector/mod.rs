@@ -60,11 +60,23 @@ impl Vector {
         }
     }
 
+    pub fn reflect(self, other: Self) -> Self {
+        self - 2. * self.dot(other) * other
+    }
+
     pub fn x(&self) -> f64 { self.0 }
 
     pub fn y(&self) -> f64 { self.1 }
 
     pub fn z(&self) -> f64 { self.2 }
+
+    pub fn near_0(&self) -> bool {
+        const EPS: f64 = 1.0e-8;
+
+        self.x().abs() < EPS
+            && self.y().abs() < EPS
+            && self.z().abs() < EPS
+    }
 
     pub fn dot(&self, other: Self) -> f64 {
         let factor = *self * other;

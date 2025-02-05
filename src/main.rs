@@ -5,6 +5,7 @@ use rt::{
     Direction,
     Lambertian,
     Light,
+    Metal,
     Object,
     Plane,
     Position,
@@ -32,22 +33,20 @@ fn main() -> Result<()> {
         Box::new(Sphere::new(
             Position::new(0., 0.1, -1.),
             0.5,
-            Box::new(Lambertian::new(Color::new(0., 0., 0.1))),
+            Box::new(Metal::new(Color::new(0., 0., 0.2), 1.)),
         )),
         Box::new(Cylinder::new(
             Position::new(-1., -0.5, -1.),
             0.25,
             1.5,
             Direction::new(0., 1., 0.),
-            Box::new(Lambertian::new(Color::new(
-                1., 0., 0.,
-            ))),
+            Box::new(Lambertian::new(Color::new(0.2, 0., 0.))),
         )),
         Box::new(Plane::new(
             Position::new(2., -0.5, -2.),
             Position::new(0., 1., 0.),
             Box::new(Lambertian::new(Color::new(
-                1., 0.5, 0.,
+                0.2, 0.2, 0.,
             ))),
         )),
     ];
