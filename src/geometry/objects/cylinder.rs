@@ -4,8 +4,8 @@ use {
         Object,
     },
     crate::{
+        material::Material,
         optics::Ray,
-        Color,
         Direction,
         Position,
     },
@@ -16,7 +16,7 @@ pub struct Cylinder {
     radius:      f64,
     height:      f64,
     orientation: Direction,
-    color:       Color,
+    material:    Box<dyn Material>,
 }
 
 impl Cylinder {
@@ -25,20 +25,20 @@ impl Cylinder {
         radius: f64,
         height: f64,
         orientation: Direction,
-        color: Color,
+        material: Box<dyn Material>,
     ) -> Self {
         Self {
             center,
             radius,
             height,
             orientation: orientation.unit(),
-            color: color.unit(),
+            material,
         }
     }
 }
 
 impl Object for Cylinder {
-    fn color(&self) -> Color { self.color }
+    fn material(&self) -> &dyn Material { self.material.as_ref() }
 
     fn position(&self) -> Position { self.center }
 

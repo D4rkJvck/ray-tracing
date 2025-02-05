@@ -55,14 +55,15 @@ impl Ray {
                 self, 0.001, // closest_t,
                 INFINITY,
             ) {
-                let direction =
-                    impact.surface_normal + Direction::random_unit();
-                return 0.5
-                    * Self::new(impact.point, direction).color(
-                        objects,
-                        lights,
-                        max_depth - 1,
-                    );
+                // let direction =
+                //     impact.surface_normal + Direction::random_unit();
+                if let Some((attenuation, scattered)) = object
+                    .material()
+                    .scatter(self, &impact)
+                {
+                    return attenuation
+                        * scattered.color(objects, lights, max_depth - 1);
+                }
                 // closest_t = impact.t;
                 // closest_impact = impact;
                 // closest_object = Some(object);
@@ -86,8 +87,8 @@ impl Ray {
         // }
         // else {
         let t = 0.5 * (self.direction.y() + 1.);
-        (1. - t) * Color::new(0.1, 0.1, 0.1)
-            + t * Color::new(0.05, 0.07, 0.1)
+        (1. - t) * Color::new(1., 1., 1.)
+            + t * Color::new(0.5, 0.7, 1.)
         // }
     }
 

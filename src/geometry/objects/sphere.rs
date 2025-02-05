@@ -1,33 +1,37 @@
 use {
     super::Object,
     crate::{
+        material::Material,
         optics::{
             Impact,
             Ray,
         },
-        Color,
         Position,
     },
 };
 
 pub struct Sphere {
-    center: Position,
-    radius: f64,
-    color:  Color,
+    center:   Position,
+    radius:   f64,
+    material: Box<dyn Material>,
 }
 
 impl Sphere {
-    pub fn new(center: Position, radius: f64, color: Color) -> Self {
+    pub fn new(
+        center: Position,
+        radius: f64,
+        material: Box<dyn Material>,
+    ) -> Self {
         Self {
             center,
             radius,
-            color: color.unit(),
+            material,
         }
     }
 }
 
 impl Object for Sphere {
-    fn color(&self) -> Color { self.color }
+    fn material(&self) -> &dyn Material { self.material.as_ref() }
 
     fn position(&self) -> Position { self.center }
 

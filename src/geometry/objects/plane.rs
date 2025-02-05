@@ -1,11 +1,11 @@
 use {
     super::Object,
     crate::{
+        material::Material,
         optics::{
             Impact,
             Ray,
         },
-        Color,
         Position,
     },
 };
@@ -13,25 +13,25 @@ use {
 pub struct Plane {
     position: Position,
     normal:   Position,
-    color:    Color,
+    material: Box<dyn Material>,
 }
 
 impl Plane {
     pub fn new(
         position: Position,
         normal: Position,
-        color: Color,
+        material: Box<dyn Material>,
     ) -> Self {
         Self {
             position,
             normal,
-            color: color.unit(),
+            material,
         }
     }
 }
 
 impl Object for Plane {
-    fn color(&self) -> Color { self.color }
+    fn material(&self) -> &dyn Material { self.material.as_ref() }
 
     fn position(&self) -> Position { self.position }
 

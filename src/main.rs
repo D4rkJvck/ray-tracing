@@ -3,6 +3,7 @@ use rt::{
     Color,
     Cylinder,
     Direction,
+    Lambertian,
     Light,
     Object,
     Plane,
@@ -14,7 +15,7 @@ use rt::{
 
 fn main() -> Result<()> {
     let camera = Camera::builder()
-        .origin(Position::new(0., 1., 2.))
+        .origin(Position::new(2., 2., 2.))
         .target(Position::new(0., 0., -1.))
         .view_up(Position::new(0., 0.1, 0.))
         .vertical_field_of_view(90.)
@@ -29,21 +30,25 @@ fn main() -> Result<()> {
 
     let objects: Vec<Box<dyn Object>> = vec![
         Box::new(Sphere::new(
-            Position::new(0., 0.25, -1.),
+            Position::new(0., 0.1, -1.),
             0.5,
-            Color::new(0.1, 0., 0.),
+            Box::new(Lambertian::new(Color::new(0., 0., 0.1))),
         )),
         Box::new(Cylinder::new(
-            Position::new(-1.0, -0.5, -1.0),
+            Position::new(-1., -0.5, -1.),
             0.25,
             1.5,
-            Direction::new(0.0, 1.0, 0.0),
-            Color::new(1.0, 0.5, 0.0),
+            Direction::new(0., 1., 0.),
+            Box::new(Lambertian::new(Color::new(
+                1., 0., 0.,
+            ))),
         )),
         Box::new(Plane::new(
-            Position::new(2.0, -0.5, -2.0),
-            Position::new(0.0, 1.0, 0.0),
-            Color::new(0.5, 0.5, 0.5),
+            Position::new(2., -0.5, -2.),
+            Position::new(0., 1., 0.),
+            Box::new(Lambertian::new(Color::new(
+                1., 0.5, 0.,
+            ))),
         )),
     ];
 

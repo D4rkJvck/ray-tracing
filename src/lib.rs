@@ -2,6 +2,7 @@ mod camera;
 mod common;
 mod geometry;
 mod graphics;
+mod material;
 mod optics;
 
 pub use {
@@ -26,5 +27,6 @@ pub use {
         Image,
         Scene,
     },
+    material::Lambertian,
     optics::Light,
 };
