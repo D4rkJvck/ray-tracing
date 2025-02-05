@@ -1,19 +1,12 @@
 use {
-    super::{
-        Impact,
-        Ray,
-    },
-    crate::{
-        Color,
-        Object,
-        Position,
-    },
+    super::{Impact, Ray},
+    crate::{Color, Object, Position},
     std::f64::INFINITY,
 };
 
 pub struct Light {
-    position:  Position,
-    color:     Color,
+    position: Position,
+    color: Color,
     intensity: f64,
 }
 
@@ -50,9 +43,15 @@ impl Light {
         self.color * (diffuse * self.intensity)
     }
 
-    pub fn position(&self) -> Position { self.position }
+    pub fn position(&self) -> Position {
+        self.position
+    }
 
-    pub fn color(&self) -> Color { self.color }
+    pub fn color(&self) -> Color {
+        self.color
+    }
 
-    pub fn intensity(&self) -> f64 { self.intensity }
+    pub fn intensity(&self) -> f64 {
+        self.intensity
+    }
 }

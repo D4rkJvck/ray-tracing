@@ -1,95 +1,133 @@
 use {
-    super::{
-        Impact,
-        Object,
-    },
-    crate::{
-        optics::Ray,
-        Color,
-        Position,
-        Vector,
-    },
+    super::{Impact, Object},
+    crate::{material::Material, optics::Ray, Direction, Position},
 };
 
-// use crate::geometry::{Impact, Object, Position, Direction};
-// use crate::Color;
-// use crate::optics::Ray;
-
 pub struct Cube {
-    pub position: Position,
-    pub size:     f64,
-    pub color:    Color,
+    center: Position,
+    size: f64,
+    material: Box<dyn Material>,
 }
 
 impl Cube {
-    pub fn new(position: Position, size: f64, color: Color) -> Self {
+    pub fn new(
+        center: Position,
+        size: f64,
+        material: Box<dyn Material>,
+    ) -> Self {
         Self {
-            position,
+            center,
             size,
-            color: color.unit(),
+            material,
         }
+    }
+
+    fn get_axis_value(&self, v: &Position, axis: usize) -> f64 {
+        match axis {
+            0 => v.x(),
+            1 => v.y(),
+            2 => v.z(),
+            _ => unreachable!(),
+        }
+    }
+
+    fn get_slab_intersection(
+        &self,
+        ray: &Ray,
+        axis: usize,
+    ) -> Option<(f64, f64)> {
+        let half_size = self.size / 2.0;
+        let center_on_axis = self.get_axis_value(&self.center, axis);
+        let min = center_on_axis - half_size;
+        let max = center_on_axis + half_size;
+
+        let origin = self.get_axis_value(&ray.origin(), axis);
+        let direction = self.get_axis_value(&ray.direction(), axis);
+
+        if direction.abs() < 1e-6 {
+            // Ray is parallel to the slab
+            return if origin < min || origin > max {
+                None
+            } else {
+                Some((f64::NEG_INFINITY, f64::INFINITY))
+            };
+        }
+
+        let mut t1 = (min - origin) / direction;
+        let mut t2 = (max - origin) / direction;
+
+        if t1 > t2 {
+            std::mem::swap(&mut t1, &mut t2);
+        }
+
+        Some((t1, t2))
     }
 }
 
 impl Object for Cube {
-    fn color(&self) -> Color { self.color }
+    fn material(&self) -> &dyn Material {
+        self.material.as_ref()
+    }
 
-    fn position(&self) -> Position { self.position }
+    fn position(&self) -> Position {
+        self.center
+    }
 
     fn hit(&self, ray: &Ray, t_min: f64, t_max: f64) -> Option<Impact> {
-        let half_size = Vector::new(
-            self.size / 2.0,
-            self.size / 2.0,
-            self.size / 2.0,
-        );
-        let min = self.position - half_size;
-        let max = self.position + half_size;
+        let mut t_near = f64::NEG_INFINITY;
+        let mut t_far = f64::INFINITY;
+        let mut hit_axis = 0;
+        let mut hit_is_max = false;
 
-        let mut t_min_current = t_min;
-        let mut t_max_current = t_max;
+        // Check intersections with the three pairs of parallel planes (slabs)
+        for axis in 0..3 {
+            if let Some((t1, t2)) = self.get_slab_intersection(ray, axis) {
+                if t1 > t_near {
+                    t_near = t1;
+                    hit_axis = axis;
+                    hit_is_max = false;
+                }
+                if t2 < t_far {
+                    t_far = t2;
+                    if t2 == t1 {
+                        hit_axis = axis;
+                        hit_is_max = true;
+                    }
+                }
 
-        for i in 0..3 {
-            let inv_d = 1.0
-                / match i {
-                    0 => ray.direction().x(),
-                    1 => ray.direction().y(),
-                    2 => ray.direction().z(),
-                    _ => unreachable!(),
-                };
-
-            let mut t0 = (match i {
-                0 => min.x() - ray.origin().x(),
-                1 => min.y() - ray.origin().y(),
-                2 => min.z() - ray.origin().z(),
-                _ => unreachable!(),
-            }) * inv_d;
-
-            let mut t1 = (match i {
-                0 => max.x() - ray.origin().x(),
-                1 => max.y() - ray.origin().y(),
-                2 => max.z() - ray.origin().z(),
-                _ => unreachable!(),
-            }) * inv_d;
-
-            if inv_d < 0.0 {
-                std::mem::swap(&mut t0, &mut t1);
-            }
-
-            t_min_current = t_min_current.max(t0);
-            t_max_current = t_max_current.min(t1);
-
-            if t_max_current <= t_min_current {
-                return false;
+                if t_near > t_far || t_far < t_min || t_near > t_max {
+                    return None;
+                }
+            } else {
+                return None;
             }
         }
 
-        impact.t = t_min_current;
-        impact.point = ray.cast(impact.t);
-        impact.set_face_normal(
-            ray.direction(),
-            (impact.point - self.position).unit(),
-        );
+        let t = if t_near > t_min { t_near } else { t_far };
+        if t < t_min || t > t_max {
+            return None;
+        }
 
-        true
+        // Create normal vector based on the hit face
+        let normal = match hit_axis {
+            0 => Direction::new(
+                if hit_is_max { 1.0 } else { -1.0 },
+                0.0,
+                0.0,
+            ),
+            1 => Direction::new(
+                0.0,
+                if hit_is_max { 1.0 } else { -1.0 },
+                0.0,
+            ),
+            2 => Direction::new(
+                0.0,
+                0.0,
+                if hit_is_max { 1.0 } else { -1.0 },
+            ),
+            _ => unreachable!(),
+        };
+
+        Some(ray.generate_impact(normal, t))
     }
 }

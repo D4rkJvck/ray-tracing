@@ -1,14 +1,11 @@
 use {
     super::Material,
-    crate::{
-        optics::Ray,
-        Color, Direction,
-    },
+    crate::{optics::Ray, Color, Direction},
 };
 
 pub struct Metal {
     albedo: Color,
-    fuzz:   f64,
+    fuzz: f64,
 }
 
 impl Material for Metal {
@@ -22,7 +19,10 @@ impl Material for Metal {
             .unit()
             .reflect(impact.surface_normal);
 
-        let scattered = Ray::new(impact.point, reflected + self.fuzz * Direction::random_unit());
+        let scattered = Ray::new(
+            impact.point,
+            reflected + self.fuzz * Direction::random_unit(),
+        );
 
         Some((self.albedo, scattered))
     }

@@ -1,20 +1,16 @@
 use {
     super::builder::CameraBuilder,
-    crate::{
-        optics::Ray,
-        Direction,
-        Position,
-    },
+    crate::{optics::Ray, Direction, Position},
 };
 
 pub struct Camera {
-    origin:          Position,
-    horizontal:      Direction,
-    vertical:        Direction,
+    origin: Position,
+    horizontal: Direction,
+    vertical: Direction,
     bottom_leftmost: Position,
-    u:               Direction,
-    v:               Direction,
-    lens_radius:     f64,
+    u: Direction,
+    v: Direction,
+    lens_radius: f64,
 }
 
 impl Camera {
@@ -30,17 +26,19 @@ impl Camera {
         ),
     ) -> Self {
         Self {
-            origin:          params.0,
-            horizontal:      params.1,
-            vertical:        params.2,
+            origin: params.0,
+            horizontal: params.1,
+            vertical: params.2,
             bottom_leftmost: params.3,
-            u:               params.4,
-            v:               params.5,
-            lens_radius:     params.6,
+            u: params.4,
+            v: params.5,
+            lens_radius: params.6,
         }
     }
 
-    pub fn builder() -> CameraBuilder { CameraBuilder::default() }
+    pub fn builder() -> CameraBuilder {
+        CameraBuilder::default()
+    }
 
     pub fn get_ray(&self, s: f64, t: f64) -> Ray {
         let rd = self.lens_radius * Direction::random_unit_lens();

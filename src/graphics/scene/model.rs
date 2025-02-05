@@ -1,34 +1,19 @@
 use {
     super::builder::SceneBuilder,
     crate::{
-        common::{
-            random_double,
-            MAX_DEPTH,
-            SAMPLES_PER_PX,
-        },
+        common::{random_double, MAX_DEPTH, SAMPLES_PER_PX},
         optics::Light,
-        Camera,
-        Color,
-        Image,
-        Object,
-        Result,
-        IMAGE_HEIGTH as height,
+        Camera, Color, Image, Object, Result, IMAGE_HEIGTH as height,
         IMAGE_WIDTH as width,
     },
-    indicatif::{
-        ProgressBar,
-        ProgressStyle,
-    },
-    std::io::{
-        Error,
-        ErrorKind,
-    },
+    indicatif::{ProgressBar, ProgressStyle},
+    std::io::{Error, ErrorKind},
 };
 
 pub struct Scene {
-    id:      u8,
-    camera:  Camera,
-    lights:  Vec<Light>,
+    id: u8,
+    camera: Camera,
+    lights: Vec<Light>,
     objects: Vec<Box<dyn Object>>,
 }
 
@@ -47,7 +32,9 @@ impl Scene {
         }
     }
 
-    pub fn builder() -> SceneBuilder { SceneBuilder::default() }
+    pub fn builder() -> SceneBuilder {
+        SceneBuilder::default()
+    }
 
     pub fn display(&mut self) -> Result<()> {
         let mut img = Image::new(width as usize, height as usize)?;

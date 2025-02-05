@@ -1,17 +1,11 @@
 use {
     super::Impact,
-    crate::{
-        optics::Light,
-        Color,
-        Direction,
-        Object,
-        Position,
-    },
+    crate::{optics::Light, Color, Direction, Object, Position},
     std::f64::INFINITY,
 };
 
 pub struct Ray {
-    origin:    Position,
+    origin: Position,
     direction: Direction,
 }
 
@@ -58,7 +52,7 @@ impl Ray {
                     return attenuation
                         * scattered.color(objects, lights, max_depth - 1);
                 }
-                return Color::default()
+                return Color::default();
             }
         }
 
@@ -83,7 +77,11 @@ impl Ray {
         // }
     }
 
-    pub fn origin(&self) -> Position { self.origin }
+    pub fn origin(&self) -> Position {
+        self.origin
+    }
 
-    pub fn direction(&self) -> Direction { self.direction }
+    pub fn direction(&self) -> Direction {
+        self.direction
+    }
 }

@@ -1,15 +1,11 @@
 use {
-    crate::{
-        common::Error,
-        Color,
-        Result,
-    },
+    crate::{common::Error, Color, Result},
     std::io::Write,
 };
 
 pub struct Image {
-    width:     usize,
-    height:    usize,
+    width: usize,
+    height: usize,
     px_colors: Vec<Vec<Color>>,
 }
 

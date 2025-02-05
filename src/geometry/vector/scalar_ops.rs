@@ -1,9 +1,6 @@
 use {
     super::Vector,
-    std::ops::{
-        Div,
-        Mul,
-    },
+    std::ops::{Div, Mul},
 };
 
 impl Mul<f64> for Vector {

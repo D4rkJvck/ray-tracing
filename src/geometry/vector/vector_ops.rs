@@ -1,10 +1,6 @@
 use {
     super::Vector,
-    std::ops::{
-        Add,
-        Mul,
-        Sub,
-    },
+    std::ops::{Add, Mul, Sub},
 };
 
 impl Add for Vector {

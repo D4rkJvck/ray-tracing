@@ -1,7 +1,4 @@
 mod image;
 mod scene;
 
-pub use {
-    image::Image,
-    scene::Scene,
-};
+pub use {image::Image, scene::Scene};

@@ -1,34 +1,28 @@
 use {
     super::{
-        utils::{
-            compute,
-            validate_params,
-        },
+        utils::{compute, validate_params},
         Camera,
     },
-    crate::{
-        Position,
-        Result,
-    },
+    crate::{Position, Result},
 };
 
 pub struct CameraBuilder {
-    origin:     Position,
-    target:     Position,
-    vup:        Position,
-    vfov:       f64,
-    aperture:   f64,
+    origin: Position,
+    target: Position,
+    vup: Position,
+    vfov: f64,
+    aperture: f64,
     focus_dist: Option<f64>,
 }
 
 impl Default for CameraBuilder {
     fn default() -> Self {
         Self {
-            origin:     Position::default(),
-            target:     Position::new(0., 0., -1.),
-            vup:        Position::new(0., 1., 0.),
-            vfov:       90.,
-            aperture:   0.1,
+            origin: Position::default(),
+            target: Position::new(0., 0., -1.),
+            vup: Position::new(0., 1., 0.),
+            vfov: 90.,
+            aperture: 0.1,
             focus_dist: None,
         }
     }

@@ -1,13 +1,10 @@
-use crate::{
-    Direction,
-    Position,
-};
+use crate::{Direction, Position};
 
 #[derive(Default, Clone, Copy)]
 pub struct Impact {
-    pub point:          Position,
+    pub point: Position,
     pub surface_normal: Direction,
-    pub t:              f64,
+    pub t: f64,
     // pub front_face: bool,
 }
 

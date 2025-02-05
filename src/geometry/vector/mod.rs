@@ -2,10 +2,7 @@ mod mutation;
 mod scalar_ops;
 mod vector_ops;
 
-use crate::common::{
-    random_double,
-    random_double_range,
-};
+use crate::common::{random_double, random_double_range};
 
 #[derive(Debug, Clone, Copy, Default, PartialEq, PartialOrd)]
 pub struct Vector(f64, f64, f64);
@@ -15,7 +12,9 @@ pub type Position = Vector;
 pub type Direction = Vector;
 
 impl Vector {
-    pub fn new(x: f64, y: f64, z: f64) -> Self { Self(x, y, z) }
+    pub fn new(x: f64, y: f64, z: f64) -> Self {
+        Self(x, y, z)
+    }
 
     pub fn random() -> Self {
         Self(
@@ -33,7 +32,9 @@ impl Vector {
         )
     }
 
-    pub fn random_unit() -> Self { Self::random_unit_sphere() }
+    pub fn random_unit() -> Self {
+        Self::random_unit_sphere()
+    }
 
     fn random_unit_sphere() -> Self {
         loop {
@@ -64,11 +65,17 @@ impl Vector {
         self - 2. * self.dot(other) * other
     }
 
-    pub fn x(&self) -> f64 { self.0 }
+    pub fn x(&self) -> f64 {
+        self.0
+    }
 
-    pub fn y(&self) -> f64 { self.1 }
+    pub fn y(&self) -> f64 {
+        self.1
+    }
 
-    pub fn z(&self) -> f64 { self.2 }
+    pub fn z(&self) -> f64 {
+        self.2
+    }
 
     pub fn near_0(&self) -> bool {
         const EPS: f64 = 1.0e-8;
@@ -83,11 +90,17 @@ impl Vector {
         factor.x() + factor.y() + factor.z()
     }
 
-    pub fn length_squared(&self) -> f64 { self.dot(*self) }
+    pub fn length_squared(&self) -> f64 {
+        self.dot(*self)
+    }
 
-    pub fn length(&self) -> f64 { self.length_squared().sqrt() }
+    pub fn length(&self) -> f64 {
+        self.length_squared().sqrt()
+    }
 
-    pub fn unit(self) -> Self { self / self.length() }
+    pub fn unit(self) -> Self {
+        self / self.length()
+    }
 
     pub fn cross(&self, other: Self) -> Self {
         Self::new(

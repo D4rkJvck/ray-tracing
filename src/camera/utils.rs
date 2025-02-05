@@ -1,12 +1,6 @@
 use crate::{
-    common::{
-        degrees_to_radians,
-        Error,
-        Result,
-        ASPECT_RATIO,
-    },
-    Direction,
-    Position,
+    common::{degrees_to_radians, Error, Result, ASPECT_RATIO},
+    Direction, Position,
 };
 
 pub(super) fn validate_params(

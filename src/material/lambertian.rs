@@ -1,10 +1,6 @@
 use {
     super::Material,
-    crate::{
-        optics::Ray,
-        Color,
-        Direction,
-    },
+    crate::{optics::Ray, Color, Direction},
 };
 
 pub struct Lambertian {
@@ -31,5 +27,7 @@ impl Material for Lambertian {
 }
 
 impl Lambertian {
-    pub fn new(albedo: Color) -> Self { Self { albedo } }
+    pub fn new(albedo: Color) -> Self {
+        Self { albedo }
+    }
 }
