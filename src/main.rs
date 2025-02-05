@@ -36,7 +36,7 @@ fn main() -> Result<()> {
             Box::new(Metal::new(Color::new(0., 0., 0.2), 1.)),
         )),
         Box::new(Cylinder::new(
-            Position::new(-1., -0.5, -1.),
+            Position::new(-2., -0.5, -1.),
             0.25,
             1.5,
             Direction::new(0., 1., 0.),
