@@ -1,46 +1,50 @@
 use rt::{
-    Camera, Color, Cube, Cylinder, Direction, Lambertian, Light, Metal,
-    Object, Plane, Position, Result, Scene, Sphere,
+    Camera,
+    Color,
+    Cylinder,
+    Dielectric,
+    Direction,
+    Emissive,
+    Lambertian,
+    Metal,
+    Object,
+    Plane,
+    Position,
+    Result,
+    Scene,
+    Sphere,
 };
 
 fn main() -> Result<()> {
     let camera = Camera::builder()
-        .origin(Position::new(2., 2., 2.))
+        .origin(Position::new(1., 2., 3.))
         .target(Position::new(0., 0., -1.))
         .view_up(Position::new(0., 0.1, 0.))
         .vertical_field_of_view(90.)
         .aperture(0.1)
         .build()?;
 
-    let lights = vec![Light::new(
-        Position::new(2., 2., -1.),
-        Color::new(1., 1., 1.),
-        15.,
-    )];
-
     let objects: Vec<Box<dyn Object>> = vec![
         Box::new(Sphere::new(
-            Position::new(0., 0.1, -1.),
+            Position::new(0., 1., -3.),
             0.5,
-            Box::new(Metal::new(Color::new(0., 0., 0.2), 1.)),
-        )),
-        Box::new(Cube::new(
-            Position::new(1., 0., -1.),
-            0.5,
-            Box::new(Lambertian::new(Color::new(0., 1., 0.))),
+            Box::new(Emissive::new(
+                Color::new(1., 1., 1.),
+                25.,
+            )),
         )),
         Box::new(Cylinder::new(
-            Position::new(-2., -0.5, -1.),
-            0.25,
+            Position::new(-1., -0.5, -2.),
+            0.5,
             1.5,
             Direction::new(0., 1., 0.),
-            Box::new(Lambertian::new(Color::new(0.2, 0., 0.))),
+            Box::new(Metal::new(Color::new(0.5, 0., 0.), 0.)),
         )),
         Box::new(Plane::new(
-            Position::new(2., -0.5, -2.),
+            Position::new(2., -0.5, -100.),
             Position::new(0., 1., 0.),
             Box::new(Lambertian::new(Color::new(
-                0.2, 0.2, 0.,
+                0.1, 0.05, 0.,
             ))),
         )),
     ];
@@ -48,7 +52,6 @@ fn main() -> Result<()> {
     Scene::builder()
         .id(1)
         .camera(camera)
-        .add_lights(lights)
         .add_objects(objects)
         .build()?
         .display()

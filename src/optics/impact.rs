@@ -4,8 +4,8 @@ use crate::{Direction, Position};
 pub struct Impact {
     pub point: Position,
     pub surface_normal: Direction,
-    pub t: f64,
-    // pub front_face: bool,
+    pub t:              f64,
+    pub front_face: bool,
 }
 
 impl Impact {
@@ -13,11 +13,13 @@ impl Impact {
         point: Position,
         surface_normal: Direction,
         t: f64,
+        front_face: bool
     ) -> Self {
         Self {
             point,
             surface_normal,
             t,
+            front_face,
         }
     }
 

@@ -1,21 +1,24 @@
 use {
     super::Scene,
-    crate::{common::Error, Camera, Light, Object, Result},
+    crate::{
+        common::Error,
+        Camera,
+        Object,
+        Result,
+    },
 };
 
 pub struct SceneBuilder {
-    id: u8,
-    camera: Option<Camera>,
-    lights: Vec<Light>,
+    id:      u8,
+    camera:  Option<Camera>,
     objects: Vec<Box<dyn Object>>,
 }
 
 impl Default for SceneBuilder {
     fn default() -> Self {
         Self {
-            id: 0,
-            camera: None,
-            lights: vec![],
+            id:      0,
+            camera:  None,
             objects: vec![],
         }
     }
@@ -29,11 +32,6 @@ impl SceneBuilder {
 
     pub fn camera(mut self, camera: Camera) -> Self {
         self.camera = Some(camera);
-        self
-    }
-
-    pub fn add_lights(mut self, lights: Vec<Light>) -> Self {
-        self.lights.extend(lights);
         self
     }
 
@@ -52,7 +50,6 @@ impl SceneBuilder {
         Ok(Scene::new(
             self.id,
             self.camera.unwrap(),
-            self.lights,
             self.objects,
         ))
     }

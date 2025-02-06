@@ -1,6 +1,13 @@
 use {
     super::Material,
-    crate::{optics::Ray, Color, Direction},
+    crate::{
+        optics::{
+            Impact,
+            Ray,
+        },
+        Color,
+        Direction,
+    },
 };
 
 pub struct Lambertian {
@@ -10,8 +17,8 @@ pub struct Lambertian {
 impl Material for Lambertian {
     fn scatter(
         &self,
-        _ray: &crate::optics::Ray,
-        impact: &crate::optics::Impact,
+        _ray: &Ray,
+        impact: &Impact,
     ) -> Option<(Color, Ray)> {
         let mut scatter_direction =
             impact.surface_normal + Direction::random_unit();
@@ -27,7 +34,5 @@ impl Material for Lambertian {
 }
 
 impl Lambertian {
-    pub fn new(albedo: Color) -> Self {
-        Self { albedo }
-    }
+    pub fn new(albedo: Color) -> Self { Self { albedo } }
 }

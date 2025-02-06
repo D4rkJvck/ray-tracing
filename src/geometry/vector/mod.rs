@@ -65,9 +65,18 @@ impl Vector {
         self - 2. * self.dot(other) * other
     }
 
-    pub fn x(&self) -> f64 {
-        self.0
+    pub fn refract(self, other: Self, etai_over_etat: f64) -> Self {
+        let cos_theta = f64::min(self.dot(other), 1.);
+        let r_out_perp = etai_over_etat * (self + cos_theta * other);
+        let r_out_parallel = -(1. - r_out_perp.length_squared())
+            .abs()
+            .sqrt()
+            * other;
+
+        r_out_perp + r_out_parallel
     }
+
+    pub fn x(&self) -> f64 { self.0 }
 
     pub fn y(&self) -> f64 {
         self.1

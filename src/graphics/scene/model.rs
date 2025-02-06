@@ -2,7 +2,6 @@ use {
     super::builder::SceneBuilder,
     crate::{
         common::{random_double, MAX_DEPTH, SAMPLES_PER_PX},
-        optics::Light,
         Camera, Color, Image, Object, Result, IMAGE_HEIGTH as height,
         IMAGE_WIDTH as width,
     },
@@ -13,7 +12,6 @@ use {
 pub struct Scene {
     id: u8,
     camera: Camera,
-    lights: Vec<Light>,
     objects: Vec<Box<dyn Object>>,
 }
 
@@ -21,13 +19,11 @@ impl Scene {
     pub(super) fn new(
         id: u8,
         camera: Camera,
-        lights: Vec<Light>,
         objects: Vec<Box<dyn Object>>,
     ) -> Self {
         Self {
             id,
             camera,
-            lights,
             objects,
         }
     }
@@ -64,7 +60,7 @@ impl Scene {
                         / (height as f64 - 1.0);
                     let ray = self.camera.get_ray(u, v);
                     px_color +=
-                        ray.color(&self.objects, &self.lights, MAX_DEPTH);
+                        ray.color(&self.objects, MAX_DEPTH);
                 }
 
                 img.set_px_color(row as usize, col as usize, px_color);

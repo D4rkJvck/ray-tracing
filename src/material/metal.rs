@@ -1,19 +1,22 @@
 use {
     super::Material,
-    crate::{optics::Ray, Color, Direction},
+    crate::{
+        optics::{
+            Impact,
+            Ray,
+        },
+        Color,
+        Direction,
+    },
 };
 
 pub struct Metal {
     albedo: Color,
-    fuzz: f64,
+    fuzz:   f64,
 }
 
 impl Material for Metal {
-    fn scatter(
-        &self,
-        ray: &crate::optics::Ray,
-        impact: &crate::optics::Impact,
-    ) -> Option<(Color, crate::optics::Ray)> {
+    fn scatter(&self, ray: &Ray, impact: &Impact) -> Option<(Color, Ray)> {
         let reflected = ray
             .direction()
             .unit()

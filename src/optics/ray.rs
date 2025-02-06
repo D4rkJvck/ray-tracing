@@ -1,11 +1,16 @@
 use {
     super::Impact,
-    crate::{optics::Light, Color, Direction, Object, Position},
+    crate::{
+        Color,
+        Direction,
+        Object,
+        Position,
+    },
     std::f64::INFINITY,
 };
 
 pub struct Ray {
-    origin: Position,
+    origin:    Position,
     direction: Direction,
 }
 
@@ -27,13 +32,14 @@ impl Ray {
         let surface_normal =
             if cos_angle < 0. { outward } else { -outward };
 
-        Impact::new(point, surface_normal, t)
+        let mut impact = Impact::new(point, surface_normal, t, true);
+        impact.set_face_normal(self.direction(), outward);
+        impact
     }
 
     pub fn color(
         &self,
         objects: &Vec<Box<dyn Object>>,
-        lights: &Vec<Light>,
         max_depth: i32,
     ) -> Color {
         if max_depth <= 0 {
@@ -45,43 +51,28 @@ impl Ray {
                 self, 0.001, // closest_t,
                 INFINITY,
             ) {
+                let emission = object.material().emit();
+
                 if let Some((attenuation, scattered)) = object
                     .material()
                     .scatter(self, &impact)
                 {
-                    return attenuation
-                        * scattered.color(objects, lights, max_depth - 1);
+                    return emission
+                        + attenuation
+                            * scattered.color(
+                                objects,
+                                max_depth - 1,
+                            );
                 }
-                return Color::default();
+                return emission;
             }
         }
 
-        // if let Some(object) = closest_object {
-        //     let mut final_color = Color::default();
-        //     let ambient = Color::new(0.1, 0.1, 0.1); // Ambient light
-
-        //     // Add ambient light
-        //     final_color += ambient * object.color();
-
-        //     // Add contribution from each light
-        //     for light in lights {
-        //         let illumination = light.illuminate(&closest_impact,
-        // objects);         final_color += illumination *
-        // object.color();     }
-
-        //     final_color
-        // }
-        // else {
         let t = 0.5 * (self.direction.y() + 1.);
-        (1. - t) * Color::new(1., 1., 1.) + t * Color::new(0.5, 0.7, 1.)
-        // }
+        (1. - t) * Color::new(0.01, 0.01, 0.01) + t * Color::new(0.005, 0.007, 0.01)
     }
 
-    pub fn origin(&self) -> Position {
-        self.origin
-    }
+    pub fn origin(&self) -> Position { self.origin }
 
-    pub fn direction(&self) -> Direction {
-        self.direction
-    }
+    pub fn direction(&self) -> Direction { self.direction }
 }

@@ -1,16 +1,30 @@
+mod dielectric;
+mod emissive;
 mod lambertian;
 mod metal;
 
-pub use {lambertian::Lambertian, metal::Metal};
+pub use {
+    dielectric::Dielectric,
+    lambertian::Lambertian,
+    metal::Metal,
+    emissive::Emissive,
+};
 
 use crate::{
-    optics::{Impact, Ray},
+    optics::{
+        Impact,
+        Ray,
+    },
     Color,
 };
 
 pub trait Material {
-    fn scatter(&self, ray: &Ray, impact: &Impact) -> Option<(Color, Ray)>;
-    fn emit(&self) -> Color {
-        Color::default()
+    fn scatter(
+        &self,
+        _ray: &Ray,
+        _impact: &Impact,
+    ) -> Option<(Color, Ray)> {
+        None
     }
+    fn emit(&self) -> Color { Color::default() }
 }
