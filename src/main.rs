@@ -13,6 +13,7 @@ use rt::{
     Result,
     Scene,
     Sphere,
+    Cube,
 };
 
 fn main() -> Result<()> {
@@ -46,6 +47,11 @@ fn main() -> Result<()> {
             Box::new(Lambertian::new(Color::new(
                 0.1, 0.05, 0.,
             ))),
+        )),
+        Box::new(Cube::new(
+            Position::new(1., 0., -1.),  // Position du cube
+            0.5,                         // Taille du cube
+            Box::new(Lambertian::new(Color::new(0., 1., 0.))), // Couleur verte
         )),
     ];
 
