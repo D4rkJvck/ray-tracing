@@ -3,13 +3,13 @@ use {
         utils::{compute, validate_params},
         Camera,
     },
-    crate::{Position, Result},
+    crate::{Direction, Position, Result},
 };
 
 pub struct CameraBuilder {
     origin: Position,
     target: Position,
-    vup: Position,
+    vup: Direction,
     vfov: f64,
     aperture: f64,
     focus_dist: Option<f64>,
@@ -20,7 +20,7 @@ impl Default for CameraBuilder {
         Self {
             origin: Position::default(),
             target: Position::new(0., 0., -1.),
-            vup: Position::new(0., 1., 0.),
+            vup: Direction::new(0., 1., 0.),
             vfov: 90.,
             aperture: 0.1,
             focus_dist: None,
@@ -39,7 +39,7 @@ impl CameraBuilder {
         self
     }
 
-    pub fn view_up(mut self, up: Position) -> Self {
+    pub fn view_up(mut self, up: Direction) -> Self {
         self.vup = up;
         self
     }

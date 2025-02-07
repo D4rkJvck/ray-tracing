@@ -12,7 +12,7 @@ use {
 };
 pub use {cube::Cube, cylinder::Cylinder, plane::Plane, sphere::Sphere};
 
-pub trait Object {
+pub trait Object: Send + Sync {
     fn material(&self) -> &dyn Material;
     fn position(&self) -> Position;
     fn hit(&self, ray: &Ray, t_min: f64, t_max: f64) -> Option<Impact>;

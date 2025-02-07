@@ -1,6 +1,7 @@
 use rt::{
     Camera,
     Color,
+    Cube,
     Cylinder,
     Dielectric,
     Direction,
@@ -13,45 +14,46 @@ use rt::{
     Result,
     Scene,
     Sphere,
-    Cube,
+    IMAGE_HEIGTH as height,
+    IMAGE_WIDTH as width,
 };
 
 fn main() -> Result<()> {
     let camera = Camera::builder()
-        .origin(Position::new(1., 2., 3.))
-        .target(Position::new(0., 0., -1.))
-        .view_up(Position::new(0., 0.1, 0.))
+        .origin(Position::new(0., 2.5, 0.))
+        .target(Position::new(0., 0., -5.))
+        .view_up(Position::new(0., 2., 0.))
         .vertical_field_of_view(90.)
         .aperture(0.1)
         .build()?;
 
     let objects: Vec<Box<dyn Object>> = vec![
         Box::new(Sphere::new(
-            Position::new(0., 1., -3.),
-            0.5,
-            Box::new(Emissive::new(
-                Color::new(1., 1., 1.),
-                25.,
-            )),
+            Position::new(0., 100., -100.),
+            10.,
+            Box::new(Emissive::new(Color::new(1., 1., 1.), 15.)),
+        )),
+        Box::new(Sphere::new(
+            Position::new(0., 1., -5.),
+            1.,
+            Box::new(Metal::new(Color::new(0.2, 0.2, 0.2), 0.)),
         )),
         Box::new(Cylinder::new(
-            Position::new(-1., -0.5, -2.),
-            0.5,
+            Position::new(-3., 0., -5.),
+            0.75,
             1.5,
             Direction::new(0., 1., 0.),
-            Box::new(Metal::new(Color::new(0.5, 0., 0.), 0.)),
-        )),
-        Box::new(Plane::new(
-            Position::new(2., -0.5, -100.),
-            Position::new(0., 1., 0.),
-            Box::new(Lambertian::new(Color::new(
-                0.1, 0.05, 0.,
-            ))),
+            Box::new(Metal::new(Color::new(0.5, 0., 0.), 0.9)),
         )),
         Box::new(Cube::new(
-            Position::new(1., 0., -1.),  // Position du cube
-            0.5,                         // Taille du cube
-            Box::new(Lambertian::new(Color::new(0., 1., 0.))), // Couleur verte
+            Position::new(3., 0.5, -5.),
+            1.5,
+            Box::new(Emissive::new(Color::new(0., 1., 0.), 0.01)),
+        )),
+        Box::new(Plane::new(
+            Position::new(0., 0., -100.),
+            Position::new(0., 1., 0.),
+            Box::new(Lambertian::new(Color::new(1., 0.5, 0.))),
         )),
     ];
 
@@ -59,6 +61,7 @@ fn main() -> Result<()> {
         .id(1)
         .camera(camera)
         .add_objects(objects)
+        .image_size(width, height)
         .build()?
         .display()
 

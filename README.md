@@ -45,7 +45,7 @@
 
 This program is meant to render `3D` objects and places
 
-<div align=center><img alt="rt" src="assets/raytrace.png"></div>
+<div align=center><img alt="rt" src="assets/img/raytrace.png"></div>
 
 In the context of `3D` computer graphics, ray tracing is a technique for modeling light transport for use in a wide variety of rendering algorithms for generating digital images in `2D`.
 
@@ -86,7 +86,21 @@ tree --dirsfirst
       |       +-📜 gitify.sh
       |       +-📜 utils.sh
       |
-      +---:folder: src/
+      +---📂 src/
+      |       |
+      |       +-📂 camera/
+      |       |       |
+      |       |       +-📜 builder.rs
+      |       |       +-📜 mod.rs
+      |       |       +-📜 model.rs
+      |       |       +-📜 utils.rs
+      |       |
+      |       +-📂 common/
+      |       |       |
+      |       |       +-📜 constants.rs
+      |       |       +-📜 error.rs
+      |       |       +-📜 mod.rs
+      |       |       +-📜 utils.rs
       |       |
       |       +-📂 geometry/
       |       |       |
@@ -107,20 +121,31 @@ tree --dirsfirst
       |       |       |
       |       |       +-📜 mod.rs
       |       |
-      |       +-📂 optics/
-      |       |       |
-      |       |       +-📜 camera.rs
-      |       |       +-📜 light.rs
-      |       |       +-📜 mod.rs
-      |       |       +-📜 ray.rs
-      |       |
       |       +-📂 graphics/
+      |       |       |
+      |       |       +-📂 scene/
+      |       |       |       |
+      |       |       |       +-📜 builder.rs
+      |       |       |       +-📜 mod.rs
+      |       |       |       +-📜 model.rs
       |       |       |
       |       |       +-📜 image.rs
       |       |       +-📜 mod.rs
-      |       |       +-📜 scene.rs
       |       |
-      |       +-📜 common.rs
+      |       +-📂 material/
+      |       |       |
+      |       |       +-📜 dielectric.rs
+      |       |       +-📜 emissive.rs
+      |       |       +-📜 lambertian.rs
+      |       |       +-📜 metal.rs
+      |       |       +-📜 mod.rs
+      |       |
+      |       +-📂 optics/
+      |       |       |
+      |       |       +-📜 impact.rs
+      |       |       +-📜 mod.rs
+      |       |       +-📜 ray.rs
+      |       |
       |       +-📜 lib.rs
       |       +-📜 main.rs
       |
@@ -148,6 +173,7 @@ architecture-beta
   group rt(logos:rust)[Ray Tracer]
 
     group src(logos:rust)[Source] in rt
+      service cam(logos:google-meet)[Camera] in src
 
       group geometry(logos:rust)[Geometry] in src
         service obj(logos:apostrophe)[Objects] in geometry
@@ -158,29 +184,25 @@ architecture-beta
         service scene(logos:google-play-console-icon)[Scene] in graphics
         
       group optics(logos:rust)[Optics] in src
-        service cam(logos:google-meet)[Camera] in optics
-        service light(logos:pingy)[Light] in optics
         service ray(logos:spark)[Ray] in optics
         service impact(logos:launchdarkly-icon)[Impact] in optics
 
     group assets(disk)[Assets] in rt
       service output(logos:google-keep)[Output] in assets
 
-    service cfg(logos:toml)[Config] in rt
+    service input(logos:bash-icon)[Input] in rt
 
-  cfg:R --> L:scene{group}
+  input:R --> L:scene{group}
   img:T --> B:scene
-  cam{group}:L --> R:scene{group}
+  cam:L --> R:scene{group}
   obj{group}:B --> T:scene{group}
-  img{group}:B --> R:output{group}
+  img{group}:B --> T:output{group}
 
   vec:L --> R:obj
-  vec{group}:B --> T:cam{group}
+  vec{group}:B --> T:cam
   
-  ray:T --> B:cam
-  impact:L --> R:ray
-  ray:B <--> T:light
-  impact:B --> R:light
+  ray:L --> R:cam
+  impact:B --> T:ray
 ```
 
 ### Entities
@@ -520,7 +542,7 @@ cargo run > assets/output.ppm
 
 ## Create objects
 
-### Sphere
+### [Sphere](./src/geometry/objects/sphere.rs)
 
 First of all, the condition for a given point to be considered as being on the sphere is to have its **coordonates' absolute value** `equal` to the sphere's **radius**, better illustrated with the equation: $x^2 + y^2 + z^2 = R^2$. Given the center of the sphere the equation, that specific point's coordonates will be the difference between its **coordonates** and the sphere's **center** `C`:
 
@@ -572,19 +594,19 @@ The `discriminant` ($h^2 - ac$), helps to identify how many intersection points 
 
 - `discriminant < 0`: There are no intersection points. This means the ray does not intersect the sphere at all.
 
-### Cube
+### [Cube](./src/geometry/objects/cube.rs)
 
-### Cylinder
+### [Cylinder](./src/geometry/objects/cylinder.rs)
 
 
-### Flat plane
+### [Flat plane](./src/geometry/objects/plane.rs)
 
 ## Mechanism
 
 ### Camera
 
 <figure align=center>
-    <img alt="rays_schemas" src="assets/rays_viewport_schema.png">
+    <img alt="rays_schemas" src="assets/img/rays_viewport_schema.png">
     <br>
     <figcaption>By <a href="//commons.wikimedia.org/w/index.php?title=User:Kamil_Kielczewski&amp;action=edit&amp;redlink=1" class="new" title="User:Kamil Kielczewski (page does not exist)">Kamil Kielczewski</a> - <span class="int-own-work" lang="en">Own work</span>, <a href="https://creativecommons.org/licenses/by-sa/4.0" title="Creative Commons Attribution-Share Alike 4.0">CC BY-SA 4.0</a>, <a href="https://commons.wikimedia.org/w/index.php?curid=76049175">Link</a></figcaption>
 </figure>
@@ -592,7 +614,7 @@ The `discriminant` ($h^2 - ac$), helps to identify how many intersection points 
 ### Ray
 
 <figure align=center>
-    <img alt="rt_diagram" src="assets/ray_trace_diagram.svg">
+    <img alt="rt_diagram" src="assets/img/ray_trace_diagram.svg">
     <br>
     <figcaption>By <a href="//commons.wikimedia.org/wiki/User:Henrik" title="User:Henrik">Henrik</a> - <span class="int-own-work" lang="en">Own work</span>, <a href="https://creativecommons.org/licenses/by-sa/4.0" title="Creative Commons Attribution-Share Alike 4.0">CC BY-SA 4.0</a>, <a href="https://commons.wikimedia.org/w/index.php?curid=3869326">Link</a></figcaption>
 </figure>

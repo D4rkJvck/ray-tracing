@@ -18,7 +18,7 @@ use crate::{
     Color,
 };
 
-pub trait Material {
+pub trait Material: Send + Sync {
     fn scatter(
         &self,
         _ray: &Ray,

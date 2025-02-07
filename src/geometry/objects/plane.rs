@@ -1,22 +1,20 @@
 use {
     super::Object,
     crate::{
-        material::Material,
-        optics::{Impact, Ray},
-        Position,
+        material::Material, optics::{Impact, Ray}, Direction, Position
     },
 };
 
 pub struct Plane {
     position: Position,
-    normal: Position,
+    normal: Direction,
     material: Box<dyn Material>,
 }
 
 impl Plane {
     pub fn new(
         position: Position,
-        normal: Position,
+        normal: Direction,
         material: Box<dyn Material>,
     ) -> Self {
         Self {

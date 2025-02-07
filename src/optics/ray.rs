@@ -47,29 +47,30 @@ impl Ray {
         }
 
         for object in objects {
-            if let Some(impact) = object.hit(
-                self, 0.001, // closest_t,
-                INFINITY,
-            ) {
+            if let Some(impact) = object.hit(self, 0.001, INFINITY) {
                 let emission = object.material().emit();
 
-                if let Some((attenuation, scattered)) = object
+                match object
                     .material()
                     .scatter(self, &impact)
                 {
-                    return emission
-                        + attenuation
-                            * scattered.color(
-                                objects,
-                                max_depth - 1,
-                            );
+                    Some((attenuation, scattered)) => {
+                        let scattered_color =
+                            scattered.color(objects, max_depth - 1);
+
+                        if scattered_color == Color::default() {
+                            return emission;
+                        }
+                        return emission + attenuation * scattered_color;
+                    }
+                    None => return emission,
                 }
-                return emission;
             }
         }
 
         let t = 0.5 * (self.direction.y() + 1.);
-        (1. - t) * Color::new(0.01, 0.01, 0.01) + t * Color::new(0.005, 0.007, 0.01)
+        (1. - t) * Color::new(0.01, 0.01, 0.01)
+            + t * Color::new(0.005, 0.007, 0.01)
     }
 
     pub fn origin(&self) -> Position { self.origin }
