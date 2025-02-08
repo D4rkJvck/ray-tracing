@@ -49,6 +49,8 @@ impl CameraBuilder {
         self
     }
 
+    /// Hole to control how big the lens is effectively.
+    /// The bigger the aperture, the more defocus blur we get.
     pub fn aperture(mut self, aperture: f64) -> Self {
         self.aperture = aperture;
         self

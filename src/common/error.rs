@@ -1,10 +1,4 @@
-use std::{
-    error,
-    fmt,
-    io,
-    result,
-    sync::PoisonError,
-};
+use std::{error, fmt, io, result, sync::PoisonError};
 
 #[derive(Debug)]
 pub enum Error {

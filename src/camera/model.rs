@@ -46,9 +46,11 @@ impl Camera {
 
         Ray::new(
             self.origin + offset,
-            self.bottom_leftmost + s * self.horizontal + t * self.vertical
-                - self.origin
-                - offset,
+            self.bottom_leftmost + s * self.horizontal + t * self.vertical - self.origin - offset,
         )
+    }
+
+    pub fn origin(&self) -> Position {
+        self.origin
     }
 }

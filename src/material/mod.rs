@@ -3,28 +3,18 @@ mod emissive;
 mod lambertian;
 mod metal;
 
-pub use {
-    dielectric::Dielectric,
-    lambertian::Lambertian,
-    metal::Metal,
-    emissive::Emissive,
-};
+pub use {dielectric::Dielectric, emissive::Emissive, lambertian::Lambertian, metal::Metal};
 
 use crate::{
-    optics::{
-        Impact,
-        Ray,
-    },
+    optics::{Impact, Ray},
     Color,
 };
 
 pub trait Material: Send + Sync {
-    fn scatter(
-        &self,
-        _ray: &Ray,
-        _impact: &Impact,
-    ) -> Option<(Color, Ray)> {
+    fn scatter(&self, _ray: &Ray, _impact: &Impact) -> Option<(Color, Ray)> {
         None
     }
-    fn emit(&self) -> Color { Color::default() }
+    fn emit(&self) -> Color {
+        Color::default()
+    }
 }

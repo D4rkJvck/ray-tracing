@@ -3,21 +3,13 @@ use crate::{
     Direction, Position,
 };
 
-pub(super) fn validate_params(
-    focus_dist: f64,
-    aperture: f64,
-    vfov: f64,
-) -> Result<()> {
+pub(super) fn validate_params(focus_dist: f64, aperture: f64, vfov: f64) -> Result<()> {
     if focus_dist <= 0. {
-        return Err(Error::InvalidCamera(
-            "Focus distance must be positive",
-        ));
+        return Err(Error::InvalidCamera("Focus distance must be positive"));
     };
 
     if aperture < 0. {
-        return Err(Error::InvalidCamera(
-            "Aperture must be non-negative",
-        ));
+        return Err(Error::InvalidCamera("Aperture must be non-negative"));
     };
 
     if !(0.0..=180.).contains(&vfov) {
@@ -56,8 +48,7 @@ pub(super) fn compute(
 
     let horizontal = focus_dist * viewport_width * u;
     let vertical = focus_dist * viewport_height * v;
-    let bottom_leftmost =
-        origin - horizontal / 2. - vertical / 2. - focus_dist * w;
+    let bottom_leftmost = origin - horizontal / 2. - vertical / 2. - focus_dist * w;
 
     let lens_radius = aperture / 2.;
 

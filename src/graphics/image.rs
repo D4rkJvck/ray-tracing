@@ -12,9 +12,7 @@ pub struct Image {
 impl Image {
     pub fn new(width: usize, height: usize) -> Result<Self> {
         if width == 0 || height == 0 {
-            return Err(Error::InvalidDimension(
-                "Dimensions must be greater than 0",
-            ));
+            return Err(Error::InvalidDimension("Dimensions must be greater than 0"));
         }
 
         let px_colors = vec![vec![Color::default(); width]; height];
@@ -37,18 +35,9 @@ impl Image {
     /// implementation's result.
     pub fn write_ppm(&self, output_file: String) -> Result<()> {
         let mut file = std::fs::File::create(output_file)?;
-        writeln!(
-            &mut file,
-            "P3\n{} {}\n255",
-            self.width, self.height
-        )?;
+        writeln!(&mut file, "P3\n{} {}\n255", self.width, self.height)?;
 
-        for color in self
-            .px_colors
-            .iter()
-            .rev()
-            .flat_map(|row| row.iter())
-        {
+        for color in self.px_colors.iter().rev().flat_map(|row| row.iter()) {
             writeln!(&mut file, "{color}")?
         }
 

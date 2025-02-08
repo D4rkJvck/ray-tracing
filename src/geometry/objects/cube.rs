@@ -10,11 +10,7 @@ pub struct Cube {
 }
 
 impl Cube {
-    pub fn new(
-        center: Position,
-        size: f64,
-        material: Box<dyn Material>,
-    ) -> Self {
+    pub fn new(center: Position, size: f64, material: Box<dyn Material>) -> Self {
         Self {
             center,
             size,
@@ -31,11 +27,7 @@ impl Cube {
         }
     }
 
-    fn get_slab_intersection(
-        &self,
-        ray: &Ray,
-        axis: usize,
-    ) -> Option<(f64, f64)> {
+    fn get_slab_intersection(&self, ray: &Ray, axis: usize) -> Option<(f64, f64)> {
         let half_size = self.size / 2.0;
         let center_on_axis = self.get_axis_value(&self.center, axis);
         let min = center_on_axis - half_size;
@@ -110,21 +102,9 @@ impl Object for Cube {
 
         // Create normal vector based on the hit face
         let normal = match hit_axis {
-            0 => Direction::new(
-                if hit_is_max { 1.0 } else { -1.0 },
-                0.0,
-                0.0,
-            ),
-            1 => Direction::new(
-                0.0,
-                if hit_is_max { 1.0 } else { -1.0 },
-                0.0,
-            ),
-            2 => Direction::new(
-                0.0,
-                0.0,
-                if hit_is_max { 1.0 } else { -1.0 },
-            ),
+            0 => Direction::new(if hit_is_max { 1.0 } else { -1.0 }, 0.0, 0.0),
+            1 => Direction::new(0.0, if hit_is_max { 1.0 } else { -1.0 }, 0.0),
+            2 => Direction::new(0.0, 0.0, if hit_is_max { 1.0 } else { -1.0 }),
             _ => unreachable!(),
         };
 

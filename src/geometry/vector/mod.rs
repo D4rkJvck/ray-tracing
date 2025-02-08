@@ -17,11 +17,7 @@ impl Vector {
     }
 
     pub fn random() -> Self {
-        Self(
-            random_double(),
-            random_double(),
-            random_double(),
-        )
+        Self(random_double(), random_double(), random_double())
     }
 
     pub fn random_range(min: f64, max: f64) -> Self {
@@ -61,6 +57,13 @@ impl Vector {
         }
     }
 
+    pub fn map<F>(self, f: F) -> Self
+    where
+        F: Fn(f64) -> f64,
+    {
+        Self::new(f(self.x()), f(self.y()), f(self.z()))
+    }
+
     pub fn reflect(self, other: Self) -> Self {
         self - 2. * self.dot(other) * other
     }
@@ -68,15 +71,14 @@ impl Vector {
     pub fn refract(self, other: Self, etai_over_etat: f64) -> Self {
         let cos_theta = f64::min(self.dot(other), 1.);
         let r_out_perp = etai_over_etat * (self + cos_theta * other);
-        let r_out_parallel = -(1. - r_out_perp.length_squared())
-            .abs()
-            .sqrt()
-            * other;
+        let r_out_parallel = -(1. - r_out_perp.length_squared()).abs().sqrt() * other;
 
         r_out_perp + r_out_parallel
     }
 
-    pub fn x(&self) -> f64 { self.0 }
+    pub fn x(&self) -> f64 {
+        self.0
+    }
 
     pub fn y(&self) -> f64 {
         self.1
@@ -89,9 +91,7 @@ impl Vector {
     pub fn near_0(&self) -> bool {
         const EPS: f64 = 1.0e-8;
 
-        self.x().abs() < EPS
-            && self.y().abs() < EPS
-            && self.z().abs() < EPS
+        self.x().abs() < EPS && self.y().abs() < EPS && self.z().abs() < EPS
     }
 
     pub fn dot(&self, other: Self) -> f64 {

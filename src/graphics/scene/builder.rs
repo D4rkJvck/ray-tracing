@@ -1,28 +1,22 @@
 use {
     super::Scene,
-    crate::{
-        common::Error,
-        Camera,
-        Image,
-        Object,
-        Result,
-    },
+    crate::{common::Error, Camera, Image, Object, Result},
 };
 
 pub struct SceneBuilder {
-    id:       u8,
-    camera:   Option<Camera>,
-    objects:  Vec<Box<dyn Object>>,
+    id: u8,
+    camera: Option<Camera>,
     img_size: (i32, i32),
+    objects: Vec<Box<dyn Object>>,
 }
 
 impl Default for SceneBuilder {
     fn default() -> Self {
         Self {
-            id:       0,
-            camera:   None,
-            objects:  vec![],
+            id: 0,
+            camera: None,
             img_size: (0, 0),
+            objects: vec![],
         }
     }
 }
@@ -38,10 +32,14 @@ impl SceneBuilder {
         self
     }
 
-    pub fn add_objects(mut self, objects: Vec<Box<dyn Object>>) -> Self {
+    pub fn objects(mut self, objects: Vec<Box<dyn Object>>) -> Self {
         self.objects.extend(objects);
-        self.objects
-            .sort_by_key(|object| -object.depth());
+
+        if let Some(cam) = &self.camera {
+            self.objects
+                .sort_by_key(|object| object.depth(cam.origin()))
+        }
+
         self
     }
 
@@ -50,9 +48,13 @@ impl SceneBuilder {
         self
     }
 
-    fn width(&self) -> usize { self.img_size.0 as usize }
+    fn width(&self) -> usize {
+        self.img_size.0 as usize
+    }
 
-    fn height(&self) -> usize { self.img_size.1 as usize }
+    fn height(&self) -> usize {
+        self.img_size.1 as usize
+    }
 
     pub fn build(self) -> Result<Scene> {
         let image = Image::new(self.width(), self.height())?;

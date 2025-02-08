@@ -43,11 +43,12 @@
 
 ## Overview
 
-This program is meant to render `3D` objects and places
+As a `Ray Tracer`, this program renders `3D` scenes into a `2D` images by drawing each pixel with its color, shadows, reflection, refraction and other parameters using.
+In the context of `3D` computer graphics, ray tracing is a method that simulates light transport in a wide variety of rendering algorithms to generate digital images in `2D`.
 
-<div align=center><img alt="rt" src="assets/img/raytrace.png"></div>
-
-In the context of `3D` computer graphics, ray tracing is a technique for modeling light transport for use in a wide variety of rendering algorithms for generating digital images in `2D`.
+<div align=center>
+    <img alt="rt" src="assets/img/scene_3.png">
+</div>
 
 ## Installation
 
@@ -76,10 +77,23 @@ tree --dirsfirst
       |
       +-📂 assets/
       |       |
-      |       +-🏞 ferris.svg
-      |       +-🏞 ray_trace_diagram.svg
-      |       +-🏞 rays_viewport_schema.png
-      |       +-🏞 raytrace.png
+      |       +-⚙️ rustfmt.toml
+      |
+      +-📂 assets/
+      |       |
+      |       +---📂 img/
+      |       |       |
+      |       |       +-🏞 ferris.svg
+      |       |       +-🏞 ray_trace_diagram.svg
+      |       |       +-🏞 rays_viewport_schema.png
+      |       |       +-🏞 scene_3.png
+      |       |
+      |       +-📂 scenes/
+      |               |
+      |               +-🏞 001.ppm
+      |               +-🏞 002.ppm
+      |               +-🏞 003.ppm
+      |               +-🏞 004.ppm
       |
       +-📂 scripts/
       |       |
@@ -164,7 +178,6 @@ tree --dirsfirst
       +-⚙️ Cargo.toml
       +-🔑 LICENSE
       +-📖 README.md
-      +-⚙️ rustfmt.toml
 
 ## Architecture
 
@@ -182,7 +195,7 @@ architecture-beta
       group graphics(logos:rust)[Graphics] in src
         service img(logos:imagemin)[Image] in graphics
         service scene(logos:google-play-console-icon)[Scene] in graphics
-        
+
       group optics(logos:rust)[Optics] in src
         service ray(logos:spark)[Ray] in optics
         service impact(logos:launchdarkly-icon)[Impact] in optics
@@ -200,9 +213,18 @@ architecture-beta
 
   vec:L --> R:obj
   vec{group}:B --> T:cam
-  
+
   ray:L --> R:cam
   impact:B --> T:ray
+```
+
+```mermaid
+graph TD
+    A[Input] --> B{Scene}
+    B --> C[Ray Generation]
+    C --> D[Intersection]
+    D --> E[Shading]
+    E --> F[Image]
 ```
 
 ### Entities
@@ -221,7 +243,7 @@ classDiagram
     +set_px_color(row, col, color)
     +write_ppm(output_file)
   }
-  
+
   class Scene {
     <<struct>>
     -id
@@ -283,7 +305,7 @@ classDiagram
     +hit(ray, t_min, t_max, impact) bool
     +depth() i32
   }
-  
+
   class Sphere {
     <<struct>>
     -center
@@ -291,7 +313,7 @@ classDiagram
     -color
     +new() Sphere
   }
-  
+
   class Cube {
     <<struct>>
     -side
@@ -299,7 +321,7 @@ classDiagram
     -color
     +new() Cube
   }
-  
+
   class Cylinder {
     <<struct>>
     -center
@@ -309,7 +331,7 @@ classDiagram
     -color
     +new() Cylinder
   }
-  
+
   class Plane {
     <<struct>>
     -position
@@ -527,7 +549,7 @@ title Scene::display()
       Image ->>- Color: Updates
     end
   end
-  
+
   Scene ->>+ Image: .write_ppm()
   destroy Color
   Image ->>- Color: writeln!()
@@ -551,6 +573,7 @@ $$
 $$
 
 Considering these coordonates as part of a vector, those `x,y,z` operations can be shortcut to a **difference** between the given position `P` and de sphere's center `C`:
+
 $$
 \large (\vec{P}_{(x, y, z)} - \vec{C}_{(x, y, z)})\cdot(\vec{P}_{(x, y, z)} - \vec{C}_{(x, y, z)}) = (x - C_x)^2 + (y - C_y)^2 + (z - C_z)^2 = r^2 \\[15pt]
 \Downarrow \\[15pt]
@@ -572,10 +595,12 @@ Finally, since $\large t$ is the only unknown, the `variable` so to say, and giv
 $$
 \\[25pt] \huge t = \frac{-b \pm \sqrt{b^2 - 4ac}}{2a} \\[-20pt]
 $$
+
 $\small Where:\\$
 $\small a = \vec{b}^2\\$
 $\small b = 2\vec{b} \cdot (\vec{A} - \vec{C})\\$
 $\small c = (\vec{A} - \vec{C}) \cdot (\vec{A} - \vec{C}) - r^2\\[15pt]$
+
 $$
 b = 2h: \\[15pt]
 \Downarrow \\[15pt]
@@ -598,12 +623,11 @@ The `discriminant` ($h^2 - ac$), helps to identify how many intersection points 
 
 ### [Cylinder](./src/geometry/objects/cylinder.rs)
 
-
 ### [Flat plane](./src/geometry/objects/plane.rs)
 
 ## Mechanism
 
-### Camera
+### [Camera](./src/camera/model.rs)
 
 <figure align=center>
     <img alt="rays_schemas" src="assets/img/rays_viewport_schema.png">
@@ -611,7 +635,7 @@ The `discriminant` ($h^2 - ac$), helps to identify how many intersection points 
     <figcaption>By <a href="//commons.wikimedia.org/w/index.php?title=User:Kamil_Kielczewski&amp;action=edit&amp;redlink=1" class="new" title="User:Kamil Kielczewski (page does not exist)">Kamil Kielczewski</a> - <span class="int-own-work" lang="en">Own work</span>, <a href="https://creativecommons.org/licenses/by-sa/4.0" title="Creative Commons Attribution-Share Alike 4.0">CC BY-SA 4.0</a>, <a href="https://commons.wikimedia.org/w/index.php?curid=76049175">Link</a></figcaption>
 </figure>
 
-### Ray
+### [Ray](./src/optics/ray.rs)
 
 <figure align=center>
     <img alt="rt_diagram" src="assets/img/ray_trace_diagram.svg">
@@ -640,7 +664,7 @@ The `discriminant` ($h^2 - ac$), helps to identify how many intersection points 
 
 [![YOUTUBE](https://img.shields.io/badge/YouTube-FF0000?style=for-the-badge&logo=youtube&logoColor=white)]()
 
-[![WIKI](https://shields.io/badge/Ray_tracing-Wikipedia-white)](https://en.wikipedia.org/wiki/Ray_tracing_(graphics))
+[![WIKI](https://shields.io/badge/Ray_tracing-Wikipedia-white)](<https://en.wikipedia.org/wiki/Ray_tracing_(graphics)>)
 
 ## License
 
