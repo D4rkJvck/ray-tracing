@@ -22,19 +22,19 @@ impl fmt::Display for Error {
     fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
         match self {
             Self::FileCreation(err) => {
-                writeln!(f, "File Creation Failure: {err}")
+                writeln!(f, "File Creation Failure: {err}.")
             }
             Self::FileWrite(err) => {
-                writeln!(f, "File Write Failure: {err}")
+                writeln!(f, "File Write Failure: {err}.")
             }
             Self::InvalidCamera(msg) => {
-                writeln!(f, "Invalid Camera: {msg}")
+                writeln!(f, "Invalid Camera: {msg}.")
             }
             Self::InvalidDimension(msg) => {
-                writeln!(f, "Invalid Dimensions: {msg}")
+                writeln!(f, "Invalid Dimensions: {msg}.")
             }
-            Self::InvalidScene(msg) => writeln!(f, "Invalid Scene: {msg}"),
-            Self::Custom(msg) => writeln!(f, "{msg}"),
+            Self::InvalidScene(msg) => writeln!(f, "Invalid Scene: {msg}."),
+            Self::Custom(msg) => writeln!(f, "Error: {msg}."),
         }
     }
 }

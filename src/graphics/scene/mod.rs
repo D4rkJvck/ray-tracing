@@ -57,7 +57,7 @@ impl Scene {
                     .target(Position::new(0., 0., -2.))
                     .vertical_field_of_view(120.)
                     .build()?;
-                
+
                 objects = vec![
                     Box::new(Cube::new(
                         Position::new(0., 0.75, -2.),

@@ -31,23 +31,6 @@ pub fn clamp(x: f64, min: f64, max: f64) -> f64 {
     }
 }
 
-pub fn get_scene_id() -> Result<u8> {
-    let mut input = String::new();
-
-    println!("Choose one of these scenes:");
-    println!("1. Scene with a sphere");
-    println!("2. Scene with a flat plane and a cube");
-    println!("3. Scene with one of each of all the objects");
-    println!("4. Scene 3 with the camera in another position");
-
-    io::stdin().read_line(&mut input)?;
-
-    Ok(input
-        .trim()
-        .parse()
-        .expect("Failed to parse the scene ID!"))
-}
-
 pub fn validate_params(
     focus_dist: f64,
     aperture: f64,

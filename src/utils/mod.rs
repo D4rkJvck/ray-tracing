@@ -5,9 +5,9 @@ mod functions;
 pub(super) use {
     constants::{
         ASPECT_RATIO,
+        BRIGHTNESS,
         MAX_DEPTH,
         RAYS_PER_PX,
-        BRIGHTNESS,
     },
     errors::Error,
     functions::{
@@ -25,5 +25,4 @@ pub use {
         IMAGE_WIDTH,
     },
     errors::Result,
-    functions::get_scene_id,
 };

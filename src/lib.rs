@@ -27,7 +27,6 @@ pub use {
     },
     std::io,
     utils::{
-        get_scene_id,
         Result,
         IMAGE_HEIGTH,
         IMAGE_WIDTH,
