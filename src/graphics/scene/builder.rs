@@ -1,11 +1,11 @@
 use {
     super::Scene,
     crate::{
+        graphics::Image,
         utils::{
             self,
         },
         Camera,
-        Image,
         Object,
     },
 };

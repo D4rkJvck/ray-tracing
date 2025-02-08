@@ -2,11 +2,12 @@ mod constants;
 mod errors;
 mod functions;
 
-pub(crate) use {
+pub(super) use {
     constants::{
         ASPECT_RATIO,
         MAX_DEPTH,
-        SAMPLES_PER_PX,
+        RAYS_PER_PX,
+        BRIGHTNESS,
     },
     errors::Error,
     functions::{

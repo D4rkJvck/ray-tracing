@@ -1,14 +1,14 @@
 use {
     super::builder::SceneBuilder,
     crate::{
+        graphics::Image,
         utils::{
             random_double,
             MAX_DEPTH,
-            SAMPLES_PER_PX,
+            RAYS_PER_PX,
         },
         Camera,
         Color,
-        Image,
         Object,
         Result,
         IMAGE_HEIGTH as height,
@@ -75,7 +75,7 @@ impl Scene {
             .map(|(row, col)| {
                 let mut px_color = Color::default();
 
-                for _ in 0..SAMPLES_PER_PX {
+                for _ in 0..RAYS_PER_PX {
                     let u = (*col as f64 + random_double())
                         / (width as f64 - 1.0);
                     let v = (*row as f64 + random_double())

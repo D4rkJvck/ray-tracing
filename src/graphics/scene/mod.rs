@@ -2,3 +2,172 @@ mod builder;
 mod model;
 
 pub use model::Scene;
+use {
+    super::Image,
+    crate::{
+        camera,
+        utils::Error,
+        Camera,
+        Color,
+        Cube,
+        Cylinder,
+        Direction,
+        Emissive,
+        Lambertian,
+        Metal,
+        Object,
+        Plane,
+        Position,
+        Result,
+        Sphere,
+        IMAGE_HEIGTH,
+        IMAGE_WIDTH,
+    },
+};
+
+impl Scene {
+    pub fn gen(id: u8) -> Result<Self> {
+        let mut camera = Camera::builder().build()?;
+        let mut objects: Vec<Box<dyn Object>> = Vec::new();
+
+        match id {
+            1 => {
+                objects = vec![
+                    Box::new(Sphere::new(
+                        Position::new(240., 0., 0.),
+                        100.,
+                        Box::new(Emissive::new(
+                            Color::new(1., 1., 1.),
+                            15.,
+                        )),
+                    )),
+                    Box::new(Sphere::new(
+                        Position::new(0., 1., -8.),
+                        1.,
+                        Box::new(Metal::new(
+                            Color::new(0.2, 0.2, 0.2),
+                            0.,
+                        )),
+                    )),
+                ]
+            }
+            2 => {
+                camera = Camera::builder()
+                    .origin(Position::new(2., 1., 0.))
+                    .target(Position::new(0., 0., -2.))
+                    .vertical_field_of_view(120.)
+                    .build()?;
+                
+                objects = vec![
+                    Box::new(Cube::new(
+                        Position::new(0., 0.75, -2.),
+                        1.5,
+                        Box::new(Lambertian::new(Color::new(0., 0., 1.))),
+                    )),
+                    Box::new(Plane::new(
+                        Position::new(0., 0., -120.),
+                        Position::new(0., 1., 0.),
+                        Box::new(Lambertian::new(Color::new(1., 0.5, 0.))),
+                    )),
+                ];
+            }
+            3 => {
+                camera = Camera::builder()
+                    .origin(Position::new(0., 4., 0.))
+                    .target(Position::new(0., 0., -8.))
+                    .vertical_field_of_view(60.)
+                    .build()?;
+
+                objects = vec![
+                    Box::new(Sphere::new(
+                        Position::new(0., 240., -240.),
+                        100.,
+                        Box::new(Emissive::new(
+                            Color::new(1., 1., 1.),
+                            15.,
+                        )),
+                    )),
+                    Box::new(Sphere::new(
+                        Position::new(0., 1., -8.),
+                        1.,
+                        Box::new(Metal::new(
+                            Color::new(0.2, 0.2, 0.2),
+                            0.,
+                        )),
+                    )),
+                    Box::new(Cylinder::new(
+                        Position::new(-3., 0., -8.),
+                        0.75,
+                        1.5,
+                        Direction::new(0., 1., 0.),
+                        Box::new(Metal::new(Color::new(0.5, 0., 0.), 1.)),
+                    )),
+                    Box::new(Cube::new(
+                        Position::new(3., 0.75, -8.),
+                        1.5,
+                        Box::new(Lambertian::new(Color::new(0., 0., 1.))),
+                    )),
+                    Box::new(Plane::new(
+                        Position::new(0., 0., -120.),
+                        Position::new(0., 1., 0.),
+                        Box::new(Lambertian::new(Color::new(1., 0.5, 0.))),
+                    )),
+                ];
+            }
+            4 => {
+                camera = Camera::builder()
+                    .origin(Position::new(2., 1., -16.))
+                    .target(Position::new(0., 0., -8.))
+                    .vertical_field_of_view(60.)
+                    .build()?;
+
+                objects = vec![
+                    Box::new(Sphere::new(
+                        Position::new(0., 240., -240.),
+                        100.,
+                        Box::new(Emissive::new(
+                            Color::new(1., 1., 1.),
+                            15.,
+                        )),
+                    )),
+                    Box::new(Sphere::new(
+                        Position::new(0., 1., -8.),
+                        1.,
+                        Box::new(Metal::new(
+                            Color::new(0.2, 0.2, 0.2),
+                            0.,
+                        )),
+                    )),
+                    Box::new(Cylinder::new(
+                        Position::new(-3., 0., -8.),
+                        0.75,
+                        1.5,
+                        Direction::new(0., 1., 0.),
+                        Box::new(Metal::new(Color::new(0.5, 0., 0.), 1.)),
+                    )),
+                    Box::new(Cube::new(
+                        Position::new(3., 0.75, -8.),
+                        1.5,
+                        Box::new(Lambertian::new(Color::new(0., 0., 1.))),
+                    )),
+                    Box::new(Plane::new(
+                        Position::new(0., 0., -120.),
+                        Position::new(0., 1., 0.),
+                        Box::new(Lambertian::new(Color::new(1., 0.5, 0.))),
+                    )),
+                ];
+            }
+            _ => {
+                return Err(Error::InvalidScene(
+                    "No scene corresponds to your choice",
+                ))
+            }
+        };
+
+        Self::builder()
+            .camera(camera)
+            .objects(objects)
+            .image_size(IMAGE_WIDTH, IMAGE_HEIGTH)
+            .build()
+    }
+}

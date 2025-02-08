@@ -5,7 +5,7 @@ use {
     },
     crate::utils::{
         clamp,
-        SAMPLES_PER_PX,
+        RAYS_PER_PX,
     },
     std::{
         fmt::{
@@ -28,7 +28,7 @@ impl Display for Color {
         let mut g = self.y();
         let mut b = self.z();
 
-        let scale = 1.0 / SAMPLES_PER_PX as f64;
+        let scale = 1.0 / RAYS_PER_PX as f64;
 
         r = f64::sqrt(scale * r);
         g = f64::sqrt(scale * g);

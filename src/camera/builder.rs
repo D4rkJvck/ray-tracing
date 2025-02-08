@@ -1,11 +1,13 @@
 use {
     super::Camera,
     crate::{
-        compute,
-        utils,
-        validate_params,
+        utils::{
+            compute,
+            validate_params,
+        },
         Direction,
         Position,
+        Result,
     },
 };
 
@@ -25,7 +27,7 @@ impl Default for CameraBuilder {
             target:     Position::new(0., 0., -1.),
             vup:        Direction::new(0., 1., 0.),
             vfov:       90.,
-            aperture:   0.1,
+            aperture:   0.,
             focus_dist: None,
         }
     }
@@ -64,7 +66,7 @@ impl CameraBuilder {
         self
     }
 
-    pub fn build(self) -> utils::Result<Camera> {
+    pub fn build(self) -> Result<Camera> {
         let focus_dist = self
             .focus_dist
             .unwrap_or_else(|| (self.origin - self.target).length());

@@ -3,12 +3,8 @@ mod geometry;
 mod graphics;
 mod material;
 mod optics;
-mod utils;
+pub(self) mod utils;
 
-pub(self) use utils::{
-    compute,
-    validate_params,
-};
 pub use {
     camera::Camera,
     geometry::{
@@ -22,10 +18,7 @@ pub use {
         Sphere,
         Vector,
     },
-    graphics::{
-        Image,
-        Scene,
-    },
+    graphics::Scene,
     material::{
         Dielectric,
         Emissive,

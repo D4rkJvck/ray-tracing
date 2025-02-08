@@ -1,10 +1,7 @@
 use {
     super::Impact,
     crate::{
-        Color,
-        Direction,
-        Object,
-        Position,
+        utils::BRIGHTNESS, Color, Direction, Object, Position
     },
     std::f64::INFINITY,
 };
@@ -101,11 +98,9 @@ impl Ray {
 
         let t = 0.5 * (self.direction.y() + 1.);
         let base_color = (1. - t) * Color::new(0.01, 0.01, 0.01)
-            + t * Color::new(0.005, 0.007, 0.02);
+            + t * Color::new(0.005, 0.007, 0.01);
 
-        // let light_factor = (1. - t) * 0.005;
-        base_color
-        // Color::default()
+        base_color * BRIGHTNESS
     }
 
     pub fn origin(&self) -> Position { self.origin }
