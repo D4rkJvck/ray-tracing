@@ -7,10 +7,18 @@ use {
     super::Position,
     crate::{
         material::Material,
-        optics::{Impact, Ray},
+        optics::{
+            Impact,
+            Ray,
+        },
     },
 };
-pub use {cube::Cube, cylinder::Cylinder, plane::Plane, sphere::Sphere};
+pub use {
+    cube::Cube,
+    cylinder::Cylinder,
+    plane::Plane,
+    sphere::Sphere,
+};
 
 pub trait Object: Send + Sync {
     fn material(&self) -> &dyn Material;

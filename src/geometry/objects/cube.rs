@@ -1,16 +1,28 @@
 use {
-    super::{Impact, Object},
-    crate::{material::Material, optics::Ray, Direction, Position},
+    super::{
+        Impact,
+        Object,
+    },
+    crate::{
+        material::Material,
+        optics::Ray,
+        Direction,
+        Position,
+    },
 };
 
 pub struct Cube {
-    center: Position,
-    size: f64,
+    center:   Position,
+    size:     f64,
     material: Box<dyn Material>,
 }
 
 impl Cube {
-    pub fn new(center: Position, size: f64, material: Box<dyn Material>) -> Self {
+    pub fn new(
+        center: Position,
+        size: f64,
+        material: Box<dyn Material>,
+    ) -> Self {
         Self {
             center,
             size,
@@ -27,7 +39,11 @@ impl Cube {
         }
     }
 
-    fn get_slab_intersection(&self, ray: &Ray, axis: usize) -> Option<(f64, f64)> {
+    fn get_slab_intersection(
+        &self,
+        ray: &Ray,
+        axis: usize,
+    ) -> Option<(f64, f64)> {
         let half_size = self.size / 2.0;
         let center_on_axis = self.get_axis_value(&self.center, axis);
         let min = center_on_axis - half_size;
@@ -40,7 +56,8 @@ impl Cube {
             // Ray is parallel to the slab
             return if origin < min || origin > max {
                 None
-            } else {
+            }
+            else {
                 Some((f64::NEG_INFINITY, f64::INFINITY))
             };
         }
@@ -57,13 +74,9 @@ impl Cube {
 }
 
 impl Object for Cube {
-    fn material(&self) -> &dyn Material {
-        self.material.as_ref()
-    }
+    fn material(&self) -> &dyn Material { self.material.as_ref() }
 
-    fn position(&self) -> Position {
-        self.center
-    }
+    fn position(&self) -> Position { self.center }
 
     fn hit(&self, ray: &Ray, t_min: f64, t_max: f64) -> Option<Impact> {
         let mut t_near = f64::NEG_INFINITY;
@@ -71,7 +84,8 @@ impl Object for Cube {
         let mut hit_axis = 0;
         let mut hit_is_max = false;
 
-        // Check intersections with the three pairs of parallel planes (slabs)
+        // Check intersections with the three pairs of parallel planes
+        // (slabs)
         for axis in 0..3 {
             if let Some((t1, t2)) = self.get_slab_intersection(ray, axis) {
                 if t1 > t_near {
@@ -90,7 +104,8 @@ impl Object for Cube {
                 if t_near > t_far || t_far < t_min || t_near > t_max {
                     return None;
                 }
-            } else {
+            }
+            else {
                 return None;
             }
         }
@@ -102,9 +117,21 @@ impl Object for Cube {
 
         // Create normal vector based on the hit face
         let normal = match hit_axis {
-            0 => Direction::new(if hit_is_max { 1.0 } else { -1.0 }, 0.0, 0.0),
-            1 => Direction::new(0.0, if hit_is_max { 1.0 } else { -1.0 }, 0.0),
-            2 => Direction::new(0.0, 0.0, if hit_is_max { 1.0 } else { -1.0 }),
+            0 => Direction::new(
+                if hit_is_max { 1.0 } else { -1.0 },
+                0.0,
+                0.0,
+            ),
+            1 => Direction::new(
+                0.0,
+                if hit_is_max { 1.0 } else { -1.0 },
+                0.0,
+            ),
+            2 => Direction::new(
+                0.0,
+                0.0,
+                if hit_is_max { 1.0 } else { -1.0 },
+            ),
             _ => unreachable!(),
         };
 

@@ -1,11 +1,11 @@
 Functional:
 
 Using the ray tracer construct any scene you want, including at least one of all objects. (this can take a while to render, so in the meantime you can skip the first two questions and answer the following ones)
-    ☐ Does the image correspond to the scene you created?
-    ☐ Is it possible for you to reduce the resolution of the output image?
+    ✔ Does the image correspond to the scene you created? @done(25-02-08 12:04)
+    ! Is it possible for you to reduce the resolution of the output image? @blocked(25-02-08 12:04)
 
 Move the camera and render the same scene.
-    ☐ Does the image correspond to the same scene, but from a different perspective?
+    ✔ Does the image correspond to the same scene, but from a different perspective? @done(25-02-08 12:05)
     ☐ Did the student provide 4 .ppm pictures?
     ☐ Does one of these images consist of a scene with a flat plane and a cube with lower brightness than in the sphere image?
     ☐ Does one of these images consist of a scene with a sphere?

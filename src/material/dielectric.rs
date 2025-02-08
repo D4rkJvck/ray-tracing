@@ -1,7 +1,10 @@
 use {
     super::Material,
     crate::{
-        optics::{Impact, Ray},
+        optics::{
+            Impact,
+            Ray,
+        },
         Color,
     },
 };
@@ -20,7 +23,8 @@ impl Material for Dielectric {
         // };
 
         let unit_direction = ray.direction().unit();
-        let refracted = unit_direction.refract(impact.surface_normal, self.refract_idx);
+        let refracted = unit_direction
+            .refract(impact.surface_normal, self.refract_idx);
         let scattered = Ray::new(impact.point, refracted);
 
         Some((Color::new(1., 1., 1.), scattered))
@@ -29,6 +33,8 @@ impl Material for Dielectric {
 
 impl Dielectric {
     pub fn new(refract_idx: f64) -> Self {
-        Self { refract_idx }
+        Self {
+            refract_idx,
+        }
     }
 }

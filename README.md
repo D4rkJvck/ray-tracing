@@ -109,7 +109,7 @@ tree --dirsfirst
       |       |       +-📜 model.rs
       |       |       +-📜 utils.rs
       |       |
-      |       +-📂 common/
+      |       +-📂 utils/
       |       |       |
       |       |       +-📜 constants.rs
       |       |       +-📜 error.rs
@@ -632,7 +632,7 @@ The `discriminant` ($h^2 - ac$), helps to identify how many intersection points 
 <figure align=center>
     <img alt="rays_schemas" src="assets/img/rays_viewport_schema.png">
     <br>
-    <figcaption>By <a href="//commons.wikimedia.org/w/index.php?title=User:Kamil_Kielczewski&amp;action=edit&amp;redlink=1" class="new" title="User:Kamil Kielczewski (page does not exist)">Kamil Kielczewski</a> - <span class="int-own-work" lang="en">Own work</span>, <a href="https://creativecommons.org/licenses/by-sa/4.0" title="Creative Commons Attribution-Share Alike 4.0">CC BY-SA 4.0</a>, <a href="https://commons.wikimedia.org/w/index.php?curid=76049175">Link</a></figcaption>
+    <figcaption>By <a href="//utilss.wikimedia.org/w/index.php?title=User:Kamil_Kielczewski&amp;action=edit&amp;redlink=1" class="new" title="User:Kamil Kielczewski (page does not exist)">Kamil Kielczewski</a> - <span class="int-own-work" lang="en">Own work</span>, <a href="https://creativeutilss.org/licenses/by-sa/4.0" title="Creative utilss Attribution-Share Alike 4.0">CC BY-SA 4.0</a>, <a href="https://utilss.wikimedia.org/w/index.php?curid=76049175">Link</a></figcaption>
 </figure>
 
 ### [Ray](./src/optics/ray.rs)
@@ -640,7 +640,7 @@ The `discriminant` ($h^2 - ac$), helps to identify how many intersection points 
 <figure align=center>
     <img alt="rt_diagram" src="assets/img/ray_trace_diagram.svg">
     <br>
-    <figcaption>By <a href="//commons.wikimedia.org/wiki/User:Henrik" title="User:Henrik">Henrik</a> - <span class="int-own-work" lang="en">Own work</span>, <a href="https://creativecommons.org/licenses/by-sa/4.0" title="Creative Commons Attribution-Share Alike 4.0">CC BY-SA 4.0</a>, <a href="https://commons.wikimedia.org/w/index.php?curid=3869326">Link</a></figcaption>
+    <figcaption>By <a href="//utilss.wikimedia.org/wiki/User:Henrik" title="User:Henrik">Henrik</a> - <span class="int-own-work" lang="en">Own work</span>, <a href="https://creativeutilss.org/licenses/by-sa/4.0" title="Creative utilss Attribution-Share Alike 4.0">CC BY-SA 4.0</a>, <a href="https://utilss.wikimedia.org/w/index.php?curid=3869326">Link</a></figcaption>
 </figure>
 
 ## Contributors

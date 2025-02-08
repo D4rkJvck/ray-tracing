@@ -1,18 +1,29 @@
 use {
-    crate::{common::Error, Color, Result},
-    std::io::Write,
+    crate::{
+        utils::{
+            self,
+            Error,
+        },
+        Color,
+    },
+    std::io::{
+        self,
+        Write,
+    },
 };
 
 pub struct Image {
-    width: usize,
-    height: usize,
+    width:     usize,
+    height:    usize,
     px_colors: Vec<Vec<Color>>,
 }
 
 impl Image {
-    pub fn new(width: usize, height: usize) -> Result<Self> {
+    pub fn new(width: usize, height: usize) -> utils::Result<Self> {
         if width == 0 || height == 0 {
-            return Err(Error::InvalidDimension("Dimensions must be greater than 0"));
+            return Err(Error::InvalidDimension(
+                "Dimensions must be greater than 0",
+            ));
         }
 
         let px_colors = vec![vec![Color::default(); width]; height];
@@ -33,11 +44,20 @@ impl Image {
     /// This function is responsible for generating the image file
     /// in `.ppm` format in the `scenes/` directory from the renderer's
     /// implementation's result.
-    pub fn write_ppm(&self, output_file: String) -> Result<()> {
+    pub fn write_ppm(&self, output_file: String) -> io::Result<()> {
         let mut file = std::fs::File::create(output_file)?;
-        writeln!(&mut file, "P3\n{} {}\n255", self.width, self.height)?;
+        writeln!(
+            &mut file,
+            "P3\n{} {}\n255",
+            self.width, self.height
+        )?;
 
-        for color in self.px_colors.iter().rev().flat_map(|row| row.iter()) {
+        for color in self
+            .px_colors
+            .iter()
+            .rev()
+            .flat_map(|row| row.iter())
+        {
             writeln!(&mut file, "{color}")?
         }
 

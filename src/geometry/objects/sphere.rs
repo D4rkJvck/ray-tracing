@@ -2,19 +2,26 @@ use {
     super::Object,
     crate::{
         material::Material,
-        optics::{Impact, Ray},
+        optics::{
+            Impact,
+            Ray,
+        },
         Position,
     },
 };
 
 pub struct Sphere {
-    center: Position,
-    radius: f64,
+    center:   Position,
+    radius:   f64,
     material: Box<dyn Material>,
 }
 
 impl Sphere {
-    pub fn new(center: Position, radius: f64, material: Box<dyn Material>) -> Self {
+    pub fn new(
+        center: Position,
+        radius: f64,
+        material: Box<dyn Material>,
+    ) -> Self {
         Self {
             center,
             radius,
@@ -24,13 +31,9 @@ impl Sphere {
 }
 
 impl Object for Sphere {
-    fn material(&self) -> &dyn Material {
-        self.material.as_ref()
-    }
+    fn material(&self) -> &dyn Material { self.material.as_ref() }
 
-    fn position(&self) -> Position {
-        self.center
-    }
+    fn position(&self) -> Position { self.center }
 
     fn hit(&self, ray: &Ray, t_min: f64, t_max: f64) -> Option<Impact> {
         let direction = ray.direction();

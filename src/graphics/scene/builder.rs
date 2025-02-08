@@ -1,22 +1,29 @@
 use {
     super::Scene,
-    crate::{common::Error, Camera, Image, Object, Result},
+    crate::{
+        utils::{
+            self,
+        },
+        Camera,
+        Image,
+        Object,
+    },
 };
 
 pub struct SceneBuilder {
-    id: u8,
-    camera: Option<Camera>,
+    id:       u8,
+    camera:   Option<Camera>,
     img_size: (i32, i32),
-    objects: Vec<Box<dyn Object>>,
+    objects:  Vec<Box<dyn Object>>,
 }
 
 impl Default for SceneBuilder {
     fn default() -> Self {
         Self {
-            id: 0,
-            camera: None,
+            id:       0,
+            camera:   None,
             img_size: (0, 0),
-            objects: vec![],
+            objects:  vec![],
         }
     }
 }
@@ -48,19 +55,17 @@ impl SceneBuilder {
         self
     }
 
-    fn width(&self) -> usize {
-        self.img_size.0 as usize
-    }
+    fn width(&self) -> usize { self.img_size.0 as usize }
 
-    fn height(&self) -> usize {
-        self.img_size.1 as usize
-    }
+    fn height(&self) -> usize { self.img_size.1 as usize }
 
-    pub fn build(self) -> Result<Scene> {
+    pub fn build(self) -> utils::Result<Scene> {
         let image = Image::new(self.width(), self.height())?;
 
         if self.camera.is_none() {
-            return Err(Error::InvalidScene("Missing camera"));
+            return Err(utils::Error::InvalidScene(
+                "Missing camera",
+            ));
         };
 
         Ok(Scene::new(

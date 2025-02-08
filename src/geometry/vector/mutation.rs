@@ -1,9 +1,24 @@
 use {
-    super::{Color, Vector},
-    crate::common::{clamp, SAMPLES_PER_PX},
+    super::{
+        Color,
+        Vector,
+    },
+    crate::utils::{
+        clamp,
+        SAMPLES_PER_PX,
+    },
     std::{
-        fmt::{Display, Formatter, Result},
-        ops::{AddAssign, DivAssign, MulAssign, Neg},
+        fmt::{
+            Display,
+            Formatter,
+            Result,
+        },
+        ops::{
+            AddAssign,
+            DivAssign,
+            MulAssign,
+            Neg,
+        },
     },
 };
 
@@ -38,19 +53,13 @@ impl Neg for Vector {
 }
 
 impl AddAssign for Vector {
-    fn add_assign(&mut self, other: Self) {
-        *self = *self + other;
-    }
+    fn add_assign(&mut self, other: Self) { *self = *self + other; }
 }
 
 impl MulAssign<f64> for Vector {
-    fn mul_assign(&mut self, t: f64) {
-        *self = *self * t;
-    }
+    fn mul_assign(&mut self, t: f64) { *self = *self * t; }
 }
 
 impl DivAssign<f64> for Vector {
-    fn div_assign(&mut self, t: f64) {
-        *self = *self / t;
-    }
+    fn div_assign(&mut self, t: f64) { *self = *self / t; }
 }

@@ -1,4 +1,9 @@
-use std::{error, fmt, io, result, sync::PoisonError};
+use std::{
+    error,
+    fmt,
+    io,
+    result,
+};
 
 #[derive(Debug)]
 pub enum Error {
@@ -10,6 +15,7 @@ pub enum Error {
     Custom(&'static str),
 }
 
+/// Custom Result for this specific project.
 pub type Result<T> = result::Result<T, Error>;
 
 impl fmt::Display for Error {
@@ -51,11 +57,5 @@ impl From<io::Error> for Error {
             | io::ErrorKind::PermissionDenied => Self::FileCreation(err),
             _ => Self::FileWrite(err),
         }
-    }
-}
-
-impl<T> From<PoisonError<T>> for Error {
-    fn from(value: PoisonError<T>) -> Self {
-        Self::Custom("Mutex lock was poisoned!")
     }
 }
