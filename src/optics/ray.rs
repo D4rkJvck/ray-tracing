@@ -33,7 +33,7 @@ impl Ray {
         let surface_normal =
             if cos_angle < 0. { outward } else { -outward };
 
-        let mut impact = Impact::new(point, surface_normal, t, true);
+        let mut impact = Impact::new(point, surface_normal, true);
         impact.set_face_normal(self.direction(), outward);
         impact
     }

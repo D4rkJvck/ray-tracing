@@ -6,6 +6,7 @@ use {
         Color,
         Cube,
         Cylinder,
+        Dielectric,
         Direction,
         Emissive,
         Lambertian,
@@ -73,7 +74,7 @@ impl Scene {
 
                 objects.extend([
                     Box::new(Sphere::new(
-                        Position::new(0., 20., -40.),
+                        Position::new(0., 24., -48.),
                         10.,
                         Box::new(Emissive::new(
                             Color::new(1., 1., 1.),
@@ -83,17 +84,17 @@ impl Scene {
                     Box::new(Sphere::new(
                         Position::new(0., 1., -8.),
                         1.,
-                        Box::new(Metal::new(
-                            Color::new(0.2, 0.2, 0.2),
-                            0.,
-                        )),
+                        Box::new(Dielectric::new(2.4)),
                     )),
                     Box::new(Cylinder::new(
                         Position::new(-3., 0., -8.),
                         0.75,
                         1.5,
                         Direction::new(0., 1., 0.),
-                        Box::new(Metal::new(Color::new(0.5, 0., 0.), 1.)),
+                        Box::new(Metal::new(
+                            Color::new(0.2, 0.2, 0.2),
+                            0.,
+                        )),
                     )),
                     Box::new(Cube::new(
                         Position::new(3., 0.75, -8.),

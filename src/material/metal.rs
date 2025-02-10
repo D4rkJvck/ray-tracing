@@ -20,10 +20,10 @@ impl Material for Metal {
         let reflected = ray
             .direction()
             .unit()
-            .reflect(impact.surface_normal);
+            .reflect(impact.surface_normal());
 
         let scattered = Ray::new(
-            impact.point,
+            impact.point(),
             reflected + self.fuzz * Direction::random_unit(),
         );
 

@@ -26,5 +26,15 @@ pub trait Material: Send + Sync {
     ) -> Option<(Color, Ray)> {
         None
     }
+    //--------------------------------------------------------
+    fn reflectance(cosine: f64, ref_idx: f64) -> f64
+    where
+        Self: Sized,
+    {
+        let mut r0 = (1. - ref_idx) / (1. + ref_idx);
+        r0 = r0 * r0;
+        r0 + (1. - r0) * f64::powf(1. - cosine, 5.)
+    }
+    //--------------------------------------------------------
     fn emit(&self) -> Color { Color::default() }
 }

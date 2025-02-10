@@ -13,7 +13,6 @@ pub(super) use {
     functions::{
         clamp,
         compute,
-        degrees_to_radians,
         random_double,
         random_double_range,
         validate_params,

@@ -21,13 +21,13 @@ impl Material for Lambertian {
         impact: &Impact,
     ) -> Option<(Color, Ray)> {
         let mut scatter_direction =
-            impact.surface_normal + Direction::random_unit();
+            impact.surface_normal() + Direction::random_unit();
 
         if scatter_direction.near_0() {
-            scatter_direction = impact.surface_normal
+            scatter_direction = impact.surface_normal()
         }
 
-        let scattered = Ray::new(impact.point, scatter_direction);
+        let scattered = Ray::new(impact.point(), scatter_direction);
 
         Some((self.albedo, scattered))
     }
