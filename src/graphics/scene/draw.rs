@@ -1,5 +1,5 @@
 use {
-    super::builder::SceneBuilder,
+    super::Scene,
     crate::{
         graphics::Image,
         utils::{
@@ -7,9 +7,7 @@ use {
             MAX_DEPTH,
             RAYS_PER_PX,
         },
-        Camera,
         Color,
-        Object,
         Result,
         IMAGE_HEIGTH as height,
         IMAGE_WIDTH as width,
@@ -25,31 +23,10 @@ use {
     },
 };
 
-pub struct Scene {
-    id:      u8,
-    camera:  Camera,
-    objects: Vec<Box<dyn Object>>,
-    image:   Image,
-}
+//------------------------------------------------------------------------------------------------------------------------------------------------
 
 impl Scene {
-    pub(super) fn new(
-        id: u8,
-        camera: Camera,
-        objects: Vec<Box<dyn Object>>,
-        image: Image,
-    ) -> Self {
-        Self {
-            id,
-            camera,
-            objects,
-            image,
-        }
-    }
-
-    pub fn builder() -> SceneBuilder { SceneBuilder::default() }
-
-    pub fn display(&mut self) -> Result<()> {
+    pub fn draw(&mut self) -> Result<()> {
         let total_px = (width * height) as u64;
         let progress_bar = ProgressBar::new(total_px);
         let style_tmpl = format!(
@@ -89,16 +66,15 @@ impl Scene {
             })
             .collect();
 
-        // Write the results to the image
+        let mut image = Image::new(width as usize, height as usize)?;
         for (row, col, color) in colors {
-            self.image
-                .set_px_color(row, col, color);
+            image.set_px_color(row, col, color);
         }
 
         progress_bar
             .finish_with_message(format!("Scene {} generated", self.id));
 
-        self.image.write_ppm(format!(
+        image.write_ppm(format!(
             "assets/scenes/00{}.ppm",
             self.id
         ))?;

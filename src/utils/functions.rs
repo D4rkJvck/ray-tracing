@@ -9,12 +9,12 @@ use {
         Position,
     },
     rand::Rng,
-    std::{
-        f64::consts::PI,
-        io,
-    },
+    std::f64::consts::PI,
 };
 
+//------------------------------------------------------------------------------------------------------------------------------------------------
+
+/// Use for Dielectric Material's implementation...
 pub fn degrees_to_radians(degrees: f64) -> f64 { degrees * PI / 180.0 }
 
 pub fn random_double() -> f64 { rand::rng().random() }
@@ -31,6 +31,9 @@ pub fn clamp(x: f64, min: f64, max: f64) -> f64 {
     }
 }
 
+/// 1. Checks that the focus distance is a positive number.
+/// 2. Checks that the aperture is not a negative number.
+/// 3. Makes sure the vertical field of view is within 0 and 180 degrees.
 pub fn validate_params(
     focus_dist: f64,
     aperture: f64,
@@ -57,6 +60,23 @@ pub fn validate_params(
     Ok(())
 }
 
+/// 1. Viewport: it converts the vertical field of view into radians, then
+///    retrieves the viewport's half-height from the vertical field of
+///    view, and finally gets the viewport dimensions using its half-height
+///    and the aspect ratio constant.
+///
+/// 2. Coordinate Sytem: it gets the forward direction from the origin and
+///    target of the camera. It then retrieves the right direction from the
+///    unit of the forward direction and the view up crossing. Finally by
+///    crossing the forward and the right direction, it gets the up
+///    direction.
+///
+/// 3. Viewing Frustum: it matches the viewport's width and height to the
+///    right and up direction coordinate system respectively through the
+///    focal distance. Then it gets the bottom-leftmost point from the
+///    camera's origin, its horizontal and vertical match to the viewport's
+///    dimensions, its focal distance and forward direction. And finally it
+///    gets the lens radius from the given aperture.
 pub fn compute(
     origin: Position,
     target: Position,
@@ -73,29 +93,31 @@ pub fn compute(
     Direction,
     f64,
 ) {
+    // Viewport Dimensions
     let theta = degrees_to_radians(vfov);
-    let h = f64::tan(theta / 2.);
-    let viewport_height = h * 2.;
+    let half_height = f64::tan(theta / 2.);
+    let viewport_height = half_height * 2.;
     let viewport_width = viewport_height * ASPECT_RATIO;
 
-    let w = (origin - target).unit();
-    let u = vup.cross(w).unit();
-    let v = w.cross(u);
+    // Coordinate System basic Vectors
+    let forward = (origin - target).unit();
+    let right = vup.cross(forward).unit();
+    let up = forward.cross(right);
 
-    let horizontal = focus_dist * viewport_width * u;
-    let vertical = focus_dist * viewport_height * v;
-    let bottom_leftmost =
-        origin - horizontal / 2. - vertical / 2. - focus_dist * w;
-
+    // Viewing Frustum
+    let horizontal = focus_dist * viewport_width * right;
+    let vertical = focus_dist * viewport_height * up;
+    let bottom_left_corner =
+        origin - horizontal / 2. - vertical / 2. - focus_dist * forward;
     let lens_radius = aperture / 2.;
 
     (
         origin,
         horizontal,
         vertical,
-        bottom_leftmost,
-        u,
-        v,
+        bottom_left_corner,
+        right,
+        up,
         lens_radius,
     )
 }

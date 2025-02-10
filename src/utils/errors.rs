@@ -33,7 +33,9 @@ impl fmt::Display for Error {
             Self::InvalidDimension(msg) => {
                 writeln!(f, "Invalid Dimensions: {msg}.")
             }
-            Self::InvalidScene(msg) => writeln!(f, "Invalid Scene: {msg}."),
+            Self::InvalidScene(msg) => {
+                writeln!(f, "Invalid Scene: {msg}.")
+            }
             Self::Custom(msg) => writeln!(f, "Error: {msg}."),
         }
     }

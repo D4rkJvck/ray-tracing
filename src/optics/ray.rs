@@ -1,7 +1,11 @@
 use {
     super::Impact,
     crate::{
-        utils::BRIGHTNESS, Color, Direction, Object, Position
+        utils::BRIGHTNESS,
+        Color,
+        Direction,
+        Object,
+        Position,
     },
     std::f64::INFINITY,
 };
@@ -42,37 +46,6 @@ impl Ray {
         if max_depth <= 0 {
             return Color::default();
         }
-
-        // let ambient_light: Color = objects
-        //     .iter()
-        //     .filter_map(|obj| {
-        //         let emission = obj.material().emit();
-        //         if emission == Color::default() {
-        //             None
-        //         }
-        //         else {
-        //             let dir_to_light =
-        //                 (obj.position() - self.origin).unit();
-        //             let light_factor = self
-        //                 .direction
-        //                 .dot(dir_to_light)
-        //                 .max(1.);
-        //             Some(emission * light_factor * 0.01)
-        //         }
-        //     })
-        //     .fold(Color::default(), |acc, light| {
-        //         acc + light
-        //     });
-        //
-        //
-        //
-
-        // let total_emission = objects
-        //     .iter()
-        //     .map(|obj| obj.material().emit())
-        //     .fold(Color::default(), |acc, emission| {
-        //         acc + emission
-        //     });
 
         for object in objects {
             if let Some(impact) = object.hit(self, 0.001, INFINITY) {

@@ -8,13 +8,13 @@ use {
 };
 
 pub struct Camera {
-    origin:          Position,
-    horizontal:      Direction,
-    vertical:        Direction,
-    bottom_leftmost: Position,
-    u:               Direction,
-    v:               Direction,
-    lens_radius:     f64,
+    origin:             Position,
+    horizontal:         Direction,
+    vertical:           Direction,
+    bottom_left_corner: Position,
+    u:                  Direction,
+    v:                  Direction,
+    lens_radius:        f64,
 }
 
 impl Camera {
@@ -30,13 +30,13 @@ impl Camera {
         ),
     ) -> Self {
         Self {
-            origin:          params.0,
-            horizontal:      params.1,
-            vertical:        params.2,
-            bottom_leftmost: params.3,
-            u:               params.4,
-            v:               params.5,
-            lens_radius:     params.6,
+            origin:             params.0,
+            horizontal:         params.1,
+            vertical:           params.2,
+            bottom_left_corner: params.3,
+            u:                  params.4,
+            v:                  params.5,
+            lens_radius:        params.6,
         }
     }
 
@@ -48,7 +48,9 @@ impl Camera {
 
         Ray::new(
             self.origin + offset,
-            self.bottom_leftmost + s * self.horizontal + t * self.vertical
+            self.bottom_left_corner
+                + s * self.horizontal
+                + t * self.vertical
                 - self.origin
                 - offset,
         )

@@ -5,7 +5,7 @@ mod material;
 mod optics;
 pub(self) mod utils;
 
-pub use {
+pub(self) use {
     camera::Camera,
     geometry::{
         Color,
@@ -16,19 +16,20 @@ pub use {
         Plane,
         Position,
         Sphere,
-        Vector,
     },
-    graphics::Scene,
     material::{
         Dielectric,
         Emissive,
         Lambertian,
         Metal,
     },
-    std::io,
     utils::{
-        Result,
         IMAGE_HEIGTH,
         IMAGE_WIDTH,
     },
+};
+pub use {
+    geometry::Vector,
+    graphics::Scene,
+    utils::Result,
 };

@@ -648,13 +648,13 @@ The `discriminant` ($h^2 - ac$), helps to identify how many intersection points 
 ### Authors
 
 [![ndiediop](https://shields.io/badge/Author-ndiediop-magenta)](http://learn.zone01dakar.sn/git/ndiediop)
-[![npouille](https://shields.io/badge/Author-npouille-magenta)](http://learn.zone01dakar.sn/git/npouille)
 [![papebsow](https://shields.io/badge/Author-papebsow-cyan)](http://learn.zone01dakar.sn/git/papebsow)
 [![jefaye](https://shields.io/badge/Author-jefaye-cyan)](http://learn.zone01dakar.sn/git/jefaye)
 
 ### Peers
 
 [![jgoudiab](https://shields.io/badge/Zone01-jgoudiab-blue)](http://learn.zone01dakar.sn/git/jgoudiab)
+[![eibounda](https://shields.io/badge/Zone01-eibounda-blue)](http://learn.zone01dakar.sn/git/eibounda)
 
 ### Testers
 
@@ -663,8 +663,8 @@ The `discriminant` ($h^2 - ac$), helps to identify how many intersection points 
 ## Sources
 
 [![YOUTUBE](https://img.shields.io/badge/YouTube-FF0000?style=for-the-badge&logo=youtube&logoColor=white)]()
-
 [![WIKI](https://shields.io/badge/Ray_tracing-Wikipedia-white)](<https://en.wikipedia.org/wiki/Ray_tracing_(graphics)>)
+[![The Ray Tracing Road to Rust](https://img.shields.io/badge/Vercel-000000?style=for-the-badge&logo=vercel&logoColor=white)](https://the-ray-tracing-road-to-rust.vercel.app/)
 
 ## License
 

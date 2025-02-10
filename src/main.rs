@@ -1,30 +1,35 @@
-use rt::*;
+use {
+    rt::*,
+    std::io,
+};
 
+/// Promps the user to choose a scene by typing a ID corresponding
+/// to a scene and Display the scene on
 fn main() -> Result<()> {
     let mut input = String::new();
-
+    println!("RAY TRACING\n");
     println!("Choose one of these scenes:");
-    println!("1. Scene with a sphere");
-    println!("2. Scene with a flat plane and a cube");
-    println!("3. Scene with one of each of all the objects");
-    println!("4. Scene 3 with the camera in another position");
+    println!("Scene 1: 1 sphere");
+    println!("Scene 2: 1 flat plane + 1 cube");
+    println!("Scene 3: 1 flat plane + 1 cylinder + 1 cube + 1 sphere");
+    println!("Scene 4: scene 3 with the camera in another position\n");
 
     loop {
         io::stdin().read_line(&mut input)?;
 
         match input.trim().parse() {
-            Err(_) => {
-                println!("Please choose a valid integer!");
+            Err(e) => {
+                eprintln!("{e}\nPlease choose a valid integer!");
                 input.clear();
                 continue;
             }
             Ok(id) => match Scene::gen(id) {
                 Err(e) => {
-                    println!("{e}Try again");
+                    eprintln!("{e}Try again");
                     input.clear();
                     continue;
                 }
-                Ok(mut scene) => return scene.display(),
+                Ok(mut scene) => return scene.draw(),
             },
         };
     }

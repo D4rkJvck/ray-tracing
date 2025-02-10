@@ -44,7 +44,7 @@ impl CameraBuilder {
         self
     }
 
-    pub fn view_up(mut self, up: Direction) -> Self {
+    pub fn _view_up(mut self, up: Direction) -> Self {
         self.vup = up;
         self
     }
@@ -56,12 +56,12 @@ impl CameraBuilder {
 
     /// Hole to control how big the lens is effectively.
     /// The bigger the aperture, the more defocus blur we get.
-    pub fn aperture(mut self, aperture: f64) -> Self {
+    pub fn _aperture(mut self, aperture: f64) -> Self {
         self.aperture = aperture;
         self
     }
 
-    pub fn focus_distance(mut self, distance: f64) -> Self {
+    pub fn _focus_distance(mut self, distance: f64) -> Self {
         self.focus_dist = Some(distance);
         self
     }
