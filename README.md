@@ -620,8 +620,62 @@ The `discriminant` ($h^2 - ac$), helps to identify how many intersection points 
 - `discriminant < 0`: There are no intersection points. This means the ray does not intersect the sphere at all.
 
 ### [Cube](./src/geometry/objects/cube.rs)
+The cube is defined by its center point and size (edge length). A point lies on the cube if it satisfies the condition that its distance from the center along any axis is equal to half the size. This can be expressed as a set of inequalities for each axis:
+$$
+|x - C_x| \leq \frac{s}{2} \quad \text{and} \quad |y - C_y| \leq \frac{s}{2} \quad \text{and} \quad |z - C_z| \leq \frac{s}{2}
+$$
+Where:
+
+$(C_x, C_y, C_z)$ is the center of the cube
+$s$ is the size (edge length) of the cube
+
+To find intersections with a ray $P(t) = A + t\vec{b}$, we use the "slab method". This involves:
+
+Considering the cube as the intersection of three pairs of parallel planes (slabs)
+Finding the intersection points with each slab
+Taking the largest entry point ($t_{near}$) and smallest exit point ($t_{far}$)
+
+For each axis, the intersection times $t_1$ and $t_2$ with the corresponding slab are:
+$$
+t_1 = \frac{(C_i - \frac{s}{2}) - A_i}{b_i} \quad \text{and} \quad t_2 = \frac{(C_i + \frac{s}{2}) - A_i}{b_i}
+$$
+Where $i$ represents each axis $(x, y, z)$.
+The final intersection occurs if and only if:
+$$
+\max(t_{near}) \leq \min(t_{far})
+$$
 
 ### [Cylinder](./src/geometry/objects/cylinder.rs)
+
+A cylinder is defined by its center point, radius, height, and orientation vector. The intersection with a cylinder involves checking both its curved surface and its caps. A point lies on the cylinder if it satisfies either:
+
+For the curved surface: The distance from the point to the cylinder's axis equals the radius, and the point's height along the orientation vector is between 0 and the cylinder's height.
+For the caps: The point lies within the radius of either the top or bottom circular cap.
+
+For the curved surface, given a point $P$, we can express these conditions mathematically:
+$$
+\text{Let } \vec{v} = \vec{P} - \vec{C} \text{ (vector from center to point)}
+$$
+$$
+\text{Let } h = \vec{v} \cdot \hat{d} \text{ (height along orientation vector } \hat{d}\text{)}
+$$
+$$
+\text{Let } \vec{r} = \vec{v} - h\hat{d} \text{ (radius vector)}
+$$
+Then the point lies on the curved surface if:
+$$
+\vec{r} \cdot \vec{r} = R^2 \quad \text{and} \quad 0 \leq h \leq H
+$$
+For a ray $P(t) = A + t\vec{b}$, substituting and solving leads to a quadratic equation:
+$$
+((\vec{b} \cdot \vec{b}) - (\vec{b} \cdot \hat{d})^2)t^2 + 2(\vec{b} \cdot \vec{w} - (\vec{b} \cdot \hat{d})(\vec{w} \cdot \hat{d}))t + (\vec{w} \cdot \vec{w} - (\vec{w} \cdot \hat{d})^2 - R^2) = 0
+$$
+Where $\vec{w} = A - C$
+For the caps, we check intersection with two planes at heights 0 and H, then verify if the intersection point lies within the radius:
+$$
+t = \frac{(C + h\hat{d} - A) \cdot \hat{d}}{\vec{b} \cdot \hat{d}}
+$$
+Where $h$ is either 0 or H for bottom and top caps respectively.
 
 ### [Flat plane](./src/geometry/objects/plane.rs)
 
@@ -648,13 +702,13 @@ The `discriminant` ($h^2 - ac$), helps to identify how many intersection points 
 ### Authors
 
 [![ndiediop](https://shields.io/badge/Author-ndiediop-magenta)](http://learn.zone01dakar.sn/git/ndiediop)
+[![npouille](https://shields.io/badge/Author-npouille-magenta)](http://learn.zone01dakar.sn/git/npouille)
 [![papebsow](https://shields.io/badge/Author-papebsow-cyan)](http://learn.zone01dakar.sn/git/papebsow)
 [![jefaye](https://shields.io/badge/Author-jefaye-cyan)](http://learn.zone01dakar.sn/git/jefaye)
 
 ### Peers
 
 [![jgoudiab](https://shields.io/badge/Zone01-jgoudiab-blue)](http://learn.zone01dakar.sn/git/jgoudiab)
-[![eibounda](https://shields.io/badge/Zone01-eibounda-blue)](http://learn.zone01dakar.sn/git/eibounda)
 
 ### Testers
 
@@ -663,8 +717,8 @@ The `discriminant` ($h^2 - ac$), helps to identify how many intersection points 
 ## Sources
 
 [![YOUTUBE](https://img.shields.io/badge/YouTube-FF0000?style=for-the-badge&logo=youtube&logoColor=white)]()
+
 [![WIKI](https://shields.io/badge/Ray_tracing-Wikipedia-white)](<https://en.wikipedia.org/wiki/Ray_tracing_(graphics)>)
-[![The Ray Tracing Road to Rust](https://img.shields.io/badge/Vercel-000000?style=for-the-badge&logo=vercel&logoColor=white)](https://the-ray-tracing-road-to-rust.vercel.app/)
 
 ## License
 
