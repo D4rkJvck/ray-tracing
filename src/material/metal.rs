@@ -33,9 +33,11 @@ impl Material for Metal {
 
 impl Metal {
     pub fn new(albedo: Color, f: f64) -> Self {
+        let fuzz = if f < 1. { f } else { 1. };
+
         Self {
             albedo,
-            fuzz: if f < 1. { f } else { 1. },
+            fuzz,
         }
     }
 }

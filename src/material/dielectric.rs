@@ -11,6 +11,7 @@ use {
 };
 
 pub struct Dielectric {
+    albedo:      Color,
     refract_idx: f64,
 }
 
@@ -44,13 +45,14 @@ impl Material for Dielectric {
 
         let scattered = Ray::new(impact.point(), direction);
 
-        Some((Color::new(1., 1., 1.), scattered))
+        Some((self.albedo, scattered))
     }
 }
 
 impl Dielectric {
-    pub fn new(refract_idx: f64) -> Self {
+    pub fn new(albedo: Color, refract_idx: f64) -> Self {
         Self {
+            albedo,
             refract_idx,
         }
     }

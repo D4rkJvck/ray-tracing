@@ -24,4 +24,5 @@ pub use {
         IMAGE_WIDTH,
     },
     errors::Result,
+    functions::welcome,
 };

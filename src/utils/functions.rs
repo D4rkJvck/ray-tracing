@@ -16,6 +16,15 @@ use {
 
 fn degrees_to_radians(degrees: f64) -> f64 { degrees * PI / 180.0 }
 
+pub fn welcome() {
+    println!("\nRAY TRACING\n");
+    println!("Choose one of these scenes:");
+    println!("Scene 1: 1 sphere");
+    println!("Scene 2: 1 flat plane + 1 cube");
+    println!("Scene 3: 1 flat plane + 1 cylinder + 1 cube + 1 sphere");
+    println!("Scene 4: scene 3 with the camera in another position\n");
+}
+
 pub fn random_double() -> f64 { rand::rng().random() }
 
 pub fn random_double_range(min: f64, max: f64) -> f64 {

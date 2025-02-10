@@ -186,7 +186,7 @@ architecture-beta
         group assets(disk)[Assets] in rt
             service output(logos:google-keep)[Output] in assets
 
-    
+
 ```
 
 ```mermaid
@@ -539,46 +539,46 @@ cargo run > assets/output.ppm
 First of all, the condition for a given point to be considered as being on the sphere is to have its **coordonates' absolute value** `equal` to the sphere's **radius**, better illustrated with the equation: $x^2 + y^2 + z^2 = R^2$. Given the center of the sphere the equation, that specific point's coordonates will be the difference between its **coordonates** and the sphere's **center** `C`:
 
 $$
-\\[25pt] \huge (x - C_x)^2 + (y - C_y)^2 + (z - C_z)^2 = r^2 \\[50pt]
+(x - C_x)^2 + (y - C_y)^2 + (z - C_z)^2 = r^2
 $$
 
 Considering these coordonates as part of a vector, those `x,y,z` operations can be shortcut to a **difference** between the given position `P` and de sphere's center `C`:
 
 $$
-\large (\vec{P}_{(x, y, z)} - \vec{C}_{(x, y, z)})\cdot(\vec{P}_{(x, y, z)} - \vec{C}_{(x, y, z)}) = (x - C_x)^2 + (y - C_y)^2 + (z - C_z)^2 = r^2 \\[15pt]
-\Downarrow \\[15pt]
-\huge (\vec{P} - \vec{C})\cdot(\vec{P} - \vec{C}) = r^2 \\[50pt]
+(\vec{P}_{(x, y, z)} - \vec{C}_{(x, y, z)})\cdot(\vec{P}_{(x, y, z)} - \vec{C}_{(x, y, z)}) = (x - C_x)^2 + (y - C_y)^2 + (z - C_z)^2 = r^2 \\[10pts]
+\Downarrow \\[10pts]
+(\vec{P} - \vec{C})\cdot(\vec{P} - \vec{C}) = r^2
 $$
 
 Now from the `ray casting` function, $P(t) = A + tb$, the point resulting from `t` should satify the contidion to be considered as hitting the sphere:
 
 $$
-\large (\vec{P}(t) - \vec{C}) \cdot (\vec{P}(t) - \vec{C}) = r^2 \\[15pt]
-\Downarrow \\[15pt]
-\large (\vec{A} + t\vec{b} - \vec{C}) \cdot (\vec{A} + t\vec{b} - \vec{C}) = r^2 \\[15pt]
-\Downarrow \\[15pt]
-\Large t^2\vec{b}^2 + 2t\vec{b} \cdot (\vec{A} - \vec{C}) + (\vec{A} - \vec{C}) \cdot (\vec{A} - \vec{C}) - r^2 = 0 \\[50pt]
+(\vec{P}(t) - \vec{C}) \cdot (\vec{P}(t) - \vec{C}) = r^2 \\[10pts]
+\Downarrow \\[10pts]
+(\vec{A} + t\vec{b} - \vec{C}) \cdot (\vec{A} + t\vec{b} - \vec{C}) = r^2 \\[10pts]
+\Downarrow \\[10pts]
+t^2\vec{b}^2 + 2t\vec{b} \cdot (\vec{A} - \vec{C}) + (\vec{A} - \vec{C}) \cdot (\vec{A} - \vec{C}) - r^2 = 0
 $$
 
-Finally, since $\large t$ is the only unknown, the `variable` so to say, and given that the equation is `quadratic`, $\large t$ can be solve using the quadratic formula:
+Finally, since $t$ is the only unknown, the `variable` so to say, and given that the equation is `quadratic`, $t$ can be solve using the quadratic formula:
 
 $$
-\\[25pt] \huge t = \frac{-b \pm \sqrt{b^2 - 4ac}}{2a} \\[-20pt]
+ t = \frac{-b \pm \sqrt{b^2 - 4ac}}{2a} \\[-20pt]
 $$
 
-$\small Where:\\$
-$\small a = \vec{b}^2\\$
-$\small b = 2\vec{b} \cdot (\vec{A} - \vec{C})\\$
-$\small c = (\vec{A} - \vec{C}) \cdot (\vec{A} - \vec{C}) - r^2\\[15pt]$
+$\tiny Where:\\$
+$\tiny a = \vec{b}^2\\$
+$\tiny b = 2\vec{b} \cdot (\vec{A} - \vec{C})\\$
+$\tiny c = (\vec{A} - \vec{C}) \cdot (\vec{A} - \vec{C}) - r^2$
 
 $$
-b = 2h: \\[15pt]
-\Downarrow \\[15pt]
-\large t = \frac{-2h \pm \sqrt{(2h)^2 - 4ac}}{2a} \\[15pt]
-\Downarrow \\[15pt]
-\large t = \frac{-2h \pm 2\sqrt{h^2 - ac}}{2a} \\[15pt]
-\Downarrow \\[25pt]
-\Huge t = \frac{-h \pm \sqrt{h^2 - ac}}{a} \\[25pt]
+b = 2h: \\[10pts]
+\Downarrow \\[10pts]
+t = \frac{-2h \pm \sqrt{(2h)^2 - 4ac}}{2a} \\[10pts]
+\Downarrow \\[10pts]
+t = \frac{-2h \pm 2\sqrt{h^2 - ac}}{2a} \\[10pts]
+\Downarrow \\[10pts]
+t = \frac{-h \pm \sqrt{h^2 - ac}}{a}
 $$
 
 The `discriminant` ($h^2 - ac$), helps to identify how many intersection points exist between the ray and the sphere:
@@ -589,11 +589,28 @@ The `discriminant` ($h^2 - ac$), helps to identify how many intersection points 
 
 - `discriminant < 0`: There are no intersection points. This means the ray does not intersect the sphere at all.
 
+```rust
+let center = Position::new(0., 0., -1.);
+let radius = 1.;
+
+let intensity = 5.;
+let material = Emissive::new(Color::new(1., 1., 1.), intensity);
+
+let sphere = Box::new(Sphere::new(
+    Position::new(0., 0., -1.),
+    radius,
+    Box::new(material),
+));
+```
+
 ### [Cube](./src/geometry/objects/cube.rs)
+
 The cube is defined by its center point and size (edge length). A point lies on the cube if it satisfies the condition that its distance from the center along any axis is equal to half the size. This can be expressed as a set of inequalities for each axis:
+
 $$
 |x - C_x| \leq \frac{s}{2} \quad \text{and} \quad |y - C_y| \leq \frac{s}{2} \quad \text{and} \quad |z - C_z| \leq \frac{s}{2}
 $$
+
 Where:
 
 $(C_x, C_y, C_z)$ is the center of the cube
@@ -606,11 +623,14 @@ Finding the intersection points with each slab
 Taking the largest entry point ($t_{near}$) and smallest exit point ($t_{far}$)
 
 For each axis, the intersection times $t_1$ and $t_2$ with the corresponding slab are:
+
 $$
 t_1 = \frac{(C_i - \frac{s}{2}) - A_i}{b_i} \quad \text{and} \quad t_2 = \frac{(C_i + \frac{s}{2}) - A_i}{b_i}
 $$
+
 Where $i$ represents each axis $(x, y, z)$.
 The final intersection occurs if and only if:
+
 $$
 \max(t_{near}) \leq \min(t_{far})
 $$
@@ -623,28 +643,38 @@ For the curved surface: The distance from the point to the cylinder's axis equal
 For the caps: The point lies within the radius of either the top or bottom circular cap.
 
 For the curved surface, given a point $P$, we can express these conditions mathematically:
+
 $$
 \text{Let } \vec{v} = \vec{P} - \vec{C} \text{ (vector from center to point)}
 $$
+
 $$
 \text{Let } h = \vec{v} \cdot \hat{d} \text{ (height along orientation vector } \hat{d}\text{)}
 $$
+
 $$
 \text{Let } \vec{r} = \vec{v} - h\hat{d} \text{ (radius vector)}
 $$
+
 Then the point lies on the curved surface if:
+
 $$
 \vec{r} \cdot \vec{r} = R^2 \quad \text{and} \quad 0 \leq h \leq H
 $$
+
 For a ray $P(t) = A + t\vec{b}$, substituting and solving leads to a quadratic equation:
+
 $$
 ((\vec{b} \cdot \vec{b}) - (\vec{b} \cdot \hat{d})^2)t^2 + 2(\vec{b} \cdot \vec{w} - (\vec{b} \cdot \hat{d})(\vec{w} \cdot \hat{d}))t + (\vec{w} \cdot \vec{w} - (\vec{w} \cdot \hat{d})^2 - R^2) = 0
 $$
+
 Where $\vec{w} = A - C$
 For the caps, we check intersection with two planes at heights 0 and H, then verify if the intersection point lies within the radius:
+
 $$
 t = \frac{(C + h\hat{d} - A) \cdot \hat{d}}{\vec{b} \cdot \hat{d}}
 $$
+
 Where $h$ is either 0 or H for bottom and top caps respectively.
 
 ### [Flat plane](./src/geometry/objects/plane.rs)

@@ -31,5 +31,8 @@ pub(self) use {
 pub use {
     geometry::Vector,
     graphics::Scene,
-    utils::Result,
+    utils::{
+        welcome,
+        Result,
+    },
 };

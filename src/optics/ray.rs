@@ -70,8 +70,9 @@ impl Ray {
         }
 
         let t = 0.5 * (self.direction.y() + 1.);
-        let base_color = (1. - t) * Color::new(0.01, 0.01, 0.01)
-            + t * Color::new(0.005, 0.007, 0.01);
+        let base_color = ((1. - t) * Color::new(1., 0.96, 0.77)
+            + t * Color::new(0.27, 0.56, 0.89))
+            / 100.;
 
         base_color * BRIGHTNESS
     }
