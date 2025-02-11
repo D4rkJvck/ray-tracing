@@ -32,7 +32,7 @@ impl Scene {
         match id {
             1 => objects.extend([
                 Box::new(Sphere::new(
-                    Position::new(240., 120., 0.),
+                    Position::new(240., 120., 60.),
                     100.,
                     Box::new(Emissive::new(
                         Color::new(1., 1., 1.),
@@ -40,12 +40,13 @@ impl Scene {
                     )),
                 )) as Box<dyn Object>,
                 Box::new(Sphere::new(
-                    Position::new(0., 1., -1.),
+                    Position::new(0., 0., -2.),
                     1.,
-                    Box::new(Lambertian::new(Color::new(
-                        0.5, 0.5, 0.5,
-                    ))),
-                )),
+                    Box::new(Dielectric::new(
+                        Color::new(0.79, 0.93, 1.),
+                        1.33,
+                    )),
+                )) as Box<dyn Object>,
             ]),
             2 => {
                 camera = Camera::builder()

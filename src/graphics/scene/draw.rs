@@ -66,7 +66,7 @@ impl Scene {
             });
 
         progress_bar.finish_with_message(format!(
-            "\nScene 00{} generated\nCreating PPM File...",
+            "\nScene 00{} [GENERATED]\nCreating PPM File...",
             self.id
         ));
 
@@ -75,6 +75,6 @@ impl Scene {
             self.id
         ))?;
 
-        Ok(println!("PPM File Created"))
+        Ok(println!("PPM File [CREATED]"))
     }
 }
