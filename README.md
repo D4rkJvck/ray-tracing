@@ -529,7 +529,7 @@ title Scene::display()
 ## Usage
 
 ```shell
-cargo run > assets/output.ppm
+cargo r -- --brightness=0~100
 ```
 
 ## Create objects

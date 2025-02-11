@@ -35,9 +35,9 @@ fn get_brightness_from_args() -> f64 {
 pub fn init() -> f64 {
     let brightness = get_brightness_from_args();
 
-    println!("\nRAY TRACING\n");
+    println!("\nRAY📸 🟦 🌐📽️ TRACING💡🎥🌟\n");
     println!(
-        "The scene brightness will be set at: {}%\n",
+        "The scene brightness will be set at: {}%\n ",
         brightness
     );
 
