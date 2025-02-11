@@ -37,8 +37,8 @@ impl Image {
 
     /// This function will simply set the `color` of the given pixel
     /// through its position's coordonates in the vector of pixels.
-    pub fn set_px_color(&mut self, row: usize, col: usize, color: Color) {
-        self.px_colors[row][col] = color;
+    pub fn acc_color_per_px(&mut self, row: i32, col: i32, color: Color) {
+        self.px_colors[row as usize][col as usize] += color;
     }
 
     /// This function is responsible for generating the image file

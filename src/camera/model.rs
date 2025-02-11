@@ -48,9 +48,7 @@ impl Camera {
 
         Ray::new(
             self.origin + offset,
-            self.bottom_left_corner
-                + s * self.horizontal
-                + t * self.vertical
+            self.bottom_left_corner + s * self.horizontal + t * self.vertical
                 - self.origin
                 - offset,
         )

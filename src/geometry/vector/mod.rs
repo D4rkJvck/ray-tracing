@@ -67,9 +67,7 @@ impl Vector {
         Self::new(f(self.x()), f(self.y()), f(self.z()))
     }
 
-    pub fn reflect(self, other: Self) -> Self {
-        self - 2. * self.dot(other) * other
-    }
+    pub fn reflect(self, other: Self) -> Self { self - 2. * self.dot(other) * other }
 
     pub fn refract(self, other: Self, etai_over_etat: f64) -> Self {
         let cos_theta = f64::min(-self.dot(other), 1.);
@@ -91,9 +89,7 @@ impl Vector {
     pub fn near_0(&self) -> bool {
         const EPS: f64 = 1.0e-8;
 
-        self.x().abs() < EPS
-            && self.y().abs() < EPS
-            && self.z().abs() < EPS
+        self.x().abs() < EPS && self.y().abs() < EPS && self.z().abs() < EPS
     }
 
     pub fn dot(&self, other: Self) -> f64 {

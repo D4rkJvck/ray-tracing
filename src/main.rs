@@ -1,6 +1,6 @@
 use {
     rt::{
-        welcome,
+        init,
         Result,
         Scene,
     },
@@ -10,7 +10,7 @@ use {
 /// Promps the user to choose a scene by typing a ID corresponding
 /// to a scene and Display the scene on
 fn main() -> Result<()> {
-    welcome();
+    let light = init();
 
     loop {
         let mut input = String::new();
@@ -21,7 +21,7 @@ fn main() -> Result<()> {
                 eprintln!("{e}\nPlease choose a valid integer!");
                 continue;
             }
-            Ok(id) => match Scene::gen(id) {
+            Ok(id) => match Scene::gen(id, light) {
                 Err(e) => {
                     eprintln!("{e}Try again");
                     continue;

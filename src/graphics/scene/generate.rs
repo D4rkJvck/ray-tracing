@@ -1,7 +1,10 @@
 use {
     super::Scene,
     crate::{
-        utils::Error,
+        utils::{
+            clamp,
+            Error,
+        },
         Camera,
         Color,
         Cube,
@@ -22,7 +25,7 @@ use {
 //------------------------------------------------------------------------------------------------------------------------------------------------
 
 impl Scene {
-    pub fn gen(id: u8) -> Result<Self> {
+    pub fn gen(id: u8, brightness: f64) -> Result<Self> {
         let mut camera = Camera::builder().build()?;
         let mut objects: Vec<Box<dyn Object>> = Vec::new();
 
@@ -46,15 +49,15 @@ impl Scene {
             ]),
             2 => {
                 camera = Camera::builder()
-                    .origin(Position::new(2., 1., 0.))
+                    .origin(Position::new(2., 2., 0.))
                     .target(Position::new(0., 0., -2.))
                     .vertical_field_of_view(120.)
                     .build()?;
 
                 objects.extend([
                     Box::new(Cube::new(
-                        Position::new(0., 0.75, -2.),
-                        1.5,
+                        Position::new(0., 1., -2.),
+                        1.,
                         Box::new(Lambertian::new(Color::new(
                             0.69, 0.57, 0.43,
                         ))),
@@ -76,14 +79,14 @@ impl Scene {
                     .build()?;
 
                 objects.extend([
-                    Box::new(Sphere::new(
-                        Position::new(0., 240., -480.),
-                        100.,
-                        Box::new(Emissive::new(
-                            Color::new(0.89, 0.66, 0.34),
-                            15.,
-                        )),
-                    )) as Box<dyn Object>,
+                    // Box::new(Sphere::new(
+                    //     Position::new(0., 240., -480.),
+                    //     100.,
+                    //     Box::new(Emissive::new(
+                    //         Color::new(0.89, 0.66, 0.34),
+                    //         15.,
+                    //     )),
+                    // )) as Box<dyn Object>,
                     Box::new(Sphere::new(
                         Position::new(0., 1., -10.),
                         1.,
@@ -93,19 +96,23 @@ impl Scene {
                         )),
                     )) as Box<dyn Object>,
                     Box::new(Cylinder::new(
-                        Position::new(-3., 0., -8.),
+                        Position::new(-3., 0.5, -8.),
                         0.75,
                         1.5,
                         Direction::new(0., 1., 0.),
                         Box::new(Dielectric::new(
-                            Color::new(0.78, 0.89, 1.),
+                            // Color::new(0.78, 0.89, 1.),
+                            Color::new(1., 0., 0.),
                             1.5,
                         )),
                     )),
                     Box::new(Cube::new(
                         Position::new(3., 0.75, -8.),
                         1.5,
-                        Box::new(Lambertian::new(Color::new(0.02, 0.23, 0.71))),
+                        Box::new(Emissive::new(
+                            Color::new(0.02, 0.23, 0.71),
+                            1.,
+                        )),
                     )),
                     Box::new(Plane::new(
                         Position::new(0., 0., -120.),
@@ -122,8 +129,6 @@ impl Scene {
                     .target(Position::new(0., 0., -8.))
                     .vertical_field_of_view(60.)
                     .build()?;
-
-               
             }
             _ => {
                 return Err(Error::InvalidScene(
@@ -138,6 +143,7 @@ impl Scene {
             id,
             camera,
             objects,
+            brightness: clamp(brightness, 0., 100.),
         })
     }
 }

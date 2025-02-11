@@ -7,7 +7,6 @@ use {
             MAX_DEPTH,
             RAYS_PER_PX,
         },
-        Color,
         Result,
         IMAGE_HEIGTH as height,
         IMAGE_WIDTH as width,
@@ -17,68 +16,65 @@ use {
         ProgressStyle,
     },
     rayon::prelude::*,
-    std::io::{
-        Error,
-        ErrorKind,
-    },
+    std::sync::Mutex,
 };
 
 //------------------------------------------------------------------------------------------------------------------------------------------------
 
 impl Scene {
     pub fn draw(&mut self) -> Result<()> {
+        let mut image = Image::new(width as usize, height as usize)?;
+        let image_guard = Mutex::new(&mut image);
+
         let total_px = (width * height) as u64;
         let progress_bar = ProgressBar::new(total_px);
         let style_tmpl = format!(
-            "[{{elapsed_precise}}] |{{bar:50.green/black}}| \
-             [{{pos}}/{}px] [{{eta}}]",
+            "\n[{{elapsed_precise}}] |{{bar:50.green/black}}| [{{pos}}/{}px] [{{eta}}]\n{{msg}}",
             total_px
         );
         progress_bar.set_style(
             ProgressStyle::default_bar()
-                .template(style_tmpl.as_str())
-                .map_err(|error| Error::new(ErrorKind::Other, error))?
+                .template(style_tmpl.as_str())?
                 .progress_chars("=|-"),
         );
 
         // Create a vector of all pixel coordinates
-        let pixels: Vec<(usize, usize)> = (0..height as usize)
-            .flat_map(|row| (0..width as usize).map(move |col| (row, col)))
-            .collect();
+        (0..height)
+            .into_par_iter()
+            .for_each(|row| {
+                (0..width)
+                    .into_par_iter()
+                    .for_each(|col| {
+                        (0..RAYS_PER_PX)
+                            .into_par_iter()
+                            .for_each(|_| {
+                                let u = (col as f64 + random_double()) / (width as f64 - 1.0);
+                                let v = (row as f64 + random_double()) / (height as f64 - 1.0);
+                                let ray = self.camera.get_ray(u, v);
+                                let color = ray.color(
+                                    &self.objects,
+                                    self.brightness,
+                                    MAX_DEPTH,
+                                );
 
-        // Process pixels in parallel
-        let colors: Vec<(usize, usize, Color)> = pixels
-            .par_iter()
-            .map(|(row, col)| {
-                let mut px_color = Color::default();
+                                let mut image_lock = image_guard.lock().unwrap();
+                                image_lock.acc_color_per_px(row, col, color);
+                            });
 
-                for _ in 0..RAYS_PER_PX {
-                    let u = (*col as f64 + random_double())
-                        / (width as f64 - 1.0);
-                    let v = (*row as f64 + random_double())
-                        / (height as f64 - 1.0);
-                    let ray = self.camera.get_ray(u, v);
-                    px_color += ray.color(&self.objects, MAX_DEPTH);
-                }
+                        progress_bar.inc(1);
+                    })
+            });
 
-                progress_bar.inc(1);
-                (*row, *col, px_color)
-            })
-            .collect();
-
-        let mut image = Image::new(width as usize, height as usize)?;
-        for (row, col, color) in colors {
-            image.set_px_color(row, col, color);
-        }
-
-        progress_bar
-            .finish_with_message(format!("Scene {} generated", self.id));
+        progress_bar.finish_with_message(format!(
+            "\nScene 00{} generated\nCreating PPM File...",
+            self.id
+        ));
 
         image.write_ppm(format!(
             "assets/scenes/00{}.ppm",
             self.id
         ))?;
 
-        Ok(())
+        Ok(println!("PPM File Created"))
     }
 }

@@ -32,7 +32,7 @@ pub use {
     geometry::Vector,
     graphics::Scene,
     utils::{
-        welcome,
+        init,
         Result,
     },
 };

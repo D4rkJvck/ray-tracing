@@ -18,11 +18,7 @@ pub struct Cube {
 }
 
 impl Cube {
-    pub fn new(
-        center: Position,
-        size: f64,
-        material: Box<dyn Material>,
-    ) -> Self {
+    pub fn new(center: Position, size: f64, material: Box<dyn Material>) -> Self {
         Self {
             center,
             size,
@@ -39,11 +35,7 @@ impl Cube {
         }
     }
 
-    fn get_slab_intersection(
-        &self,
-        ray: &Ray,
-        axis: usize,
-    ) -> Option<(f64, f64)> {
+    fn get_slab_intersection(&self, ray: &Ray, axis: usize) -> Option<(f64, f64)> {
         let half_size = self.size / 2.0;
         let center_on_axis = self.get_axis_value(&self.center, axis);
         let min = center_on_axis - half_size;

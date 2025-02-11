@@ -9,27 +9,50 @@ use {
         Position,
     },
     rand::Rng,
-    std::f64::consts::PI,
+    std::{
+        env,
+        f64::consts::PI,
+    },
 };
 
 //------------------------------------------------------------------------------------------------------------------------------------------------
 
 fn degrees_to_radians(degrees: f64) -> f64 { degrees * PI / 180.0 }
 
-pub fn welcome() {
+fn get_brightness_from_args() -> f64 {
+    env::args()
+        .collect::<Vec<String>>()
+        .iter()
+        .find(|arg| arg.starts_with("--brightness="))
+        .unwrap_or(&String::new())
+        .split('=')
+        .last()
+        .unwrap_or("100")
+        .parse::<f64>()
+        .unwrap_or(100.)
+}
+
+pub fn init() -> f64 {
+    let brightness = get_brightness_from_args();
+
     println!("\nRAY TRACING\n");
+    println!(
+        "The scene brightness will be set at: {}%\n",
+        brightness
+    );
+
     println!("Choose one of these scenes:");
     println!("Scene 1: 1 sphere");
     println!("Scene 2: 1 flat plane + 1 cube");
     println!("Scene 3: 1 flat plane + 1 cylinder + 1 cube + 1 sphere");
     println!("Scene 4: scene 3 with the camera in another position\n");
+
+    brightness
 }
 
 pub fn random_double() -> f64 { rand::rng().random() }
 
-pub fn random_double_range(min: f64, max: f64) -> f64 {
-    min + (max - min) * random_double()
-}
+pub fn random_double_range(min: f64, max: f64) -> f64 { min + (max - min) * random_double() }
 
 pub fn clamp(x: f64, min: f64, max: f64) -> f64 {
     match x {
@@ -42,11 +65,7 @@ pub fn clamp(x: f64, min: f64, max: f64) -> f64 {
 /// 1. Checks that the focus distance is a positive number.
 /// 2. Checks that the aperture is not a negative number.
 /// 3. Makes sure the vertical field of view is within 0 and 180 degrees.
-pub fn validate_params(
-    focus_dist: f64,
-    aperture: f64,
-    vfov: f64,
-) -> Result<()> {
+pub fn validate_params(focus_dist: f64, aperture: f64, vfov: f64) -> Result<()> {
     if focus_dist <= 0. {
         return Err(Error::InvalidCamera(
             "Focus distance must be positive",
@@ -69,22 +88,21 @@ pub fn validate_params(
 }
 
 /// 1. Viewport: it converts the vertical field of view into radians, then
-///    retrieves the viewport's half-height from the vertical field of
-///    view, and finally gets the viewport dimensions using its half-height
-///    and the aspect ratio constant.
+///    retrieves the viewport's half-height from the vertical field of view, and
+///    finally gets the viewport dimensions using its half-height and the aspect
+///    ratio constant.
 ///
 /// 2. Coordinate Sytem: it gets the forward direction from the origin and
-///    target of the camera. It then retrieves the right direction from the
-///    unit of the forward direction and the view up crossing. Finally by
-///    crossing the forward and the right direction, it gets the up
-///    direction.
+///    target of the camera. It then retrieves the right direction from the unit
+///    of the forward direction and the view up crossing. Finally by crossing
+///    the forward and the right direction, it gets the up direction.
 ///
-/// 3. Viewing Frustum: it matches the viewport's width and height to the
-///    right and up direction coordinate system respectively through the
-///    focal distance. Then it gets the bottom-leftmost point from the
-///    camera's origin, its horizontal and vertical match to the viewport's
-///    dimensions, its focal distance and forward direction. And finally it
-///    gets the lens radius from the given aperture.
+/// 3. Viewing Frustum: it matches the viewport's width and height to the right
+///    and up direction coordinate system respectively through the focal
+///    distance. Then it gets the bottom-leftmost point from the camera's
+///    origin, its horizontal and vertical match to the viewport's dimensions,
+///    its focal distance and forward direction. And finally it gets the lens
+///    radius from the given aperture.
 pub fn compute(
     origin: Position,
     target: Position,
@@ -115,8 +133,7 @@ pub fn compute(
     // Viewing Frustum
     let horizontal = focus_dist * viewport_width * right;
     let vertical = focus_dist * viewport_height * up;
-    let bottom_left_corner =
-        origin - horizontal / 2. - vertical / 2. - focus_dist * forward;
+    let bottom_left_corner = origin - horizontal / 2. - vertical / 2. - focus_dist * forward;
     let lens_radius = aperture / 2.;
 
     (

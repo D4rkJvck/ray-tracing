@@ -7,7 +7,8 @@ use crate::{
 };
 
 pub struct Scene {
-    id:      u8,
-    camera:  Camera,
-    objects: Vec<Box<dyn Object>>,
+    id:         u8,
+    camera:     Camera,
+    objects:    Vec<Box<dyn Object>>,
+    brightness: f64,
 }

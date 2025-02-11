@@ -1,14 +1,18 @@
-use std::{
-    error,
-    fmt,
-    io,
-    result,
+use {
+    indicatif::style::TemplateError,
+    std::{
+        error,
+        fmt,
+        io,
+        result,
+    },
 };
 
 #[derive(Debug)]
 pub enum Error {
     FileCreation(io::Error),
     FileWrite(io::Error),
+    ProgressBarStyle(TemplateError),
     InvalidCamera(&'static str),
     InvalidDimension(&'static str),
     InvalidScene(&'static str),
@@ -26,6 +30,9 @@ impl fmt::Display for Error {
             }
             Self::FileWrite(err) => {
                 writeln!(f, "File Write Failure: {err}.")
+            }
+            Self::ProgressBarStyle(err) => {
+                writeln!(f, "Progress Bar Style: {err}.")
             }
             Self::InvalidCamera(msg) => {
                 writeln!(f, "Invalid Camera: {msg}.")
@@ -52,12 +59,16 @@ impl error::Error for Error {
 }
 
 impl From<io::Error> for Error {
-    fn from(err: io::Error) -> Self {
-        match err.kind() {
+    fn from(value: io::Error) -> Self {
+        match value.kind() {
             io::ErrorKind::NotFound
             | io::ErrorKind::AlreadyExists
-            | io::ErrorKind::PermissionDenied => Self::FileCreation(err),
-            _ => Self::FileWrite(err),
+            | io::ErrorKind::PermissionDenied => Self::FileCreation(value),
+            _ => Self::FileWrite(value),
         }
     }
+}
+
+impl From<TemplateError> for Error {
+    fn from(value: TemplateError) -> Self { Error::ProgressBarStyle(value) }
 }

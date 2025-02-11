@@ -18,11 +18,7 @@ pub struct Plane {
 }
 
 impl Plane {
-    pub fn new(
-        position: Position,
-        normal: Direction,
-        material: Box<dyn Material>,
-    ) -> Self {
+    pub fn new(position: Position, normal: Direction, material: Box<dyn Material>) -> Self {
         Self {
             position,
             normal,

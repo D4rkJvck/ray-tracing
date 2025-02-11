@@ -19,13 +19,7 @@ use crate::{
 };
 
 pub trait Material: Send + Sync {
-    fn scatter(
-        &self,
-        _ray: &Ray,
-        _impact: &Impact,
-    ) -> Option<(Color, Ray)> {
-        None
-    }
+    fn scatter(&self, _ray: &Ray, _impact: &Impact) -> Option<(Color, Ray)> { None }
     //--------------------------------------------------------
     fn reflectance(cosine: f64, ref_idx: f64) -> f64
     where

@@ -33,15 +33,13 @@ impl Material for Dielectric {
 
         let cannot_refract = refract_ratio * sin_theta > 1.;
 
-        let direction = if cannot_refract
-            || Self::reflectance(cos_theta, refract_ratio)
-                > random_double()
-        {
-            unit_direction.reflect(impact.surface_normal())
-        }
-        else {
-            unit_direction.refract(impact.surface_normal(), refract_ratio)
-        };
+        let direction =
+            if cannot_refract || Self::reflectance(cos_theta, refract_ratio) > random_double() {
+                unit_direction.reflect(impact.surface_normal())
+            }
+            else {
+                unit_direction.refract(impact.surface_normal(), refract_ratio)
+            };
 
         let scattered = Ray::new(impact.point(), direction);
 

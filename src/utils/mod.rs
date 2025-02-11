@@ -5,7 +5,6 @@ mod functions;
 pub(super) use {
     constants::{
         ASPECT_RATIO,
-        BRIGHTNESS,
         MAX_DEPTH,
         RAYS_PER_PX,
     },
@@ -24,5 +23,5 @@ pub use {
         IMAGE_WIDTH,
     },
     errors::Result,
-    functions::welcome,
+    functions::init,
 };
