@@ -1,5 +1,5 @@
 <h1 align=center>
-    rt
+    Ray Tracing
     <br>
     <img alt="Ferris" src="assets/img/ferris.svg">
 </h1>
